@@ -6,6 +6,7 @@ const commands = [
   { path: '/trade', title: 'Trading terminal' },
   { path: '/profile', title: 'Address profile' },
   { path: '/leaderboard', title: 'Community and points' },
+  { path: '/rewards', title: 'Token proposals and rewards' },
   { path: '/treasury', title: 'Treasury' },
 ];
 export default function Commands() {

@@ -25,7 +25,8 @@
     "index": "tsx scripts/index-chain.ts",
     "smoke:web": "tsx scripts/smoke-web.ts",
     "format:check": "prettier --check apps/web packages scripts",
-    "contracts:compile": "tsx scripts/compile-contracts.ts"
+    "contracts:compile": "tsx scripts/compile-contracts.ts",
+    "rewards:snapshot": "tsx scripts/campaign-snapshot.ts"
   },
   "dependencies": {
     "viem": "2.57.6"
