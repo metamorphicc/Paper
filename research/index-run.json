@@ -1,0 +1,25 @@
+{
+  "observedAtUtc": "2026-10-14T11:04:06.212Z",
+  "result": {
+    "inserted": 505,
+    "reorgFrom": null,
+    "through": 48510954
+  },
+  "statistics": {
+    "events": 689,
+    "snapshots": 15,
+    "streams": [
+      {
+        "stream": "paper-transfers",
+        "chain_id": 999,
+        "from_block": 48510776,
+        "through_block": 48510954,
+        "updated_at": "2026-10-14T11:04:06.207Z"
+      }
+    ]
+  },
+  "limitations": [
+    "Partial block coverage, not lifetime rankings.",
+    "Transfer events only; trading event schemas not inferred."
+  ]
+}

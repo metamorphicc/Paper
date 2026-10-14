@@ -1,7 +1,13 @@
-import { createPublicClient, http, type Address } from 'viem';
-import { hyperliquid } from 'viem/chains';
+import { createPublicClient, defineChain, http, type Address } from 'viem';
 
 export const CHAIN_ID = 999;
+export const hyperEvm = defineChain({
+  id: 999,
+  name: 'HyperEVM',
+  nativeCurrency: { name: 'HYPE', symbol: 'HYPE', decimals: 18 },
+  rpcUrls: { default: { http: ['https://rpc.hyperliquid.xyz/evm'] } },
+  blockExplorers: { default: { name: 'HyperEVMScan', url: 'https://hyperevmscan.io' } },
+});
 export const ADDRESSES = {
   Exchange: '0x6cd5661646289fb6e65ea5c032310fded797d0a2',
   BatchExecutor: '0x233ff29b239abc1d7748605da9b205c3e008626e',
@@ -12,8 +18,14 @@ export const ADDRESSES = {
   PriceOracle: '0xa9b4c7b7ca5835652d81e25739c870d49f39cc2e',
   DepositProxyFactory: '0x1629b7d46bef6e13ff754174fc9f32dea309b38f',
 } as const satisfies Record<string, Address>;
-export const IMPLEMENTATION_SLOT = '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
+export const IMPLEMENTATION_SLOT =
+  '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
 export function publicClient() {
-  return createPublicClient({ chain: hyperliquid,
-    transport: http(process.env.HYPEREVM_RPC_URL ?? 'https://rpc.hyperliquid.xyz/evm', { timeout: 12_000, retryCount: 1 }) });
+  return createPublicClient({
+    chain: hyperEvm,
+    transport: http(process.env.HYPEREVM_RPC_URL ?? 'https://rpc.hyperliquid.xyz/evm', {
+      timeout: 12_000,
+      retryCount: 1,
+    }),
+  });
 }

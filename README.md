@@ -1,49 +1,45 @@
-# Papertrade × мемкоин
+# Paperclub · Papertrade × мемкоин
 
-Рабочая гипотеза: один продукт на HyperEVM с комьюнити-хабом, торговым интерфейсом, rewards и отдельным vault-модулем. Мемкоин ещё не создан; название, тикер, supply и бюджет остаются решениями следующего этапа.
+Локальный независимый хаб на HyperEVM: обзор протокола, профиль адреса, community points, treasury и торговый терминал. Этапы 1–3 разделены на девять подэтапов с последовательными локальными коммитами. **Никаких push или публикации.** Мемкоин, buyback и vault относятся к этапам 4–6 и ещё не реализованы.
 
-Подготовлен исследовательский и инженерный стенд. Пользовательский сайт, токен и vault пока не реализованы. Доступные скрипты читают публичные данные и рассчитывают сценарии; кошелёк не требуется.
+Терминал получает реальные BTC/ETH BBO и свечи. Open/close, stake/unstake/claim, withdrawal и session keys работают в явно обозначенном локальном sandbox с виртуальным балансом и отдельным signing domain. Реальная торговля, staking и депозиты отключены: verified source/ABI, third-party relayer access и settlement пока не подтверждены. Это готовый локальный прототип, не денежный production launch.
 
-## Документы
+## Запуск
 
-- [План реализации и критерии запуска](docs/PLAN.md)
-- [Оценка идеи и экономика](docs/ASSESSMENT.md)
-- [Архитектура всех модулей](docs/ARCHITECTURE.md)
-- [Проверенные факты, источники и неизвестные](docs/SOURCES.md)
-
-## Окружение
-
-Windows PowerShell, Node.js 24.11.1, npm 11.3.0. Установлены viem 2.57.6, TypeScript 7.0.2, tsx 4.23.15; версии закреплены в package-lock.json. Python 3.14 доступен, но проект его не требует. Foundry и Solidity-контракты понадобятся на контрактном этапе; Foundry в текущем PATH не обнаружен. Next.js, PostgreSQL и Docker пока не установлены для этого проекта: их добавляем под подтверждённую схему данных и пользовательский продукт.
+Windows PowerShell, Node.js 24.11.1+, npm. Next.js 16.4.0, React 19.3.0, viem 2.57.6; зависимости закреплены в lockfile.
 
 ```powershell
 npm.cmd ci --ignore-scripts
-npm.cmd run check
-npm.cmd test
-npm.cmd run capture
-npm.cmd run probe
-npm.cmd run simulate
+npm.cmd run index
+npm.cmd run dev
 ```
 
-`capture` сохраняет официальную документацию, её hash и проверяет соответствие адресов конфигурации. Загруженный JavaScript разбирается как текст и не исполняется. `probe` проверяет chain ID, наличие bytecode и EIP-1967 implementation slot на одном блоке; читает стандартные методы PAPER. Это не аудит и не подтверждение доступности всех операций. `simulate` создаёт иллюстративные сценарии, а не прогноз доходности.
+Открыть `http://127.0.0.1:3000`. Сервер слушает loopback. Приватный ключ не нужен. Публичные профили доступны без подключения кошелька. Browser wallet используется только по действию пользователя: просмотр адреса/сети, preview и подпись локальной points-кампании.
 
-Для другого RPC задайте `$env:HYPEREVM_RPC_URL` в PowerShell. `.env.example` — образец конфигурации, автоматического чтения `.env` в скриптах сейчас нет. Приватных ключей здесь нет и они не нужны.
+```powershell
+npm.cmd run check
+npm.cmd run check:web
+npm.cmd test
+npm.cmd run build
+# При запущенном локальном сервере:
+npm.cmd run smoke:web
+```
 
-## Результат проверки 14 октября 2026
+## Результат и ограничения
 
-- Сохранены 23 страницы docs.papertrade.xyz.
-- HyperEVM chain 999, блок 48508187: bytecode есть на всех 11 адресах из документации. Зафиксированы implementation slots восьми протокольных прокси.
-- PAPER: symbol PAPER, decimals 18, totalSupply около 7,014 млрд на указанном блоке. Нулевой supply в описании означает начало выпуска, а не текущее состояние.
-- TypeScript check и 4 экономических теста прошли.
-- В сценарии парных закрытий: $2 000 начального капитала, $27,57 экономической потери. Если выигрыш остаётся в очереди, ликвидный баланс $1 900 и отдельное требование на $72,43.
-- Снимки содержат UTC-время. В локальном часовом поясе пользователя блок соответствует 14.10.2026, 16:20:44, Новосибирск (UTC+7).
+- 27 тестов: экономика, схемы данных/подписи, risk calculator, reorg/replay/backup, campaign proof и sandbox lifecycle.
+- SQLite хранит блоки, PAPER Transfer events, cursors и снимки. Coverage частичный: первый проход 64 блока, последующие — максимум 128 за запуск. Это не lifetime leaderboard. SQLite API Node 24 experimental.
+- Net PnL, available/queued USDC, PAPER и claimable rewards показаны отдельно; неизвестные данные отображаются как «—». API и RPC имеют собственные источники/блоки, exact reconciliation пока не подтверждена.
+- Builder codes пока planned; доход считается нулевым. Points максимум 70 на адрес, без обещаний токенов и без награды за потери. Защита от повторных claims не доказывает уникальность человека.
+- Все восемь implementations имеют bytecode, но explorer показывает unverified source. Есть расхождение collateral address между docs и frontend. Реальные write-пути остаются заблокированными в UI и transport.
 
-## Файлы данных
+## Документы
 
-- `research/official-docs.json` — страницы и происхождение снимка.
-- `research/raw/` — первичный HTML/JS документации.
-- `research/chain-snapshot.json` — воспроизводимый снимок публичных контрактов.
-- `research/economics-scenarios.json` — расчёты с явными допущениями.
-- `config/protocol.json` — опубликованные адреса и сеть.
-- `config/features.json` — денежные операции отключены на исследовательском этапе.
+- [Подэтапы и локальные коммиты](docs/IMPLEMENTATION.md)
+- [Запуск, данные и sandbox](docs/LOCAL_APP.md)
+- [Проверки и браузерное QA](docs/QA.md)
+- [Интеграция и открытые внешние вопросы](docs/INTEGRATION.md)
+- [Полный план этапов 1–6](docs/PLAN.md)
+- [Оценка идеи](docs/ASSESSMENT.md), [архитектура](docs/ARCHITECTURE.md), [источники](docs/SOURCES.md)
 
-На новых данных повторно сверять docs, реализацию прокси и параметры. Исторические снимки в этих путях при повторном запуске заменяются; для анализа периодов индексатор будет хранить отдельную историю.
+`research/` содержит публичные снимки с UTC-временем и происхождением. `data/` с локальной SQLite, `.env` и runtime build files исключены из Git. Скрипты исследовательских reads: `capture`, `probe`, `read:protocol`, `validate:integration`; `simulate` — условная модель, не прогноз доходности. `.env.example` показывает конфигурацию; standalone-скрипты получают переменные из PowerShell, Next также читает свою `.env.local`.

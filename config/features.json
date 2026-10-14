@@ -1,11 +1,14 @@
 {
   "communityReadOnly": true,
-  "walletSigning": false,
+  "walletConnection": true,
+  "communityProofSigning": true,
+  "protocolSignaturePreview": true,
+  "sandboxLocalIntents": true,
   "tradingSubmission": false,
   "builderRevenue": false,
   "tokenDeployment": false,
   "rewardsDistribution": false,
   "vaultDeposits": false,
   "treasuryTrading": false,
-  "reason": "Research environment; enable each live feature only after its acceptance criteria in docs/PLAN.md are met."
+  "reason": "Local stages 1-3; real submission remains server-blocked until source/domain, third-party relayer access and settlement are verified."
 }

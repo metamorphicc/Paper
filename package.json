@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*"],
-  "description": "Read-only protocol research and economic simulation for a Papertrade community product",
-  "engines": { "node": ">=24.11.1" },
+  "workspaces": [
+    "apps/*"
+  ],
+  "description": "Local Papertrade community hub, protocol readers and isolated trading sandbox",
+  "engines": {
+    "node": ">=24.11.1"
+  },
   "scripts": {
     "capture": "tsx scripts/capture-docs.ts",
     "probe": "tsx scripts/probe-chain.ts",
@@ -18,8 +22,17 @@
     "read:protocol": "tsx scripts/read-protocol.ts",
     "capture:official": "tsx scripts/capture-official.ts",
     "validate:integration": "tsx scripts/validate-integration.ts",
-    "index": "tsx scripts/index-chain.ts"
+    "index": "tsx scripts/index-chain.ts",
+    "smoke:web": "tsx scripts/smoke-web.ts",
+    "format:check": "prettier --check apps/web packages scripts"
   },
-  "dependencies": { "viem": "2.57.6" },
-  "devDependencies": { "@types/node": "26.6.5", "tsx": "4.23.15", "typescript": "7.0.2" }
+  "dependencies": {
+    "viem": "2.57.6"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2"
+  }
 }

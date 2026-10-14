@@ -4,6 +4,8 @@
 
 План веду по результатам и проверкам, не только по срокам. Оценки ниже — рабочие дни разработки при одном разработчике; аудит, внешние ответы и изменения протокола в них не входят. Переход к следующему техническому этапу зависит от завершения проверок. Публичный deploy, торговля средствами и выпуск токена — отдельные реальные действия после review готового результата.
 
+**Статус 14.10.2026:** локальный код этапов 1–3 реализован; девять подэтапов и baseline сохраняются последовательными коммитами без push. Подробности — [IMPLEMENTATION.md](IMPLEMENTATION.md), проверки — [QA.md](QA.md). Verified source/ABI, domain, third-party relayer settlement, collateral flow и exact reconciliation ещё требуют внешней проверки. Галочки ниже обозначают конкретный реализованный результат, а не готовность денежного launch.
+
 ## Уже выполнено
 
 - [x] Проверить исходные утверждения по официальной документации.
@@ -17,31 +19,31 @@
 ## Этап 1. Доказать доступность интеграции — 2–4 дня
 
 - [ ] Получить проверенные ABI и исходники текущих proxy implementations, сверить compiler/settings и address/chain.
-- [ ] Прочитать live markets, fee/impact params, emissions ratchet, LP/queue, total stake, распределённые rewards и admin roles. Не переносить launch constants в production.
-- [ ] Проверить доступность exchange UI и relayer; выяснить rate limits, регистрацию стороннего frontend, форматы подписи, статус/отмену intent.
-- [ ] Проверить безопасный read-only adapter, EIP-712 domain и поддержку smart-contract wallets. Нужный PoC — официальный тестовый сценарий либо fork/mock, без денежных операций.
+- [x] Прочитать live markets/impact/buffer, emissions HWM, LP/queue, total stake/rewards и owner getters; сохранить observations. Win-fee остаётся documented assumption, все admin roles не раскрыты.
+- [x] Проверить exchange UI, read API, wallet SSE и observed intent/status/cancel schemas. Регистрация стороннего relayer и write rate limits не подтверждены.
+- [x] Реализовать read-only adapter и воспроизводимый mock PoC без средств. Официальный domain getter и EIP-1271 остаются неподтверждёнными.
 - [ ] Проверить HyperEVM↔HyperCore deposit/withdraw flow, asset units и recovery после failed sweep.
-- [ ] Составить матрицу возможностей: read, user trading, treasury trading, staking, builder, contract wallet. Каждое «да» подкреплено evidence.
+- [x] Составить матрицу возможностей с evidence: reads/sandbox доступны; реальные trading/staking и contract wallet не подтверждены; builder planned.
 
 **Готово, когда:** ABI/implementation и минимум две воспроизводимые операции чтения экономических параметров совпадают с explorer/официальным UI; доступные write-пути документированы. Неясный relayer блокирует trading/vault, но позволяет продолжать хаб. Builder остаётся отключённым до подтверждённого запуска и payout basis.
 
 ## Этап 2. Общий продукт и хаб — 4–7 дней
 
-- [ ] Создать Next.js app и дизайн с профилем, leaderboard, treasury и статусами будущих модулей.
-- [ ] Добавить базу и indexer по подтверждённым events/ABI; backup, cursor и replay.
-- [ ] Показать PnL после удержаний, PAPER, staking rewards, доступный/queued balance и актуальность данных.
-- [ ] Запустить локальную кампанию на points, с ограничениями per address и проверкой повторного учёта.
-- [ ] Определить метрики pilot: returning users, активные адреса, campaign abuse и цена привлечения. Численные целевые значения задать до пилота из бюджета.
+- [x] Создать Next.js app и дизайн с профилем, leaderboard, treasury и статусами будущих модулей.
+- [x] Добавить SQLite и indexer стандартных PAPER Transfer events; backup/restore, cursor, replay и reorg tests. Trading events по неизвестному ABI не декодируются.
+- [x] Показать net PnL, PAPER, claimable RPC reward, available/queued balance, источники и актуальность; API/RPC reconciliation не объявляется успешной.
+- [x] Реализовать локальную points-кампанию, per-address cap, origin-bound proof и защиту повторного claim; публичный pilot не запущен.
+- [x] Реализовать метрики подтверждённых адресов и возвратных действий; предложить pilot targets. CAC и финальные цели требуют бюджета, sybil uniqueness не доказана.
 
 **Готово, когда:** результаты для нескольких контрольных адресов совпадают с chain, replay не удваивает данные, устаревшие данные явно отмечаются и пользователи проходят весь read-only сценарий.
 
 ## Этап 3. Торговый интерфейс — 5–10 дней после этапа 1
 
-- [ ] Добавить wallet connection, signature preview, risk calculator и intent lifecycle.
-- [ ] Реализовать доступный официальный adapter: open/close, order status, retry без повторного действия, staking/claim если поддерживается.
-- [ ] Отдельно показать fee/impact estimate, liquidation risk и возможность queued profit.
-- [ ] Проверить revoke session key, пользовательский withdrawal и поведение при relayer outage, expiry и смене сети.
-- [ ] Добавить builder capability, но считать доход нулевым до реального payout и сверки базы процента.
+- [x] Добавить wallet connection, official signature preview, risk calculator и локальный intent lifecycle. Кошелёк пользователя не использовался в QA.
+- [x] Реализовать open/close, status, retry/cancel, stake/unstake/claim/withdraw в отдельном signed sandbox. Official live transport блокирует отправку до внешней проверки.
+- [x] Показать fee/impact assumption, bust price и queued profit отдельно от available USDC.
+- [x] Проверить session revoke, withdrawal, outage, expiry и account/network invalidation в коде/локальных тестах. Реальные emergency actions представлены официальными ссылками, не непроверенным calldata.
+- [x] Добавить builder capability planned с нулевым доходом до подтверждённого payout.
 
 **Готово, когда:** один пользовательский lifecycle воспроизводится на разрешённом тестовом контуре; просроченная подпись/двойной submit не создают новую позицию; аварийные действия доступны без нашей UI. Если протокол не предоставляет тестовый контур, пользовательский денежный pilot не заменяется неявной mainnet-транзакцией.
 
@@ -80,7 +82,7 @@
 
 ## Порядок работы
 
-Сейчас следующий технический шаг — этап 1: ABI + live economics + relayer feasibility. Затем общий хаб и интерфейс. Rewards/мемкоин можно разрабатывать после схемы данных; vault design использует результаты adapter и симуляций. Одновременный публичный запуск всего продукта не нужен для общей архитектуры.
+Следующие работы: закрыть внешние вопросы этапа 1 перед live write; отдельно выбрать tokenomics и бюджет этапа 4. Общий хаб и локальный торговый lifecycle уже доступны. Vault design использует результаты adapter и симуляций; sandbox не доказывает возможности контрактного vault.
 
 Ориентир полного объёма — **6–12 недель разработки**, плюс аудит и внешние ожидания; первичный read-only продукт — около **1–2 недель**. Эти оценки предварительные, до ABI/relayer spike и выбора tokenomics. Существующий стенд не называется готовым MVP.
 

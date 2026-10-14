@@ -1,0 +1,67 @@
+{
+  "observedAtUtc": "2026-10-14T11:07:42.003Z",
+  "base": "http://127.0.0.1:3000",
+  "results": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/trade",
+      "status": 200
+    },
+    {
+      "path": "/profile",
+      "status": 200
+    },
+    {
+      "path": "/leaderboard",
+      "status": 200
+    },
+    {
+      "path": "/treasury",
+      "status": 200
+    },
+    {
+      "path": "/api/protocol",
+      "status": 200
+    },
+    {
+      "path": "/api/market?coin=BTC",
+      "status": 200
+    },
+    {
+      "path": "/api/market?coin=ETH",
+      "status": 200
+    },
+    {
+      "path": "/api/campaign",
+      "status": 200
+    },
+    {
+      "path": "/api/profile/0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+      "status": 200,
+      "trades": 0,
+      "pendingRewardStatus": "ok"
+    },
+    {
+      "path": "/api/profile/0x6b8c262ca939adbe3793d3eca519a9d64f74d184",
+      "status": 200,
+      "trades": 75,
+      "pendingRewardStatus": "ok"
+    },
+    {
+      "path": "/api/profile/not-an-address",
+      "status": 400
+    },
+    {
+      "path": "POST /api/intents",
+      "status": 403
+    },
+    {
+      "path": "POST /api/campaign wrong origin",
+      "status": 400
+    }
+  ],
+  "realTransactionsSubmitted": false
+}
