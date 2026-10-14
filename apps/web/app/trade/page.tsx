@@ -1,3 +1,2 @@
-export default function TradePage() {
-  return <section className="page-heading"><div><p className="overline">TRADING / WORKSPACE</p><h1>Терминал</h1><p>Wallet connection, калькулятор риска и локальный lifecycle добавляются на этапе 3.</p></div><span className="tag">В разработке</span></section>;
-}
+import Terminal from '../../components/terminal';
+export default function TradePage(){return <><section className="page-heading"><div><h1>Сначала риск. Затем позиция.</h1><p>Текущие цены, удержания из прибыли и preview заявки.</p></div><span className="tag">Live submission выключен</span></section><Terminal /></>;}

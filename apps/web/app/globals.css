@@ -104,6 +104,41 @@ main { max-width: 1600px; padding: 28px 16px 48px; margin: 0 auto; min-height: c
 .quiz label { font-size: 14px; display: grid; gap: 8px; }
 .feedback { padding: 12px; background: var(--color-paper-2); color: var(--color-ink); border-radius: var(--radius); margin-block-start: 16px; overflow-wrap: anywhere; }
 .address-text { overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 14px; margin-block-end: 24px; }
+.wallet-control { position: relative; }
+.wallet-error { position: absolute; inset-inline-end: 0; inset-block-start: calc(100% + 8px); width: min(280px,80vw); padding: 12px; border: 1px solid var(--color-line); background: var(--color-surface); color: var(--color-error); border-radius: var(--radius); z-index: 3; font-size: 13px; }
+.command-trigger { display: none; gap: 16px; }
+.command-trigger kbd { font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); }
+.command-dialog { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(520px,calc(100% - 32px)); max-height: 80dvh; border: 1px solid var(--color-line); border-radius: var(--radius); padding: 0; background: var(--color-surface); color: var(--color-ink); }
+.command-dialog::backdrop { background: var(--color-ink); opacity: .35; }
+.command-content { padding: 24px; }
+.command-content label { display: block; margin-block-end: 12px; }
+.command-results { display: grid; margin-block: 16px; gap: 4px; }
+.command-results button { display: flex; align-items: center; justify-content: space-between; min-height: 44px; border: 0; border-radius: var(--radius); background: var(--color-surface); color: var(--color-ink); padding: 8px 12px; text-align: start; }
+.command-results button.selected { background: var(--color-accent-soft); color: var(--color-accent); }
+@media (min-width: 40rem) { .command-trigger { display: inline-flex; } }
+.terminal-top { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-block-end: 24px; }
+.market-tabs,.direction-tabs { display: flex; gap: 8px; }
+.button.selected { background: var(--color-accent-soft); color: var(--color-accent); border-color: var(--color-accent); }
+.market-price { display: flex; flex-direction: column; margin-inline-end: auto; }
+.market-price strong { font-size: 26px; font-variant-numeric: tabular-nums; }
+.market-price span { font-size: 12px; color: var(--color-muted); }
+.trade-workspace { display: grid; gap: 24px; align-items: start; }
+.chart-section { padding: 24px 20px; border: 1px solid var(--color-line); background: var(--color-surface); color: var(--color-ink); border-radius: var(--radius); min-width: 0; }
+.price-chart { width: 100%; height: auto; min-height: 200px; margin-block-start: 24px; }
+.chart-line { stroke: var(--color-accent); fill: var(--color-transparent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.chart-grid { stroke: var(--color-line); fill: var(--color-transparent); }
+.price-chart text { fill: var(--color-muted); font-size: 12px; font-family: var(--font-body); }
+.order-panel { padding: 24px; border: 1px solid var(--color-line); border-radius: var(--radius); background: var(--color-surface); color: var(--color-ink); min-width: 0; }
+.order-panel > label { display: grid; gap: 8px; margin-block: 20px; font-size: 14px; }
+.direction-tabs .button { flex: 1; }
+input[type=range] { padding: 0; border: 0; accent-color: var(--color-accent); }
+.order-panel > .button { width: 100%; margin-block-start: 20px; }
+.live-blocked { padding-block-start: 24px; margin-block-start: 24px; border-block-start: 1px solid var(--color-line); }
+.live-blocked p { font-size: 13px; margin-block-start: 12px; }
+.signature-preview { margin-block-start: 20px; min-width: 0; }
+.signature-preview p { font-size: 12px; margin-block-start: 8px; }
+.signature-preview pre { max-height: 320px; overflow: auto; background: var(--color-paper-2); color: var(--color-ink); padding: 12px; border-radius: var(--radius); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (min-width: 60rem) { .trade-workspace { grid-template-columns: minmax(0,1.7fr) minmax(320px,1fr); } }
 table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
 th { text-align: start; font-weight: 400; color: var(--color-muted); }
 th, td { padding: 14px 12px; border-block-end: 1px solid var(--color-line); }
