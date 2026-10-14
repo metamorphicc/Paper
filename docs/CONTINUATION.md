@@ -11,8 +11,8 @@ The UI, errors, accessibility labels and dates use English (UTC). Existing histo
 | 4.2 | Fixed-supply token, immutable funded Merkle claims and local EVM tests | 972d47d; compilation and four focused tests |
 | 4.3 | Deterministic snapshots, treasury budget policy and rewards preview | 77717c1; deterministic proofs, explicit-budget CLI, cash limits, English rewards page; live claims disabled |
 | 5.1 | Sequential path simulator with latency, liquidation, pauses and queued payouts | 8b1cf75; four path tests, delayed legs, loss stop, emission/distribution sensitivity and no-lookahead check |
-| 5.2 | Historical candle replay and baseline/paired-strategy comparisons | Completed: seven days of completed BTC 15-minute bars, contiguous timestamps and hashed input; baseline, long, paired and three sensitivities |
-| 5.3 | Cash-only vault accounting, redemption tests and research UI | Planned |
+| 5.2 | Historical candle replay and baseline/paired-strategy comparisons | eb1086e; seven days of completed BTC 15-minute bars, contiguous timestamps and hashed input; baseline, long, paired and three sensitivities |
+| 5.3 | Cash-only vault accounting, redemption tests and research UI | Completed: three accounting tests and English research page with selectable scenario/cash/equity charts; no deployable vault or live deposits |
 | 6.1 | Security review and concrete fixes | Planned |
 | 6.2 | Upgrade monitor, backup/restore tooling and incident playbook | Planned |
 | 6.3 | Final integration, responsive checks and launch evidence | Planned |

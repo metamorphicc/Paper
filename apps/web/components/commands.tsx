@@ -7,6 +7,7 @@ const commands = [
   { path: '/profile', title: 'Address profile' },
   { path: '/leaderboard', title: 'Community and points' },
   { path: '/rewards', title: 'Token proposals and rewards' },
+  { path: '/research', title: 'Strategy and vault research' },
   { path: '/treasury', title: 'Treasury' },
 ];
 export default function Commands() {

@@ -10,6 +10,7 @@ const items = [
   ['/profile', 'Profile', '◎'],
   ['/leaderboard', 'Community', '≡'],
   ['/rewards', 'Rewards', '◇'],
+  ['/research', 'Research', '⌁'],
   ['/treasury', 'Treasury', '◇'],
 ] as const;
 export default function Shell({ children }: { children: React.ReactNode }) {
