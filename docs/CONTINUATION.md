@@ -9,8 +9,8 @@ The UI, errors, accessibility labels and dates use English (UTC). Existing histo
 | English | Translate the full site and rename the branch | Completed; browser checks on all five pages |
 | 4.1 | Tokenomics proposals, capital scenarios, local Solidity/EVM toolchain | 202695e; proposals only, not launch approval |
 | 4.2 | Fixed-supply token, immutable funded Merkle claims and local EVM tests | 972d47d; compilation and four focused tests |
-| 4.3 | Deterministic snapshots, treasury budget policy and rewards preview | Completed: deterministic proofs, explicit-budget CLI, cash limits, English rewards page; live claims disabled |
-| 5.1 | Sequential path simulator with latency, liquidation, pauses and queued payouts | Planned |
+| 4.3 | Deterministic snapshots, treasury budget policy and rewards preview | 77717c1; deterministic proofs, explicit-budget CLI, cash limits, English rewards page; live claims disabled |
+| 5.1 | Sequential path simulator with latency, liquidation, pauses and queued payouts | Completed: four path tests, delayed legs, loss stop, emission/distribution sensitivity and no-lookahead check |
 | 5.2 | Historical candle replay and baseline/paired-strategy comparisons | Planned |
 | 5.3 | Cash-only vault accounting, redemption tests and research UI | Planned |
 | 6.1 | Security review and concrete fixes | Planned |
