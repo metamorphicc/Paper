@@ -6,7 +6,7 @@ export default function RewardsPage() {
     <>
       <section className="page-heading">
         <div>
-          <h1>Rules before rewards.</h1>
+          <h1>Rewards</h1>
           <p>Token supply proposals, funded claims and explicit treasury limits.</p>
         </div>
         <span className="tag">Proposal · not launched</span>
@@ -84,7 +84,7 @@ export default function RewardsPage() {
           </p>
         </section>
         <section className="notes-column">
-          <h2>Budget from cash.</h2>
+          <h2>Buyback policy</h2>
           <p>
             Buybacks require settled revenue, spendable USDC, an operating reserve, a period limit
             and a fresh quote with bounded price impact. Queued claims and PAPER do not fund the

@@ -13,7 +13,7 @@ export default function LeaderboardPage() {
     <>
       <section className="page-heading">
         <div>
-          <h1> People before volume. </h1>
+          <h1>Community</h1>
           <p>
             {' '}
             Earn points for participation and understanding risk. Losses and trade size earn no
@@ -73,7 +73,7 @@ export default function LeaderboardPage() {
             </div>
           ) : (
             <div className="empty-state">
-              <h3> The campaign is open. </h3>
+              <h3>No participants yet</h3>
               <p> No verified participants yet. Join with a browser wallet. </p>
             </div>
           )}

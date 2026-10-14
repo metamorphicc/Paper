@@ -1,6 +1,6 @@
 node_modules/
-research/
-data/
+/research/
+/data/
 .next/
 apps/web/.next/
 package-lock.json

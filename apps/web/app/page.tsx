@@ -19,7 +19,7 @@ export default async function Overview() {
       <section className="page-heading">
         <div>
           <p className="overline">PAPERTRADE / COMMUNITY</p>
-          <h1> Start with the data. </h1>
+          <h1>Overview</h1>
           <p> Protocol state, PAPER ownership and trade risk in one place. </p>
         </div>
         <Link href="/trade" className="button primary">
@@ -84,7 +84,7 @@ export default async function Overview() {
           </div>
         </section>
         <section className="notes-column">
-          <h2> Join without promises. </h2>
+          <h2>Community points</h2>
           <p>
             {' '}
             Explore the protocol, track your address and take part in the points campaign. Losses

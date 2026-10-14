@@ -89,7 +89,7 @@ export default function Profile() {
       )}
       {!result && !error && (
         <div className="empty-state">
-          <h2> Look up your address. </h2>
+          <h2>Address lookup</h2>
           <p> Public Papertrade data is available without a signature or wallet connection. </p>
         </div>
       )}
@@ -141,7 +141,7 @@ export default function Profile() {
               </p>
             </section>
             <section className="notes-column">
-              <h2> Keep liquidity separate. </h2>
+              <h2>Balance definitions</h2>
               <p>
                 {' '}
                 Queued USDC is a claim on a future payout. PAPER has no assumed cash price; its

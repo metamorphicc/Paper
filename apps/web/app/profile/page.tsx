@@ -5,7 +5,7 @@ export default function ProfilePage() {
     <>
       <section className="page-heading">
         <div>
-          <h1> Address profile </h1>
+          <h1>Profile</h1>
           <p> Public balances, PAPER and history. No signature needed to view. </p>
         </div>
       </section>

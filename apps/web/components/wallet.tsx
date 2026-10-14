@@ -1,5 +1,6 @@
 'use client';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { isAddress } from 'viem';
 import { requestWallet } from '../../../packages/wallet/provider.js';
 type Provider = {
@@ -13,6 +14,7 @@ type Wallet = {
   generation: number;
   busy: boolean;
   error: string;
+  dismissError: () => void;
   connect: () => Promise<void>;
   disconnect: () => void;
   switchChain: () => Promise<void>;
@@ -31,7 +33,14 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     [error, setError] = useState('');
   const provider = useRef<Provider | undefined>(undefined);
   const connected = useRef(false);
+  const dismissError = useCallback(() => setError(''), []);
+  useEffect(() => {
+    if (!error) return;
+    const timer = setTimeout(dismissError, 6000);
+    return () => clearTimeout(timer);
+  }, [error, dismissError]);
   function invalidate() {
+    setError('');
     setGeneration((value) => value + 1);
   }
   function accountChanged(value: unknown) {
@@ -138,6 +147,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         generation,
         busy,
         error,
+        dismissError,
         connect,
         disconnect() {
           invalidate();
@@ -154,6 +164,16 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 }
 export function WalletButton() {
   const wallet = useWallet();
+  const pathname = usePathname();
+  useEffect(() => wallet.dismissError(), [pathname, wallet.dismissError]);
+  useEffect(() => {
+    if (!wallet.error) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') wallet.dismissError();
+    };
+    window.addEventListener('keydown', dismiss);
+    return () => window.removeEventListener('keydown', dismiss);
+  }, [wallet.error, wallet.dismissError]);
   return (
     <div className="wallet-control">
       <button
@@ -176,9 +196,17 @@ export function WalletButton() {
             : 'Connect'}
       </button>
       {wallet.error && (
-        <span className="wallet-error" role="alert">
-          {wallet.error}
-        </span>
+        <div className="wallet-error" role="alert">
+          <span>{wallet.error}</span>
+          <button
+            className="wallet-error-dismiss"
+            type="button"
+            aria-label="Dismiss wallet message"
+            onClick={wallet.dismissError}
+          >
+            ×
+          </button>
+        </div>
       )}
     </div>
   );

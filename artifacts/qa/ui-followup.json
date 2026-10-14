@@ -1,0 +1,80 @@
+{
+  "dismissButton": true,
+  "escape": true,
+  "expiryAfterSixSeconds": true,
+  "clearOnNavigation": true,
+  "toastChecks": [
+    {
+      "left": 33,
+      "right": 289,
+      "rootWidth": 305,
+      "visible": true,
+      "width": 320
+    },
+    {
+      "left": 64,
+      "right": 344,
+      "rootWidth": 360,
+      "visible": true,
+      "width": 375
+    },
+    {
+      "left": 103,
+      "right": 383,
+      "rootWidth": 399,
+      "visible": true,
+      "width": 414
+    },
+    {
+      "left": 457,
+      "right": 737,
+      "rootWidth": 753,
+      "visible": true,
+      "width": 768
+    }
+  ],
+  "headingChecks": [
+    {
+      "cyrillic": false,
+      "heading": "Overview",
+      "path": "/",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Terminal",
+      "path": "/trade",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Profile",
+      "path": "/profile",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Community",
+      "path": "/leaderboard",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Treasury",
+      "path": "/treasury",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Rewards",
+      "path": "/rewards",
+      "walletMessages": 0
+    },
+    {
+      "cyrillic": false,
+      "heading": "Research",
+      "path": "/research",
+      "walletMessages": 0
+    }
+  ]
+}

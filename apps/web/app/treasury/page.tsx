@@ -16,7 +16,7 @@ export default async function TreasuryPage() {
     <>
       <section className="page-heading">
         <div>
-          <h1> Account for every dollar. </h1>
+          <h1>Treasury</h1>
           <p> Treasury, PAPER and queued payouts. Actual receipts only. </p>
         </div>
         <span className="tag"> Buyback disabled </span>
@@ -70,7 +70,7 @@ export default async function TreasuryPage() {
           </p>
         </section>
         <section className="notes-column">
-          <h2> Verifiable rules. </h2>
+          <h2>Treasury policy</h2>
           <p>
             {' '}
             Treasury is read-only here. Trading, token launch, buybacks and rewards require defined
