@@ -26,7 +26,8 @@
     "smoke:web": "tsx scripts/smoke-web.ts",
     "format:check": "prettier --check apps/web packages scripts",
     "contracts:compile": "tsx scripts/compile-contracts.ts",
-    "rewards:snapshot": "tsx scripts/campaign-snapshot.ts"
+    "rewards:snapshot": "tsx scripts/campaign-snapshot.ts",
+    "strategy:replay": "tsx scripts/replay-strategies.ts"
   },
   "dependencies": {
     "viem": "2.57.6"

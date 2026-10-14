@@ -15,3 +15,9 @@ PAPER is a separate unpriced asset. Mint rate, emission changes, external stake 
 Initial research scenarios use $2,000 hypothetical capital, $100 margin per leg, 100x leverage, one-bar latency and delay, two-bar holds, six-bar cycles, $1 action costs and a $400 maximum-loss stop. These are test settings, not approved risk limits. A 15-minute candle model cannot estimate actual millisecond execution and misses liquidation paths between ticks.
 
 Tests cover no-trade cash conservation, flat-price costs, delayed one-leg liquidation, no-lookahead prefix equality, outage/pauses, queued payout and release. Full token balances are never assigned a presumed USDC price.
+
+## Reproducible price replay
+
+`npm.cmd run strategy:replay` fetches the latest seven days of completed BTC 15-minute OHLC bars from the [Hyperliquid candleSnapshot API](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint), rejects gaps/unclosed bars and saves request, input hash, current parameter block, scenario inputs and full model results in `research/path-replay.json`. Current live config is not presented as historical config.
+
+The first captured run ended with baseline cash $2,000. The paired scenario had about $1,155 spendable cash, $429 queued profit and −$416 economic result. The $400 loss-stop triggered, but did not cap final loss: existing exposure continued. PAPER was tracked separately without cash valuation. The long scenario also triggered its stop. This result does not validate farming profitability or justify higher leverage, public deposits or a capital pilot.
