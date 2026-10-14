@@ -29,10 +29,7 @@ test('high leverage bust forfeits full margin before zero-equity move', () => {
 test('limits, pauses and partial decimal amounts are validated before signatures', () => {
   assert.throws(() => validateOpen('1', 100, btc, state), /margin/);
   assert.throws(() => validateOpen('10', 1, btc, state), /notional/);
-  assert.throws(() => validateOpen('10', 1001, btc, state), /Плечо/);
-  assert.throws(
-    () => validateOpen('10', 100, btc, { ...state, tradingPaused: true }),
-    /приостановлено/,
-  );
+  assert.throws(() => validateOpen('10', 1001, btc, state), /Leverage/);
+  assert.throws(() => validateOpen('10', 100, btc, { ...state, tradingPaused: true }), /paused/);
   assert.equal(validateOpen('10.000000000000000001', 100, btc, state).margin, 10n * WAD + 1n);
 });

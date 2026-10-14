@@ -47,7 +47,7 @@ export default function Terminal() {
       if (data.quote?.coin === currentCoin.current) setMarket(data);
     } catch (error) {
       if (currentCoin.current === coin)
-        setError(error instanceof Error ? error.message : 'Данные не загрузились.');
+        setError(error instanceof Error ? error.message : 'Could not load data.');
     } finally {
       if (currentCoin.current === coin) setLoading(false);
     }
@@ -101,15 +101,15 @@ export default function Terminal() {
     if (!market || !instrument) return null;
     try {
       const valid = validateOpen(margin, leverage, instrument, market.trading);
-      if (!/^-?\d+(\.\d{1,4})?$/.test(move)) throw new Error('Укажите движение цены в процентах.');
+      if (!/^-?\d+(\.\d{1,4})?$/.test(move)) throw new Error('Enter a price movement percentage.');
       const delta = parseUnits(move, 4);
-      if (delta < -990000n || delta > 10000000n) throw new Error('Движение вне диапазона.');
+      if (delta < -990000n || delta > 10000000n) throw new Error('Price movement is out of range.');
       const entry = BigInt(market.quote.midpointRaw),
         exit = (entry * (1_000_000n + delta)) / 1_000_000n;
       const pnl = closePnl(valid.margin, leverage, entry, exit, isLong, instrument);
       return { ok: true, valid, pnl, entry, exit };
     } catch (error) {
-      return { ok: false, issue: error instanceof Error ? error.message : 'Некорректная заявка.' };
+      return { ok: false, issue: error instanceof Error ? error.message : 'Invalid intent.' };
     }
   }, [market, instrument, margin, leverage, isLong, move]);
   const typedPreview =
@@ -137,7 +137,7 @@ export default function Terminal() {
   return (
     <>
       <div className="terminal-top">
-        <div className="market-tabs" role="group" aria-label="Рынок">
+        <div className="market-tabs" role="group" aria-label="Market">
           {(['BTC', 'ETH'] as const).map((value) => (
             <button
               key={value}
@@ -162,7 +162,7 @@ export default function Terminal() {
           <span>BBO midpoint</span>
         </div>
         <button className="button" onClick={() => void refresh()} disabled={loading}>
-          {loading ? 'Загрузка…' : 'Обновить'}
+          {loading ? 'Loading…' : 'Refresh'}
         </button>
       </div>
       {error && (
@@ -174,7 +174,7 @@ export default function Terminal() {
         <section className="chart-section">
           <div className="section-heading">
             <h2>{coin} / USD</h2>
-            <span>24 часа · 15 min</span>
+            <span> 24 hours · 15 min </span>
           </div>
           {candles.length ? (
             <>
@@ -183,40 +183,41 @@ export default function Terminal() {
                 viewBox="0 0 900 260"
                 preserveAspectRatio="none"
                 role="img"
-                aria-label={`${coin}: реальные 15-минутные цены за 24 часа`}
+                aria-label={`${coin}: actual 15-minute prices over 24 hours`}
               >
                 <path className="chart-grid" d="M0 40H900 M0 130H900 M0 220H900" />
                 <polyline className="chart-line" points={points} />
               </svg>
               <div className="chart-axis">
-                <span>{localTime(candles[0]!.time)} НСК</span>
-                <span>{localTime(candles.at(-1)!.time)} НСК</span>
+                <span>{localTime(candles[0]!.time)} UTC </span>
+                <span>{localTime(candles.at(-1)!.time)} UTC </span>
               </div>
             </>
           ) : (
             <div className="empty-state">
-              <h3>{loading ? 'Рынок загружается…' : 'Нет свечей.'}</h3>
-              <p>График появится после ответа Hyperliquid API.</p>
+              <h3>{loading ? 'Loading market…' : 'No candles available.'}</h3>
+              <p> The chart will appear after the Hyperliquid API responds. </p>
             </div>
           )}
           <div className="source-line">
             <span className="status-dot" />
-            {market ? `Hyperliquid BBO · ${localTime(market.quote.time)} НСК` : 'Нет BBO'}
+            {market ? `Hyperliquid BBO · ${localTime(market.quote.time)} UTC` : 'No BBO data'}
             <span className={fresh ? '' : 'error-text'}>
-              {market ? (fresh ? 'Снимок цены' : 'Цена устарела') : 'Ожидание'}
+              {market ? (fresh ? 'Price snapshot' : 'Stale price') : 'Waiting'}
             </span>
           </div>
           <div className="note">
-            <strong>Цена подтверждается при исполнении.</strong>
+            <strong> Execution determines the final price. </strong>
             <p>
-              График и BBO — данные Hyperliquid API. Контракт Papertrade использует precompile в
-              блоке исполнения, поэтому итоговая цена может отличаться.
+              {' '}
+              Chart and BBO data come from the Hyperliquid API. Papertrade uses a precompile in the
+              execution block, so the final price may differ.{' '}
             </p>
           </div>
         </section>
         <section className="order-panel">
           <div className="section-heading">
-            <h2>Риск до подписи</h2>
+            <h2> Risk before signing </h2>
             <span className="tag">Preview</span>
           </div>
           <div className="direction-tabs">
@@ -244,10 +245,11 @@ export default function Terminal() {
             />
           </label>
           <label>
-            Плечо · {leverage}x
+            {' '}
+            Leverage · {leverage}x
             <input
               type="range"
-              aria-label="Плечо, slider"
+              aria-label="Leverage slider"
               min="1"
               max={instrument?.maxLeverage ?? 1000}
               value={leverage}
@@ -255,7 +257,7 @@ export default function Terminal() {
             />
             <input
               type="number"
-              aria-label="Плечо, множитель"
+              aria-label="Leverage multiplier"
               min="1"
               max="1000"
               value={leverage}
@@ -263,7 +265,8 @@ export default function Terminal() {
             />
           </label>
           <label>
-            Сценарий: движение цены (%)
+            {' '}
+            Scenario: price movement (%){' '}
             <input
               inputMode="decimal"
               value={move}
@@ -286,11 +289,11 @@ export default function Terminal() {
                 </dd>
               </div>
               <div>
-                <dt>Сырой PnL</dt>
+                <dt> Raw PnL </dt>
                 <dd>{amount(String(calculation.pnl.rawPnl), 'usd', false)}</dd>
               </div>
               <div>
-                <dt>После impact + fee</dt>
+                <dt> After impact + fee </dt>
                 <dd className={calculation.pnl.netPnl < 0n ? 'error-text' : 'positive-text'}>
                   {amount(String(calculation.pnl.netPnl), 'usd', false)}
                 </dd>
@@ -298,34 +301,43 @@ export default function Terminal() {
             </dl>
           ) : (
             <p className="error-text" role="status">
-              {calculation && !calculation.ok ? calculation.issue : 'Ждём market config.'}
+              {calculation && !calculation.ok
+                ? calculation.issue
+                : 'Waiting for market configuration.'}
             </p>
           )}
           {calculation?.ok && calculation.pnl.liquidated && (
             <p className="feedback error-text">
-              В этом сценарии достигнут bust price: теряется весь margin.
+              {' '}
+              This scenario reaches the bust price: the entire margin is lost.{' '}
             </p>
           )}
           <p className="fine-print">
-            Win fee 2% — допущение из docs; impact и buffer — текущий official trading state.
-            Выигрыш может перейти в очередь.
+            {' '}
+            The 2% win fee is a documented assumption; impact and buffer come from current official
+            trading state. Profit may enter the queue.{' '}
           </p>
           <button
             className="button"
             disabled={!typedPreview || !fresh}
             onClick={() => setPreview(!showPreview)}
           >
-            Посмотреть подпись
+            {' '}
+            Preview signature{' '}
           </button>
           {!wallet.address && (
             <p className="fine-print">
-              Подключите адрес для preview. Реальная подпись здесь не запрашивается.
+              {' '}
+              Connect an address to preview. No real signature is requested here.{' '}
             </p>
           )}
           {showPreview && typedPreview && (
             <div className="signature-preview">
-              <strong>Официальная schema · preview</strong>
-              <p>Nonce и deadline иллюстративные. Payload не готов к отправке.</p>
+              <strong> Official schema · preview </strong>
+              <p>
+                {' '}
+                Nonce and deadline are illustrative. This payload is not ready for submission.{' '}
+              </p>
               <pre>
                 {JSON.stringify(
                   typedPreview,
@@ -336,15 +348,16 @@ export default function Terminal() {
             </div>
           )}
           <div className="live-blocked">
-            <strong>Live trading ещё не включён.</strong>
-            <p>Third-party relayer access и settlement требуют проверки.</p>
+            <strong> Live trading is not enabled. </strong>
+            <p> Third-party relayer access and settlement need verification. </p>
             <a
               href="https://exchange.papertrade.xyz/trade/btc"
               target="_blank"
               rel="noreferrer"
               className="text-link"
             >
-              Официальная торговля ↗
+              {' '}
+              Official trading ↗{' '}
             </a>
           </div>
         </section>
@@ -362,12 +375,12 @@ export default function Terminal() {
         />
       )}
       <section className="emergency-actions">
-        <h2>Пользовательский выход</h2>
+        <h2> User recovery </h2>
         <p>
-          В реальном протоколе withdrawal требует подпись основного кошелька; закрытие позиций и
-          staking зависят от relayer. Если наш UI недоступен, используйте официальный интерфейс.
-          Прямой revokeSessionKey описан в документации; мы не формируем calldata по
-          неподтверждённому ABI.
+          {' '}
+          Real withdrawals require the main wallet signature; closing positions and staking depend
+          on the relayer. Use the official interface if ours is unavailable. Direct revokeSessionKey
+          is documented; we do not create calldata from an unverified ABI.{' '}
         </p>
         <div className="campaign-actions">
           <a
@@ -376,7 +389,8 @@ export default function Terminal() {
             target="_blank"
             rel="noreferrer"
           >
-            Официальный withdrawal ↗
+            {' '}
+            Official withdrawal ↗{' '}
           </a>
           <a
             className="button"
@@ -384,7 +398,8 @@ export default function Terminal() {
             target="_blank"
             rel="noreferrer"
           >
-            Отзыв session key ↗
+            {' '}
+            Revoke session key ↗{' '}
           </a>
           <a
             className="button"

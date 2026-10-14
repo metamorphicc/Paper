@@ -70,21 +70,19 @@ export function validateOpen(
   state: TradingState,
 ) {
   if (!/^(0|[1-9]\d*)(\.\d{1,18})?$/.test(marginText))
-    throw new Error('Укажите положительный margin, не более 18 знаков после точки.');
+    throw new Error('Enter a positive margin with at most 18 decimal places.');
   if (!Number.isSafeInteger(leverage) || leverage < 1 || leverage > instrument.maxLeverage)
-    throw new Error('Плечо вне допустимого диапазона.');
+    throw new Error('Leverage is out of range.');
   const margin = parseUnits(marginText, 18),
     notional = margin * BigInt(leverage);
   if (margin < BigInt(state.minimumTradeSizeRaw) || margin >= 1n << 128n)
-    throw new Error(
-      `Минимальный margin — ${formatUnits(BigInt(state.minimumTradeSizeRaw), 18)} USDC.`,
-    );
+    throw new Error(`Minimum margin: ${formatUnits(BigInt(state.minimumTradeSizeRaw), 18)} USDC.`);
   if (notional < BigInt(state.minimumOpenNotionalRaw))
     throw new Error(
-      `Минимальный notional — ${formatUnits(BigInt(state.minimumOpenNotionalRaw), 18)} USDC.`,
+      `Minimum notional: ${formatUnits(BigInt(state.minimumOpenNotionalRaw), 18)} USDC.`,
     );
   if (notional > BigInt(instrument.maxPositionNotionalRaw))
-    throw new Error('Превышен лимит позиции.');
+    throw new Error('Position limit exceeded.');
   if (
     state.tradingPaused ||
     instrument.paused ||
@@ -93,6 +91,6 @@ export function validateOpen(
     instrument.terminal ||
     state.intake.disabledActions.includes('openPosition')
   )
-    throw new Error('Открытие позиций приостановлено.');
+    throw new Error('Opening positions is paused.');
   return { margin, notional };
 }

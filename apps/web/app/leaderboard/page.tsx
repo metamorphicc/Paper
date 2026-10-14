@@ -13,26 +13,30 @@ export default function LeaderboardPage() {
     <>
       <section className="page-heading">
         <div>
-          <h1>Люди прежде объёма.</h1>
-          <p>Points за участие и понимание риска. Потери и размер сделки не награждаются.</p>
+          <h1> People before volume. </h1>
+          <p>
+            {' '}
+            Earn points for participation and understanding risk. Losses and trade size earn no
+            rewards.{' '}
+          </p>
         </div>
         <span className="tag">Founding · points</span>
       </section>
       <div className="metric-strip">
         <div>
-          <span>Участники программы</span>
+          <span> Campaign participants </span>
           <strong>{metrics.participants}</strong>
         </div>
         <div>
-          <span>Вернувшиеся участники</span>
+          <span> Returning participants </span>
           <strong>{metrics.returning}</strong>
         </div>
         <div>
-          <span>Цена привлечения</span>
+          <span> Acquisition cost </span>
           <strong>—</strong>
         </div>
         <div>
-          <span>Лимит на адрес</span>
+          <span> Per-address cap </span>
           <strong>70 pts</strong>
         </div>
       </div>
@@ -40,23 +44,23 @@ export default function LeaderboardPage() {
         <section className="panel">
           <div className="section-heading">
             <h2>Community leaderboard</h2>
-            <span>Только локальная программа</span>
+            <span> Local campaign only </span>
           </div>
           {ranking.length ? (
             <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th>Место</th>
-                    <th>Адрес</th>
+                    <th> Rank </th>
+                    <th> Address </th>
                     <th>Points</th>
                   </tr>
                 </thead>
                 <tbody>
                   {ranking.map((row, index) => (
                     <tr key={row.address}>
-                      <td data-label="Место">{index + 1}</td>
-                      <td data-label="Адрес">
+                      <td data-label="Rank">{index + 1}</td>
+                      <td data-label="Address">
                         <Link href={`/profile?address=${row.address}`}>
                           {shortAddress(row.address)}
                         </Link>
@@ -69,45 +73,47 @@ export default function LeaderboardPage() {
             </div>
           ) : (
             <div className="empty-state">
-              <h3>Программа открыта.</h3>
-              <p>Пока нет подтверждённых участников. Присоединитесь с browser wallet.</p>
+              <h3> The campaign is open. </h3>
+              <p> No verified participants yet. Join with a browser wallet. </p>
             </div>
           )}
           <p className="fine-print">
-            Предварительная цель пилота: 20 активных адресов и 30% повторных участников. Бюджет ещё
-            не задан; CAC не вычислен. Адрес не равен уникальному человеку.
+            {' '}
+            Proposed pilot targets: 20 active addresses and 30% returning participants. No budget is
+            set; CAC is unknown. An address does not prove a unique person.{' '}
           </p>
         </section>
         <CampaignPanel />
       </div>
       <section className="panel history-panel">
         <div className="section-heading">
-          <h2>PAPER: активность сети</h2>
+          <h2> PAPER: network activity </h2>
           <span>
-            {coverage ? `Блоки ${coverage.from_block}–${coverage.through_block}` : 'Нет покрытия'}
+            {coverage ? `Blocks ${coverage.from_block}–${coverage.through_block}` : 'No coverage'}
           </span>
         </div>
         <p className="fine-print">
-          Наблюдаемые mint events в ограниченном диапазоне. Эти адреса не являются участниками нашей
-          кампании; список не используется для rewards.
+          {' '}
+          Observed mint events within a limited block range. These addresses are not campaign
+          participants; this list does not determine rewards.{' '}
         </p>
         {minted.length ? (
           <div className="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Адрес</th>
+                  <th> Address </th>
                   <th>Minted PAPER</th>
-                  <th>Профиль</th>
+                  <th> Profile </th>
                 </tr>
               </thead>
               <tbody>
                 {minted.map((row) => (
                   <tr key={row.address}>
-                    <td data-label="Адрес">{shortAddress(row.address)}</td>
+                    <td data-label="Address">{shortAddress(row.address)}</td>
                     <td data-label="PAPER">{amount(row.mintedRaw, 'paper')}</td>
-                    <td data-label="Профиль">
-                      <Link href={`/profile?address=${row.address}`}>Посмотреть →</Link>
+                    <td data-label="Profile">
+                      <Link href={`/profile?address=${row.address}`}> View → </Link>
                     </td>
                   </tr>
                 ))}
@@ -115,7 +121,7 @@ export default function LeaderboardPage() {
             </table>
           </div>
         ) : (
-          <p>Запустите индексатор, чтобы получить PAPER events.</p>
+          <p> Run the indexer to load PAPER events. </p>
         )}
       </section>
     </>

@@ -18,8 +18,8 @@ const demo = privateKeyToAccount(('0x' + '11'.repeat(32)) as Hex),
   session = privateKeyToAccount(('0x' + '44'.repeat(32)) as Hex);
 const storageKey = 'paperclub.sandbox.v1';
 const labels: Record<string, string> = {
-  openPosition: 'Открытие',
-  closePositions: 'Закрытие',
+  openPosition: 'Open',
+  closePositions: 'Close',
   paperStake: 'Stake',
   paperUnstake: 'Unstake',
   paperClaim: 'Claim',
@@ -27,11 +27,11 @@ const labels: Record<string, string> = {
   registerSessionKey: 'Session key',
 };
 const statuses: Record<string, string> = {
-  queued: 'В очереди',
-  confirmed: 'Исполнено локально',
-  failed: 'Ошибка',
-  expired: 'Просрочено',
-  cancelled: 'Отменено',
+  queued: 'Queued',
+  confirmed: 'Settled locally',
+  failed: 'Failed',
+  expired: 'Expired',
+  cancelled: 'Cancelled',
 };
 export default function Sandbox({
   instrument,
@@ -120,9 +120,9 @@ export default function Sandbox({
     try {
       relay.current = createFromStorage();
       setEnabled(true);
-      setMessage('Локальный счёт готов. Все USDC и PAPER здесь виртуальные.');
+      setMessage('Local account ready. All USDC and PAPER here are virtual.');
     } catch {
-      setMessage('Сохранённый локальный счёт повреждён. Очистите его перед продолжением.');
+      setMessage('Saved local account is invalid. Reset it before continuing.');
     }
   }
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function Sandbox({
       }
     } catch (error) {
       persist();
-      setMessage(error instanceof Error ? error.message : 'Локальное действие не выполнено.');
+      setMessage(error instanceof Error ? error.message : 'Local action failed.');
     } finally {
       setBusy(false);
     }
@@ -165,12 +165,12 @@ export default function Sandbox({
       const receipt = await relay.current!.submit(envelope);
       setUnknown(null);
       setMessage(
-        `${labels[action]}: ${statuses[receipt.status]}. Исполните локальную заявку или отмените её.`,
+        `${labels[action]}: ${statuses[receipt.status]}. Settle or cancel this local intent.`,
       );
     } catch (error) {
       if (relay.current!.receipts.has(id)) {
         setUnknown(id);
-        setMessage('Ответ неизвестен. Проверьте ту же заявку; новая подпись не нужна.');
+        setMessage('Response unknown. Check the same intent; no new signature is needed.');
       } else throw error;
     }
   }
@@ -179,16 +179,18 @@ export default function Sandbox({
   return (
     <section className="sandbox-panel" data-testid="sandbox">
       <div className="section-heading">
-        <h2>Локальный счёт</h2>
-        <span className="tag">Sandbox · без средств</span>
+        <h2> Local account </h2>
+        <span className="tag"> Sandbox · virtual funds </span>
       </div>
       <p className="fine-print">
-        Mock relayer с отдельным signing domain. Он не отправляет запросы в Papertrade. Стартовый
-        баланс: 2 500 виртуальных USDC.
+        {' '}
+        Mock relayer with a separate signing domain. It sends no requests to Papertrade. Starting
+        balance: 2,500 virtual USDC.{' '}
       </p>
       {!enabled ? (
         <button className="button primary" onClick={activate}>
-          Попробовать локально
+          {' '}
+          Try locally{' '}
         </button>
       ) : (
         <>
@@ -212,17 +214,18 @@ export default function Sandbox({
           </div>
           <div className="sandbox-controls">
             <label>
-              Проверка поведения
+              {' '}
+              Test behavior{' '}
               <select
-                aria-label="Поведение локального relayer"
+                aria-label="Local relayer behavior"
                 value={mode}
                 onChange={(event) => setMode(event.target.value)}
               >
-                <option value="normal">Обычное исполнение</option>
-                <option value="queue">Выигрыш в очереди</option>
-                <option value="outage">Relayer недоступен</option>
-                <option value="timeout">Ответ потерян после приёма</option>
-                <option value="paused">Открытия приостановлены</option>
+                <option value="normal"> Normal execution </option>
+                <option value="queue"> Profit enters queue </option>
+                <option value="outage"> Relayer unavailable </option>
+                <option value="timeout"> Response lost after acceptance </option>
+                <option value="paused"> Opens paused </option>
               </select>
             </label>
             <button
@@ -244,11 +247,12 @@ export default function Sandbox({
                 )
               }
             >
-              Открыть локально
+              {' '}
+              Open locally{' '}
             </button>
           </div>
           {!fresh && (
-            <p className="fine-print error-text">Обновите BBO перед открытием локальной позиции.</p>
+            <p className="fine-print error-text"> Refresh BBO before opening a local position. </p>
           )}
           {unknown && (
             <div className="campaign-actions">
@@ -257,12 +261,13 @@ export default function Sandbox({
                 onClick={() =>
                   void run(() => {
                     const receipt = relay.current!.status(unknown);
-                    setMessage(`Та же заявка: ${statuses[receipt.status]}`);
+                    setMessage(`Same intent: ${statuses[receipt.status]}`);
                     setUnknown(null);
                   })
                 }
               >
-                Проверить ту же заявку
+                {' '}
+                Check same intent{' '}
               </button>
               <button
                 className="button"
@@ -270,18 +275,19 @@ export default function Sandbox({
                   void run(async () => {
                     if (pending.current) {
                       const receipt = await relay.current!.submit(pending.current);
-                      setMessage(`Retry того же ID: ${statuses[receipt.status]}`);
+                      setMessage(`Retry same ID: ${statuses[receipt.status]}`);
                       setUnknown(null);
                     }
                   })
                 }
               >
-                Повторить тот же ID
+                {' '}
+                Retry same ID{' '}
               </button>
             </div>
           )}
           <div className="positions-list">
-            <h3>Локальные позиции</h3>
+            <h3> Local positions </h3>
             {ledger?.positions.length ? (
               ledger.positions.map((position) => (
                 <div key={position.id}>
@@ -297,30 +303,33 @@ export default function Sandbox({
                       void run(() => submit('closePositions', { positionIds: [position.id] }, true))
                     }
                   >
-                    Закрыть локально
+                    {' '}
+                    Close locally{' '}
                   </button>
                 </div>
               ))
             ) : (
-              <p>Открытых локальных позиций нет.</p>
+              <p> No open local positions. </p>
             )}
           </div>
           <div className="local-operations">
-            <h3>Staking и withdrawal · sandbox</h3>
+            <h3> Staking and withdrawal · sandbox </h3>
             <div className="operation-fields">
               <label>
-                Количество PAPER
+                {' '}
+                PAPER amount{' '}
                 <input
-                  aria-label="Локальное количество PAPER"
+                  aria-label="Local PAPER amount"
                   inputMode="decimal"
                   value={paperAmount}
                   onChange={(event) => setPaperAmount(event.target.value)}
                 />
               </label>
               <label>
-                Вывод USDC
+                {' '}
+                USDC withdrawal{' '}
                 <input
-                  aria-label="Локальный вывод USDC"
+                  aria-label="Local USDC withdrawal"
                   inputMode="decimal"
                   value={withdrawAmount}
                   onChange={(event) => setWithdrawAmount(event.target.value)}
@@ -372,28 +381,31 @@ export default function Sandbox({
                   void run(() => {
                     relay.current!.distributeTestRewards(10n * WAD);
                     setMessage(
-                      'Добавлено 10 виртуальных USDC rewards для проверки claim. Это не доходность протокола.',
+                      'Added 10 virtual USDC rewards to test a claim. This is not protocol yield.',
                     );
                   })
                 }
               >
-                Тестовые rewards
+                {' '}
+                Test rewards{' '}
               </button>
               <button
                 className="button small"
                 onClick={() =>
                   void run(() => {
                     relay.current!.releaseQueue();
-                    setMessage('Локальная очередь погашена тестовым keeper.');
+                    setMessage('Local queue released by a test keeper.');
                   })
                 }
               >
-                Погасить очередь
+                {' '}
+                Release queue{' '}
               </button>
             </div>
             <p className="fine-print">
-              Rewards и queue harvest задаются вручную для теста. Emissions используют условные 100
-              PAPER/$ basis; этот стенд не прогнозирует live yield.
+              {' '}
+              Rewards and queue releases are manual test inputs. Emissions use an assumed 100
+              PAPER/$ basis; this sandbox does not predict live yield.{' '}
             </p>
           </div>
           <div className="campaign-actions">
@@ -410,7 +422,8 @@ export default function Sandbox({
                 )
               }
             >
-              Локальная сессия
+              {' '}
+              Local session{' '}
             </button>
             <button
               className="button small"
@@ -418,39 +431,40 @@ export default function Sandbox({
                 void run(() => {
                   relay.current!.revoke(session.address);
                   setMessage(
-                    'Локальный session key отозван. Wallet-права на staking/withdraw не делегировались.',
+                    'Local session key revoked. Wallet permission to stake or withdraw was never delegated.',
                   );
                 })
               }
             >
-              Отозвать сессию
+              {' '}
+              Revoke session{' '}
             </button>
           </div>
           <div className="intent-list">
-            <h3>Заявки и подтверждение</h3>
+            <h3> Intents and settlement </h3>
             {receipts.length ? (
               <div className="table-wrap">
                 <table>
                   <thead>
                     <tr>
-                      <th>Заявка</th>
-                      <th>Статус</th>
-                      <th>Действие</th>
+                      <th> Intent </th>
+                      <th> Status </th>
+                      <th> Action </th>
                     </tr>
                   </thead>
                   <tbody>
                     {receipts.slice(0, 12).map((receipt) => (
                       <tr key={receipt.id}>
-                        <td data-label="Заявка">
+                        <td data-label="Intent">
                           <span title={receipt.id}>
                             {labels[receipt.action]} · {receipt.id.slice(0, 10)}…
                           </span>
                         </td>
-                        <td data-label="Статус">
+                        <td data-label="Status">
                           {statuses[receipt.status]}
                           {receipt.reason && <small className="error-text">{receipt.reason}</small>}
                         </td>
-                        <td data-label="Действие">
+                        <td data-label="Action">
                           {receipt.status === 'queued' ? (
                             <div className="intent-buttons">
                               <button
@@ -460,14 +474,13 @@ export default function Sandbox({
                                   void run(() => {
                                     const result = relay.current!.settle(receipt.id, exit);
                                     setMessage(
-                                      result.reason ??
-                                        statuses[result.status] ??
-                                        'Статус неизвестен',
+                                      result.reason ?? statuses[result.status] ?? 'Unknown status',
                                     );
                                   })
                                 }
                               >
-                                Исполнить
+                                {' '}
+                                Settle{' '}
                               </button>
                               <button
                                 className="button small"
@@ -475,11 +488,12 @@ export default function Sandbox({
                                 onClick={() =>
                                   void run(() => {
                                     relay.current!.cancel(receipt.id);
-                                    setMessage('Локальная заявка отменена.');
+                                    setMessage('Local intent cancelled.');
                                   })
                                 }
                               >
-                                Отменить
+                                {' '}
+                                Cancel{' '}
                               </button>
                             </div>
                           ) : (
@@ -492,7 +506,7 @@ export default function Sandbox({
                 </table>
               </div>
             ) : (
-              <p>Подписанных локальных заявок пока нет.</p>
+              <p> No signed local intents yet. </p>
             )}
           </div>
           <button
@@ -503,10 +517,11 @@ export default function Sandbox({
               pending.current = null;
               setUnknown(null);
               persist();
-              setMessage('Сброшен только виртуальный счёт.');
+              setMessage('Only the virtual account was reset.');
             }}
           >
-            Сбросить локальный счёт
+            {' '}
+            Reset local account{' '}
           </button>
         </>
       )}

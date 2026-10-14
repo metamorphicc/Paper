@@ -13,7 +13,7 @@ export async function GET() {
     });
   } catch {
     return Response.json(
-      { error: 'Официальные данные сейчас недоступны', source: 'official-indexer' },
+      { error: 'Official data is currently unavailable', source: 'official-indexer' },
       { status: 503 },
     );
   }

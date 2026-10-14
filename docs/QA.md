@@ -19,7 +19,7 @@ Tests проверяют signed origin/nonce/expiry и replay кампании, 
 
 ## Браузерная проверка
 
-С помощью CUA в Codex In-app Browser:
+С помощью автоматизации в браузере:
 
 - Все пять страниц проверены при 320 / 375 / 414 / 768 px; 20 измерений без горизонтального overflow. Заполненный профиль с 75 trades дополнительно проверен при этих четырёх ширинах: overflow отсутствует. JSON evidence и screenshots — `artifacts/qa/`.
 - Mobile menu открывает навигацию и закрывается при выборе страницы. Поиск фильтрует страницы, Enter переводит на выбранную страницу и закрывает dialog. Найден и исправлен повторный default Enter click, заново открывавший поиск.
@@ -36,4 +36,4 @@ Source/ABI текущих implementations unverified; official domain getter н�
 
 Injected wallet connection/account switching реализованы, но interaction с реальным кошельком пользователя не проводилась. Community proof проверен EOA test signatures, не EIP-1271. LocalStorage sandbox не является custody и не доказывает безопасность official contracts. SQLite experimental, coverage частичный; production auth/rate limiting/storage/monitoring и аудит не входят в готовность этого локального прототипа.
 
-Финальный Git результат: baseline + девять последовательных подэтапов в `codex/stages-1-3`, без push и публикации. Коммиты и оставшиеся внешние критерии — IMPLEMENTATION.md.
+Финальный Git результат: baseline + девять последовательных подэтапов в `paperclub-development`, без push и публикации. Коммиты и оставшиеся внешние критерии — IMPLEMENTATION.md.

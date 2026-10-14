@@ -1,46 +1,46 @@
 export const capabilities = [
   {
     id: 'read',
-    title: 'Публичные данные',
+    title: 'Public data',
     status: 'available',
-    reason: 'RPC + узкие read-only ABI; происхождение каждого поля сохранено.',
+    reason: 'RPC and narrow read-only ABIs; each field retains its source.',
   },
   {
     id: 'history',
-    title: 'История PAPER',
+    title: 'PAPER history',
     status: 'available',
-    reason: 'Стандартный Transfer; trade events пока без подтверждённой схемы.',
+    reason: 'Standard Transfer events; trade event schemas are unverified.',
   },
   {
     id: 'trade',
     title: 'Live trading',
     status: 'blocked',
     reason:
-      'Browser EIP-712 и /intents найдены; source equivalence, third-party access и settlement не проверены.',
+      'Browser EIP-712 and /intents were observed; source equivalence, third-party access and settlement are unverified.',
   },
   {
     id: 'staking',
     title: 'Live staking',
     status: 'blocked',
-    reason: 'Browser schema найдена; current domain и third-party write path требуют проверки.',
+    reason: 'Browser schema observed; current domain and third-party writes need verification.',
   },
   {
     id: 'builder',
     title: 'Builder revenue',
     status: 'planned',
-    reason: 'В документации Coming soon; доход в модели равен нулю.',
+    reason: 'Documented as coming soon; modeled revenue is zero.',
   },
   {
     id: 'contract-wallet',
     title: 'Contract wallets / vault',
     status: 'unverified',
-    reason: 'Нет подтверждения EIP-1271 и полного deposit/withdraw lifecycle.',
+    reason: 'EIP-1271 and the full deposit/withdrawal lifecycle are unverified.',
   },
   {
     id: 'sandbox',
-    title: 'Локальный терминал',
+    title: 'Local terminal',
     status: 'available',
-    reason: 'Mock settlement и lifecycle; никаких реальных средств.',
+    reason: 'Mock settlement and intent lifecycle with virtual funds.',
   },
 ] as const;
 export function assertLiveSubmissionAllowed(): never {

@@ -5,7 +5,7 @@ export async function POST() {
   } catch {
     return Response.json(
       {
-        error: 'Live submission отключён: third-party access и settlement не подтверждены.',
+        error: 'Live submission is disabled: third-party access and settlement are unverified.',
         liveSubmission: false,
       },
       { status: 403 },

@@ -19,30 +19,31 @@ export default async function Overview() {
       <section className="page-heading">
         <div>
           <p className="overline">PAPERTRADE / COMMUNITY</p>
-          <h1>Всё начинается с данных.</h1>
-          <p>Протокол, доля PAPER и цена риска — в одном месте.</p>
+          <h1> Start with the data. </h1>
+          <p> Protocol state, PAPER ownership and trade risk in one place. </p>
         </div>
         <Link href="/trade" className="button primary">
-          Открыть терминал ↗
+          {' '}
+          Open terminal ↗{' '}
         </Link>
       </section>
-      <section className="protocol-hero" aria-label="Состояние протокола">
+      <section className="protocol-hero" aria-label="Protocol state">
         <div className="hero-number">
-          <span>LP протокола</span>
+          <span> Protocol LP </span>
           <strong>{amount(summary?.balances.lp)}</strong>
-          <p>Из official indexer. Treasury включает и пользовательское обеспечение.</p>
+          <p> From the official indexer. Treasury includes user collateral. </p>
         </div>
         <div className="hero-details">
           <div>
-            <span>Активные позиции</span>
+            <span> Active positions </span>
             <strong>{summary?.activity.open.toLocaleString('en-US') ?? '—'}</strong>
           </div>
           <div>
-            <span>Ожидающие выплаты</span>
+            <span> Queued payouts </span>
             <strong>{amount(summary?.balances.queue)}</strong>
           </div>
           <div>
-            <span>PAPER в staking</span>
+            <span> Staked PAPER </span>
             <strong>{amount(summary?.paper.staked, 'paper')}</strong>
           </div>
           <div>
@@ -54,15 +55,15 @@ export default async function Overview() {
       <div className={`source-line ${error ? 'error-text' : ''}`}>
         <span className="status-dot" />
         {summary
-          ? `${stale ? 'Сохранённые данные' : 'Official API'} · блок ${summary.source.block} · ${localTime(summary.source.at)} НСК`
-          : 'Official API недоступен. Обновите страницу позже.'}
-        <span>Сверка с RPC частичная</span>
+          ? `${stale ? 'Cached data' : 'Official API'} · block ${summary.source.block} · ${localTime(summary.source.at)} UTC`
+          : 'Official API unavailable. Refresh this page later.'}
+        <span> RPC reconciliation is incomplete </span>
       </div>
       <div className="split-layout">
         <section className="panel">
           <div className="section-heading">
-            <h2>Что доступно</h2>
-            <span>Статус интеграции</span>
+            <h2> Available features </h2>
+            <span> Integration status </span>
           </div>
           <div className="capability-list">
             {capabilities.map((item) => (
@@ -73,29 +74,32 @@ export default async function Overview() {
                 </div>
                 <span className={`tag ${item.status === 'available' ? 'positive' : ''}`}>
                   {item.status === 'available'
-                    ? 'Доступно'
+                    ? 'Available'
                     : item.status === 'planned'
-                      ? 'Ожидается'
-                      : 'Проверяется'}
+                      ? 'Planned'
+                      : 'Unverified'}
                 </span>
               </div>
             ))}
           </div>
         </section>
         <section className="notes-column">
-          <h2>Участие без обещаний.</h2>
+          <h2> Join without promises. </h2>
           <p>
-            Изучайте протокол, следите за своим адресом и участвуйте в программе points. Потери и
-            торговый объём не дают бонусов.
+            {' '}
+            Explore the protocol, track your address and take part in the points campaign. Losses
+            and trading volume earn no bonuses.{' '}
           </p>
           <Link href="/leaderboard" className="text-link">
-            Программа сообщества →
+            {' '}
+            Community campaign →{' '}
           </Link>
           <div className="note">
-            <strong>1000x — потолок протокола.</strong>
+            <strong> 1000x is the protocol ceiling. </strong>
             <p>
-              В терминале сначала рассчитайте выигрыш после удержаний и расстояние до bust price.
-              Локальный стенд работает без реальных средств.
+              {' '}
+              Estimate net profit and distance to the bust price before opening a position. The
+              local sandbox uses virtual funds.{' '}
             </p>
           </div>
         </section>

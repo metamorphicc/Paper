@@ -34,7 +34,7 @@ export default function Profile() {
     setResult(null);
     setLoading(false);
     if (!isAddress(value)) {
-      setError('Введите полный адрес 0x из 40 hex-символов.');
+      setError('Enter a complete 0x address with 40 hexadecimal characters.');
       return;
     }
     setLoading(true);
@@ -45,7 +45,7 @@ export default function Profile() {
       if (current === generation.current) setResult(data);
     } catch (error) {
       if (current === generation.current)
-        setError(error instanceof Error ? error.message : 'Не удалось загрузить адрес.');
+        setError(error instanceof Error ? error.message : 'Could not load this address.');
     } finally {
       if (current === generation.current) setLoading(false);
     }
@@ -67,7 +67,8 @@ export default function Profile() {
         }}
       >
         <label htmlFor="address">
-          Адрес HyperEVM
+          {' '}
+          HyperEVM address{' '}
           <input
             id="address"
             value={address}
@@ -78,7 +79,7 @@ export default function Profile() {
           />
         </label>
         <button className="button primary" disabled={loading}>
-          {loading ? 'Загрузка…' : 'Посмотреть'}
+          {loading ? 'Loading…' : 'View'}
         </button>
       </form>
       {error && (
@@ -88,17 +89,16 @@ export default function Profile() {
       )}
       {!result && !error && (
         <div className="empty-state">
-          <h2>Откройте свой адрес.</h2>
-          <p>Публичные данные Papertrade доступны без подписи и без подключения кошелька.</p>
+          <h2> Look up your address. </h2>
+          <p> Public Papertrade data is available without a signature or wallet connection. </p>
         </div>
       )}
       {result && (
         <>
           <div className="source-line">
-            <span className="status-dot" />
-            Official wallet snapshot · блок {result.value.block} ·{' '}
-            {localTime(result.value.sourceAt)} НСК
-            <span className="tag">{result.stale ? 'Сохранённые данные' : 'Получено из API'}</span>
+            <span className="status-dot" /> Official wallet snapshot · block {result.value.block} ·{' '}
+            {localTime(result.value.sourceAt)} UTC{' '}
+            <span className="tag">{result.stale ? 'Cached data' : 'Fetched from API'}</span>
           </div>
           <div className="metric-strip">
             {[
@@ -115,35 +115,37 @@ export default function Profile() {
           </div>
           <div className="split-layout">
             <section className="panel">
-              <h2>Результат адреса</h2>
+              <h2> Address performance </h2>
               <dl className="data-list">
                 <div>
                   <dt>Realized net PnL</dt>
                   <dd>{amount(result.value.realizedPnlRaw, 'usd', false)}</dd>
                 </div>
                 <div>
-                  <dt>Полученный staking USDC</dt>
+                  <dt> Claimed staking USDC </dt>
                   <dd>{amount(result.value.claimedRaw, 'usd', false)}</dd>
                 </div>
                 <div>
-                  <dt>Обеспечение в позициях</dt>
+                  <dt> Collateral in positions </dt>
                   <dd>{amount(result.value.lockedRaw, 'usd', false)}</dd>
                 </div>
                 <div>
-                  <dt>Открытые позиции</dt>
+                  <dt> Open positions </dt>
                   <dd>{result.value.openPositions.length}</dd>
                 </div>
               </dl>
               <p className="fine-print">
-                PendingBase — базовый accumulator snapshot, не полный текущий pendingReward.
-                Claimable USDC показан ниже из отдельного RPC-чтения, с собственным блоком.
+                {' '}
+                PendingBase is an accumulator snapshot, not the full current pendingReward.
+                Claimable USDC is read separately below from RPC, with its own block.{' '}
               </p>
             </section>
             <section className="notes-column">
-              <h2>Ликвидность отдельно.</h2>
+              <h2> Keep liquidity separate. </h2>
               <p>
-                Queued USDC — требование на будущую выплату. PAPER не оценивается по предполагаемой
-                цене; баланс токена не прибавляется к доступным деньгам.
+                {' '}
+                Queued USDC is a claim on a future payout. PAPER has no assumed cash price; its
+                balance is excluded from spendable funds.{' '}
               </p>
               <a
                 className="text-link"
@@ -151,7 +153,8 @@ export default function Profile() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Официальный портфель ↗
+                {' '}
+                Official portfolio ↗{' '}
               </a>
             </section>
           </div>
@@ -160,8 +163,8 @@ export default function Profile() {
               <h2>On-chain PAPER activity</h2>
               <span>
                 {result.coverage
-                  ? `Блоки ${result.coverage.from_block}–${result.coverage.through_block}`
-                  : 'История ещё не индексировалась'}
+                  ? `Blocks ${result.coverage.from_block}–${result.coverage.through_block}`
+                  : 'History has not been indexed yet'}
               </span>
             </div>
             {result.history.length ? (
@@ -169,31 +172,32 @@ export default function Profile() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Блок</th>
-                      <th>Действие</th>
+                      <th> Block </th>
+                      <th> Action </th>
                       <th>PAPER</th>
-                      <th>Транзакция</th>
+                      <th> Transaction </th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.history.map((event, index) => (
                       <tr key={`${event.tx_hash}-${index}`}>
-                        <td data-label="Блок">{event.block_number}</td>
-                        <td data-label="Действие">
+                        <td data-label="Block">{event.block_number}</td>
+                        <td data-label="Action">
                           {event.from_address === '0x' + '0'.repeat(40)
                             ? 'Mint'
                             : event.to_address === result.value.address
-                              ? 'Получено'
-                              : 'Отправлено'}
+                              ? 'Received'
+                              : 'Sent'}
                         </td>
                         <td data-label="PAPER">{amount(event.amount_raw, 'paper')}</td>
-                        <td data-label="Транзакция">
+                        <td data-label="Transaction">
                           <a
                             href={`https://hyperevmscan.io/tx/${event.tx_hash}`}
                             target="_blank"
                             rel="noreferrer"
                           >
-                            Открыть ↗
+                            {' '}
+                            Open ↗{' '}
                           </a>
                         </td>
                       </tr>
@@ -203,15 +207,16 @@ export default function Profile() {
               </div>
             ) : (
               <p>
-                В индексированном диапазоне нет PAPER events этого адреса. Это не означает
-                отсутствие более ранней истории.
+                {' '}
+                No PAPER events for this address in the indexed range. Earlier activity may
+                exist.{' '}
               </p>
             )}
           </section>
           <section className="panel history-panel">
             <div className="section-heading">
               <h2>Claimable staking USDC</h2>
-              <span>Отдельное RPC-чтение</span>
+              <span> Separate RPC read </span>
             </div>
             <strong className="claimable-value">
               {amount(
@@ -222,31 +227,31 @@ export default function Profile() {
             </strong>
             <p className="fine-print">
               {result.pendingReward
-                ? `pendingReward · блок ${result.pendingReward.block} · ${localTime(result.pendingReward.observedAt)} НСК`
-                : 'RPC read недоступен; неизвестный reward не считается нулём.'}
+                ? `pendingReward · block ${result.pendingReward.block} · ${localTime(result.pendingReward.observedAt)} UTC`
+                : 'RPC read unavailable; an unknown reward is not treated as zero.'}
             </p>
           </section>
           <section className="panel history-panel">
             <div className="section-heading">
-              <h2>Торговая история</h2>
-              <span>Official query API · последние 75</span>
+              <h2> Trade history </h2>
+              <span> Official query API · latest 75 </span>
             </div>
             {result.trades?.items.length ? (
               <div className="table-wrap">
                 <table>
                   <thead>
                     <tr>
-                      <th>Рынок</th>
+                      <th> Market </th>
                       <th>Margin</th>
                       <th>Net PnL</th>
                       <th>PAPER</th>
-                      <th>Сделка</th>
+                      <th> Trade </th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.trades.items.map((row) => (
                       <tr key={`${row.txHash}-${row.positionId}`}>
-                        <td data-label="Рынок">
+                        <td data-label="Market">
                           {row.symbol} {row.isLong ? 'Long' : 'Short'} {row.leverage}x
                           {row.kind === 'Liquidated' ? ' · Bust' : ''}
                         </td>
@@ -258,13 +263,14 @@ export default function Profile() {
                           {amount(row.netPnlRaw, 'usd', false)}
                         </td>
                         <td data-label="PAPER">{amount(row.paperMintedRaw, 'paper')}</td>
-                        <td data-label="Сделка">
+                        <td data-label="Trade">
                           <a
                             href={`https://hyperevmscan.io/tx/${row.txHash}`}
                             target="_blank"
                             rel="noreferrer"
                           >
-                            Открыть ↗
+                            {' '}
+                            Open ↗{' '}
                           </a>
                         </td>
                       </tr>
@@ -275,13 +281,14 @@ export default function Profile() {
             ) : (
               <p>
                 {result.trades
-                  ? 'В этой странице истории нет завершённых сделок.'
-                  : 'История сейчас недоступна. Это не означает отсутствие сделок.'}
+                  ? 'No completed trades on this history page.'
+                  : 'History is unavailable. This does not mean there were no trades.'}
               </p>
             )}
             {result.trades?.nextCursor && (
               <p className="fine-print">
-                Есть более ранние сделки; эта версия показывает последние 75.
+                {' '}
+                Earlier trades exist; this version shows the latest 75.{' '}
               </p>
             )}
           </section>

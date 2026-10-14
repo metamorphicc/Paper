@@ -16,17 +16,18 @@ export default async function TreasuryPage() {
     <>
       <section className="page-heading">
         <div>
-          <h1>Каждый доллар — отдельно.</h1>
-          <p>Treasury, PAPER и ожидающие выплаты. Только фактические поступления.</p>
+          <h1> Account for every dollar. </h1>
+          <p> Treasury, PAPER and queued payouts. Actual receipts only. </p>
         </div>
-        <span className="tag">Buyback не включён</span>
+        <span className="tag"> Buyback disabled </span>
       </section>
       {!address ? (
         <div className="empty-state">
-          <h2>Адрес treasury ещё не выбран.</h2>
+          <h2> No treasury address selected. </h2>
           <p>
-            Мемкоин и treasury появятся на следующем этапе. Публичный адрес можно задать через
-            TREASURY_ADDRESS; неизвестный баланс отображается как «—».
+            {' '}
+            Token and treasury settings are planned. Configure a public TREASURY_ADDRESS to view it;
+            unknown balances appear as an em dash.{' '}
           </p>
         </div>
       ) : (
@@ -47,36 +48,39 @@ export default async function TreasuryPage() {
       </div>
       <div className="split-layout">
         <section className="panel">
-          <h2>Источники поступлений</h2>
+          <h2> Revenue sources </h2>
           <dl className="data-list">
             <div>
               <dt>Builder codes</dt>
-              <dd>Не запущены</dd>
+              <dd> Not live </dd>
             </div>
             <div>
               <dt>Staking yield</dt>
               <dd>{amount(result?.value.claimedRaw, 'usd', false)}</dd>
             </div>
             <div>
-              <dt>Покупки / burn</dt>
-              <dd>Не включены</dd>
+              <dt> Buybacks / burn </dt>
+              <dd> Disabled </dd>
             </div>
           </dl>
           <p className="fine-print">
-            Новые депозиты и выпуск собственного токена не считаются доходом. PAPER и queued claims
-            не прибавляются к liquid USDC.
+            {' '}
+            New deposits and token issuance are not revenue. PAPER and queued claims are excluded
+            from liquid USDC.{' '}
           </p>
         </section>
         <section className="notes-column">
-          <h2>Проверяемые правила.</h2>
+          <h2> Verifiable rules. </h2>
           <p>
-            На этом этапе treasury только наблюдается. Торговля средствами, token launch, buyback и
-            распределение rewards реализуются отдельно по зафиксированным правилам и бюджету.
+            {' '}
+            Treasury is read-only here. Trading, token launch, buybacks and rewards require defined
+            rules and budgets.{' '}
           </p>
           {result && (
             <p className="fine-print">
-              Official API · блок {result.value.block} · {localTime(result.value.sourceAt)} НСК
-              {result.stale ? ' · сохранённые данные' : ''}
+              {' '}
+              Official API · block {result.value.block} · {localTime(result.value.sourceAt)} UTC{' '}
+              {result.stale ? '· cached data' : ''}
             </p>
           )}
         </section>

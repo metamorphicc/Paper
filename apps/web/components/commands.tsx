@@ -2,10 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 const commands = [
-  { path: '/', title: 'Обзор протокола' },
-  { path: '/trade', title: 'Торговый терминал' },
-  { path: '/profile', title: 'Профиль адреса' },
-  { path: '/leaderboard', title: 'Сообщество и points' },
+  { path: '/', title: 'Protocol overview' },
+  { path: '/trade', title: 'Trading terminal' },
+  { path: '/profile', title: 'Address profile' },
+  { path: '/leaderboard', title: 'Community and points' },
   { path: '/treasury', title: 'Treasury' },
 ];
 export default function Commands() {
@@ -40,23 +40,20 @@ export default function Commands() {
   }, []);
   return (
     <>
-      <button
-        className="button small command-trigger"
-        aria-label="Открыть поиск страниц"
-        onClick={open}
-      >
-        Поиск <kbd>Ctrl K</kbd>
+      <button className="button small command-trigger" aria-label="Open page search" onClick={open}>
+        {' '}
+        Search <kbd>Ctrl K</kbd>
       </button>
       <dialog
         ref={dialog}
         className="command-dialog"
-        aria-label="Поиск страниц"
+        aria-label="Page search"
         onClick={(event) => {
           if (event.target === dialog.current) dialog.current.close();
         }}
       >
         <div className="command-content">
-          <label htmlFor="command-query">Найти страницу</label>
+          <label htmlFor="command-query"> Find a page </label>
           <input
             id="command-query"
             ref={input}
@@ -92,10 +89,11 @@ export default function Commands() {
                 <span>↵</span>
               </button>
             ))}
-            {!list.length && <p>Страница не найдена. Измените запрос.</p>}
+            {!list.length && <p> No matching page. Try another search. </p>}
           </div>
           <button className="button small" onClick={() => dialog.current?.close()}>
-            Закрыть
+            {' '}
+            Close{' '}
           </button>
         </div>
       </dialog>

@@ -4,10 +4,10 @@ export default function TradePage() {
     <>
       <section className="page-heading">
         <div>
-          <h1>Сначала риск. Затем позиция.</h1>
-          <p>Текущие цены, удержания из прибыли и preview заявки.</p>
+          <h1> Risk first. Position second. </h1>
+          <p> Live prices, profit deductions and an intent preview. </p>
         </div>
-        <span className="tag">Live submission выключен</span>
+        <span className="tag"> Live submission disabled </span>
       </section>
       <Terminal />
     </>

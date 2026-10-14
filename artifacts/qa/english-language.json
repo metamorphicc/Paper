@@ -1,0 +1,32 @@
+[
+  {
+    "cyrillic": false,
+    "heading": " Start with the data. ",
+    "language": "en",
+    "path": "/"
+  },
+  {
+    "cyrillic": false,
+    "heading": " Risk first. Position second. ",
+    "language": "en",
+    "path": "/trade"
+  },
+  {
+    "cyrillic": false,
+    "heading": " Address profile ",
+    "language": "en",
+    "path": "/profile"
+  },
+  {
+    "cyrillic": false,
+    "heading": " People before volume. ",
+    "language": "en",
+    "path": "/leaderboard"
+  },
+  {
+    "cyrillic": false,
+    "heading": " Account for every dollar. ",
+    "language": "en",
+    "path": "/treasury"
+  }
+]

@@ -20,8 +20,8 @@ export function shortAddress(address: string) {
   return `${address.slice(0, 6)}…${address.slice(-4)}`;
 }
 export function localTime(utc: string | number) {
-  return new Intl.DateTimeFormat('ru-RU', {
-    timeZone: 'Asia/Novosibirsk',
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'UTC',
     day: '2-digit',
     month: '2-digit',
     hour: '2-digit',

@@ -5,13 +5,13 @@ import '@fontsource/ibm-plex-sans/500.css';
 import './globals.css';
 import Shell from '../components/shell';
 export const metadata: Metadata = {
-  title: 'Paperclub — протокол, люди, позиции',
+  title: 'Paperclub — protocol, community, positions',
   description:
-    'Независимый комьюнити-хаб Papertrade на HyperEVM. Публичные данные и локальный торговый стенд.',
+    'An independent Papertrade community hub on HyperEVM. Public data and a local trading sandbox.',
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="en">
       <body>
         <Shell>{children}</Shell>
       </body>

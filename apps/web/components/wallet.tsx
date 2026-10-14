@@ -83,14 +83,12 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     try {
       const p = provider.current;
       if (!p)
-        throw new Error(
-          'Browser wallet не найден. Установите кошелёк или используйте локальный счёт.',
-        );
+        throw new Error('No browser wallet found. Install a wallet or use the local account.');
       const accounts = await p.request({ method: 'eth_requestAccounts' });
       accountChanged(accounts);
       chainChanged(await p.request({ method: 'eth_chainId' }));
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Кошелёк не подключён.');
+      setError(error instanceof Error ? error.message : 'Wallet is not connected.');
     } finally {
       setBusy(false);
     }
@@ -100,7 +98,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     setError('');
     try {
       const p = provider.current;
-      if (!p) throw new Error('Кошелёк недоступен.');
+      if (!p) throw new Error('Wallet is unavailable.');
       try {
         await p.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x3e7' }] });
       } catch (error) {
@@ -120,7 +118,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       }
       chainChanged(await p.request({ method: 'eth_chainId' }));
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Сеть не переключена.');
+      setError(error instanceof Error ? error.message : 'Network was not switched.');
     } finally {
       setBusy(false);
     }
@@ -163,12 +161,12 @@ export function WalletButton() {
         disabled={wallet.busy}
       >
         {wallet.busy
-          ? 'Кошелёк…'
+          ? 'Connecting…'
           : wallet.address
             ? wallet.chainId !== 999
               ? 'HyperEVM'
               : `${wallet.address.slice(0, 6)}…${wallet.address.slice(-4)}`
-            : 'Подключить'}
+            : 'Connect'}
       </button>
       {wallet.error && (
         <span className="wallet-error" role="alert">

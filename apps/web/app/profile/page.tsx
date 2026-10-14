@@ -5,11 +5,11 @@ export default function ProfilePage() {
     <>
       <section className="page-heading">
         <div>
-          <h1>Профиль адреса</h1>
-          <p>Публичные balances, PAPER и история. Подпись для просмотра не нужна.</p>
+          <h1> Address profile </h1>
+          <p> Public balances, PAPER and history. No signature needed to view. </p>
         </div>
       </section>
-      <Suspense fallback={<p>Загрузка профиля…</p>}>
+      <Suspense fallback={<p> Loading profile… </p>}>
         <Profile />
       </Suspense>
     </>

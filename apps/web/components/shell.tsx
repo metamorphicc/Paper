@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { WalletButton, WalletProvider } from './wallet';
 import Commands from './commands';
 const items = [
-  ['/', 'Обзор', '◈'],
-  ['/trade', 'Терминал', '↗'],
-  ['/profile', 'Профиль', '◎'],
-  ['/leaderboard', 'Сообщество', '≡'],
+  ['/', 'Overview', '◈'],
+  ['/trade', 'Terminal', '↗'],
+  ['/profile', 'Profile', '◎'],
+  ['/leaderboard', 'Community', '≡'],
   ['/treasury', 'Treasury', '◇'],
 ] as const;
 export default function Shell({ children }: { children: React.ReactNode }) {
@@ -24,7 +24,8 @@ function ShellContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell">
       <a href="#main" className="skip">
-        К содержимому
+        {' '}
+        Skip to content{' '}
       </a>
       <aside className={`rail ${open ? 'is-open' : ''}`}>
         <Link href="/" className="wordmark" onClick={() => setOpen(false)}>
@@ -33,7 +34,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         <div className="network-label">
           <span className="status-dot" /> HyperEVM · 999
         </div>
-        <nav aria-label="Основная навигация">
+        <nav aria-label="Main navigation">
           {items.map(([href, label, icon]) => (
             <Link
               key={href}
@@ -48,12 +49,12 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="rail-bottom">
           <p>
-            Независимое комьюнити.
-            <br />
-            Мемкоин ещё не выпущен.
+            {' '}
+            Independent community. <br /> Token has not launched.{' '}
           </p>
           <a href="https://docs.papertrade.xyz" target="_blank" rel="noreferrer">
-            Документация ↗
+            {' '}
+            Documentation ↗{' '}
           </a>
         </div>
       </aside>
@@ -61,7 +62,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         <header className="app-header">
           <button
             className="menu-toggle"
-            aria-label="Открыть меню"
+            aria-label="Open menu"
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
@@ -72,7 +73,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
           </span>
           <div className="header-actions">
             <Commands />
-            <span className="tag">Локальная версия</span>
+            <span className="tag"> Local preview </span>
             <WalletButton />
           </div>
         </header>
@@ -81,7 +82,7 @@ function ShellContent({ children }: { children: React.ReactNode }) {
         </main>
         <footer>
           <span>Paperclub · HyperEVM</span>
-          <span>Публичные данные. Реальные заявки отключены.</span>
+          <span> Public data. Live intents disabled. </span>
           <a href="https://papertrade.xyz" target="_blank" rel="noreferrer">
             Papertrade ↗
           </a>

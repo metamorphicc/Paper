@@ -12,12 +12,14 @@ export default function CampaignPanel() {
     try {
       const provider = (window as unknown as { ethereum?: Provider }).ethereum;
       if (!provider)
-        throw new Error('Для участия нужен browser wallet. Просмотр данных доступен без него.');
+        throw new Error(
+          'A browser wallet is required to participate. Public data is available without one.',
+        );
       const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as string[];
       const account = accounts[0];
-      if (!account) throw new Error('Кошелёк не выбрал адрес.');
+      if (!account) throw new Error('No address selected by the wallet.');
       const chain = await provider.request({ method: 'eth_chainId' });
-      if (chain !== '0x3e7') throw new Error('Переключите кошелёк на HyperEVM (999).');
+      if (chain !== '0x3e7') throw new Error('Switch your wallet to HyperEVM (999).');
       setAddress(account);
       const response = await fetch('/api/campaign', {
         method: 'POST',
@@ -41,7 +43,7 @@ export default function CampaignPanel() {
         latest[0]?.toLowerCase() !== account.toLowerCase() ||
         (await provider.request({ method: 'eth_chainId' })) !== '0x3e7'
       )
-        throw new Error('Адрес или сеть изменились. Повторите действие.');
+        throw new Error('Address or network changed. Try again.');
       const claim = await fetch('/api/campaign', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,37 +58,37 @@ export default function CampaignPanel() {
       const result = await claim.json();
       if (!claim.ok) throw new Error(result.error);
       setMessage(
-        `Начислено ${result.awarded} points. Всего: ${result.participant.total}. Рейтинг обновится после обновления страницы.`,
+        `Awarded ${result.awarded} points. Total: ${result.participant.total}. Refresh the page to update the leaderboard.`,
       );
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Действие не выполнено.');
+      setMessage(error instanceof Error ? error.message : 'Action failed.');
     } finally {
       setBusy(false);
     }
   }
   const questions = [
     {
-      title: 'Что означает queued profit?',
+      title: 'What does queued profit mean?',
       values: [
-        ['', 'Выберите ответ'],
-        ['queued-is-cash', 'Доступные USDC'],
-        ['queued-is-debt', 'Требование на будущую выплату'],
+        ['', 'Select an answer'],
+        ['queued-is-cash', 'Spendable USDC'],
+        ['queued-is-debt', 'A claim on a future payout'],
       ],
     },
     {
-      title: 'Что происходит с выигрышем?',
+      title: 'What happens to a winning trade?',
       values: [
-        ['', 'Выберите ответ'],
-        ['profit-is-free', 'Выплачивается сырой PnL'],
-        ['profit-is-adjusted', 'Применяются deadband, impact и fee'],
+        ['', 'Select an answer'],
+        ['profit-is-free', 'Raw PnL is paid in full'],
+        ['profit-is-adjusted', 'Deadband, impact and fees apply'],
       ],
     },
     {
-      title: 'Можно ли считать PAPER ликвидными USDC?',
+      title: 'Can PAPER be counted as liquid USDC?',
       values: [
-        ['', 'Выберите ответ'],
-        ['paper-is-not-cash', 'Нет, это отдельный токен'],
-        ['paper-is-cash', 'Да, по предполагаемой цене'],
+        ['', 'Select an answer'],
+        ['paper-is-not-cash', 'No, it is a separate token'],
+        ['paper-is-cash', 'Yes, at an assumed price'],
       ],
     },
   ];
@@ -94,15 +96,17 @@ export default function CampaignPanel() {
     <section className="panel">
       <h2>Founding community</h2>
       <p className="fine-print">
-        До 70 points на адрес. Points не дают права на токены или доход. Подпись подтверждает
-        участие только в этой локальной программе.
+        {' '}
+        Up to 70 points per address. Points do not grant token or income rights. Your signature
+        confirms participation in this local campaign only.{' '}
       </p>
       <div className="campaign-actions">
         <button className="button primary" onClick={() => void perform('join')} disabled={busy}>
-          {busy ? 'Проверка…' : 'Участвовать · 10'}
+          {busy ? 'Verifying…' : 'Join · 10'}
         </button>
         <button className="button" onClick={() => void perform('track')} disabled={busy}>
-          Мой адрес · 20
+          {' '}
+          Track my address · 20{' '}
         </button>
       </div>
       <div className="quiz">
@@ -131,14 +135,15 @@ export default function CampaignPanel() {
         onClick={() => void perform('quiz')}
         disabled={busy || answers.some((value) => !value)}
       >
-        Проверить знания · 40
+        {' '}
+        Check understanding · 40{' '}
       </button>
       {message && (
         <p className="feedback" role="status">
           {message}
         </p>
       )}
-      {address && <p className="fine-print">Участник: {address}</p>}
+      {address && <p className="fine-print"> Participant: {address}</p>}
     </section>
   );
 }

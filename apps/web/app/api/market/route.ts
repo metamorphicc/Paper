@@ -6,7 +6,7 @@ const cache = new Map<string, { at: number; value: unknown }>();
 export async function GET(request: Request) {
   const coin = new URL(request.url).searchParams.get('coin') ?? 'BTC';
   if (coin !== 'BTC' && coin !== 'ETH')
-    return Response.json({ error: 'Неподдерживаемый рынок' }, { status: 400 });
+    return Response.json({ error: 'Unsupported market' }, { status: 400 });
   const old = cache.get(coin);
   if (old && Date.now() - old.at < 5_000) return Response.json(old.value);
   try {
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     return Response.json(value);
   } catch {
     return Response.json(
-      { error: 'Рынок сейчас недоступен. Обновите данные позже.' },
+      { error: 'Market data is unavailable. Try again later.' },
       { status: 503 },
     );
   }
