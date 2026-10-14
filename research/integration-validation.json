@@ -1,0 +1,120 @@
+{
+  "observedAtUtc": "2026-10-14T09:53:12.734Z",
+  "comparisons": [
+    {
+      "contract": "PaperToken",
+      "method": "totalSupply",
+      "block": "48510016",
+      "expected": "7026536380154093799620726761",
+      "actual": "7026640315069788059863486622",
+      "matches": false
+    },
+    {
+      "contract": "PaperStaking",
+      "method": "totalStaked",
+      "block": "48510016",
+      "expected": "6961046046854874722609028673",
+      "actual": "6961523654188182931246253694",
+      "matches": false
+    },
+    {
+      "contract": "PaperTokenomics",
+      "method": "trackedLpUsd",
+      "block": "48510016",
+      "expected": "4998400198800878446399219",
+      "actual": "4999293027154566160055337",
+      "matches": false
+    },
+    {
+      "contract": "Exchange",
+      "method": "totalQueued",
+      "block": "48510016",
+      "expected": "0",
+      "actual": "0",
+      "matches": true
+    }
+  ],
+  "typeHashes": [
+    {
+      "type": "RegisterSessionKey",
+      "encoding": "RegisterSessionKey(address user,address key,uint64 expiry,address feeAddress,uint256 nonce,uint64 deadline)",
+      "hash": "0xd3d9a309f635415423ab81e7e3fb16d2117cc8e1edc90506adde9eaa3855edd2",
+      "contract": "SessionKeyManager",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "OpenPosition",
+      "encoding": "OpenPosition(address user,uint32 instrumentId,bool isLong,uint128 size,uint32 leverage,bool useDebt,uint256 nonce,uint64 deadline)",
+      "hash": "0xfce2fb41f9ff0457a0f012e62cfd6a7cff4e8439ae20008ab6979c740ba5a983",
+      "contract": "Exchange",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "Close",
+      "encoding": "Close(address user,uint256[] positionIds,uint256 nonce,uint64 deadline)",
+      "hash": "0x9cc23a52214afa42e1ae53cdb2e79dc2d0cd33c33faca383ed3b149300adcb13",
+      "contract": "Exchange",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "WithdrawToCore",
+      "encoding": "WithdrawToCore(address user,uint256 amount,uint256 nonce,uint64 deadline)",
+      "hash": "0xac4ddb8d63e9d7a862c5d61ce47517623a448262414a7eef6797102104b31214",
+      "contract": "Exchange",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "Stake",
+      "encoding": "Stake(address user,uint256 amount,uint256 nonce,uint64 deadline)",
+      "hash": "0x0e9469f2731f138fe05733a3ab1961961d9def010d73419c3f5b55ae6d64e8b0",
+      "contract": "PaperStaking",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "Unstake",
+      "encoding": "Unstake(address user,uint256 amount,uint256 nonce,uint64 deadline)",
+      "hash": "0x1ecc9b0f79f4bb74abad4adb49babe57570219b3bc83a569a9b25299f833a9ce",
+      "contract": "PaperStaking",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "Claim",
+      "encoding": "Claim(address user,uint256 nonce,uint64 deadline)",
+      "hash": "0x98df9450683706f5e3c8e5a81515893081ae7460248fbba60c7781957adc9f8f",
+      "contract": "PaperStaking",
+      "hashLiteralInRuntime": true
+    },
+    {
+      "type": "CancelIntent",
+      "encoding": "CancelIntent(address user,bytes32 intentId,uint256 deadline)",
+      "hash": "0xa35cd971369839445ca1bec7da15d6528a097bd9c3d0ebaf7d5d4f368f537b71",
+      "contract": "Exchange",
+      "hashLiteralInRuntime": false
+    }
+  ],
+  "domains": [
+    {
+      "contract": "Exchange",
+      "status": "unavailable"
+    },
+    {
+      "contract": "PaperStaking",
+      "status": "unavailable"
+    }
+  ],
+  "relayer": {
+    "endpoint": "https://exchange.papertrade.xyz/intents",
+    "evidence": "Observed official index bundle POST route; no POST submitted",
+    "accessTested": false
+  },
+  "contractWallet": {
+    "eip1271Verified": false,
+    "reason": "No verified source or authorised contract-wallet settlement test"
+  },
+  "sourceEquivalenceVerified": false,
+  "depositVerified": false,
+  "limitations": [
+    "Hash literals and EIP-5267 domain are partial evidence, not a full contract security review.",
+    "No official test deployment, funding or real signed intents used."
+  ]
+}

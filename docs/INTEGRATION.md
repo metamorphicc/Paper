@@ -27,3 +27,13 @@ npx.cmd tsx scripts/discover-contracts.ts
 Official wire/build используют internal USD и PAPER с 18 decimals; withdrawal amount и external collateral — 6 decimals. Onchain cliff/decay/raw balances согласуются с этой шкалой. Не применять external 6 decimals к internal account balances.
 
 **Расхождение collateral:** docs публикуют `0xb88339cb7199b77e23db6e890353e22632ba630f`, production browser wire — `0x6b9e773128f453f5c2c60935ee2de2cbc5390a24`. Deposits остаются отключёнными до проверки фактического пути; адрес из browser bundle не заменяет docs молча.
+
+## 1.3 — intents, relayer и точность сверки
+
+В `packages/protocol/intents.ts` перенесены наблюдаемые schemas RegisterSessionKey, OpenPosition, Close, WithdrawToCore, Stake, Unstake, Claim и CancelIntent. Сохранены порядок/типы полей, разные domains и алгоритм v2 intent ID. Локальный тест на никогда не финансируемом test account проверяет подпись, recovery, сериализацию и стабильный ID; подпись не отправляется в сеть.
+
+Observed POST route `/intents`, cancellation `/intents/ID/cancel`, header X-Papertrade-Build и Retry-After присутствуют в official assets. Это доказательство browser surface, не подтверждение разрешённого стороннего доступа, CORS/cookie контекста или settlement. Live POST не делался.
+
+`scripts/validate-integration.ts` фиксирует совпадение type-hash literals с runtime и пробует EIP-5267 domain. В данном чтении domain getters недоступны. Сверка official summary с RPC на заявленном `source.block` обнаружила несовпадение supply/stake/tracked LP; queue совпала. Причина не установлена: нельзя объявлять summary точным canonical snapshot. API и RPC в UI имеют отдельное происхождение, timestamp и status; live submission выключен также при таких расхождениях.
+
+Deposit/withdraw: внутренний margin/balance USD-18; WithdrawToCore typed amount — external USD-6. Withdrawals требуют wallet signature, session key не используется. Полный sweep/finalize/withdraw lifecycle и contract wallets не проверены. Emergency revoke/withdraw показываем как пользовательский переход к официальному интерфейсу/контракту, без выдуманного calldata.

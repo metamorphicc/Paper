@@ -7,7 +7,7 @@
 | 0 | Сохранить исходный исследовательский стенд | Готово: 37959f1 |
 | 1.1 | ABI/source текущих implementations и происхождение данных | Проверка реализована; source/ABI внешне недоступны, см. INTEGRATION.md |
 | 1.2 | Live economics, read-only adapter и capability matrix | Готово: 16 RPC getters, 3 RPC profiles, 2 official SSE wallet frames; parser tests прошли |
-| 1.3 | Intents/relayer, подписи, deposits/withdrawals и contract wallet evidence | Ожидает |
+| 1.3 | Intents/relayer, подписи, deposits/withdrawals и contract wallet evidence | Код и локальные signature checks готовы; third-party settlement/source/domain и collateral path внешне не подтверждены |
 | 2.1 | Web app, навигация, общий data API и дизайн | Ожидает |
 | 2.2 | Persistent indexer, replay/reorg, profiles и snapshots | Ожидает |
 | 2.3 | Leaderboard, treasury, points campaign и pilot metrics | Ожидает |
