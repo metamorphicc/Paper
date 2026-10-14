@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { isAddress } from 'viem';
+import { requestWallet } from '../../../packages/wallet/provider.js';
 type Provider = {
   request(input: { method: string; params?: unknown[] }): Promise<unknown>;
   on?(event: string, callback: (value: unknown) => void): void;
@@ -62,7 +63,10 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     p.on?.('chainChanged', chainChanged);
     p.on?.('disconnect', disconnected);
     let active = true;
-    void Promise.all([p.request({ method: 'eth_accounts' }), p.request({ method: 'eth_chainId' })])
+    void Promise.all([
+      requestWallet(p, { method: 'eth_accounts' }),
+      requestWallet(p, { method: 'eth_chainId' }),
+    ])
       .then(([accounts, chain]) => {
         if (active) {
           accountChanged(accounts);
@@ -84,9 +88,9 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       const p = provider.current;
       if (!p)
         throw new Error('No browser wallet found. Install a wallet or use the local account.');
-      const accounts = await p.request({ method: 'eth_requestAccounts' });
+      const accounts = await requestWallet(p, { method: 'eth_requestAccounts' });
       accountChanged(accounts);
-      chainChanged(await p.request({ method: 'eth_chainId' }));
+      chainChanged(await requestWallet(p, { method: 'eth_chainId' }));
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Wallet is not connected.');
     } finally {
@@ -100,10 +104,13 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       const p = provider.current;
       if (!p) throw new Error('Wallet is unavailable.');
       try {
-        await p.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x3e7' }] });
+        await requestWallet(p, {
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x3e7' }],
+        });
       } catch (error) {
         if ((error as { code?: number }).code !== 4902) throw error;
-        await p.request({
+        await requestWallet(p, {
           method: 'wallet_addEthereumChain',
           params: [
             {
@@ -116,7 +123,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
           ],
         });
       }
-      chainChanged(await p.request({ method: 'eth_chainId' }));
+      chainChanged(await requestWallet(p, { method: 'eth_chainId' }));
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Network was not switched.');
     } finally {

@@ -6,6 +6,8 @@
 
 **Статус 14.10.2026:** локальный код этапов 1–3 реализован; девять подэтапов и baseline сохраняются последовательными коммитами без push. Подробности — [IMPLEMENTATION.md](IMPLEMENTATION.md), проверки — [QA.md](QA.md). Verified source/ABI, domain, third-party relayer settlement, collateral flow и exact reconciliation ещё требуют внешней проверки. Галочки ниже обозначают конкретный реализованный результат, а не готовность денежного launch.
 
+**Продолжение:** ветка `paperclub-development`, весь сайт на английском. Локальные подэтапы 4–6 выполнены в доступном контуре: token/claims/treasury contracts с EVM-тестами, snapshots, path replay, cash-only vault model, security fixes и ops tooling. Параметры токена и бюджет пользователь ещё не выбрал. Это не денежный launch: independent audit, production custody и verified protocol integration остаются открытыми. Актуальные результаты и подэтапы — [CONTINUATION.md](CONTINUATION.md), [VALIDATION.md](VALIDATION.md).
+
 ## Уже выполнено
 
 - [x] Проверить исходные утверждения по официальной документации.
@@ -50,30 +52,30 @@
 ## Этап 4. Мемкоин, rewards и treasury — 5–10 дней
 
 - [ ] Выбрать имя/тикер, cap, distribution, campaign reserve, initial liquidity, права admin и бюджет. Подготовить варианты с расчётами, затем зафиксировать решения пользователя.
-- [ ] Реализовать token/rewards contracts с ограниченным выпуском, без скрытого transfer tax и неограниченного mint; отдельные treasury controls.
-- [ ] Реализовать deterministic snapshots, proofs, claims и защиту повторного получения.
+- [x] Реализовать token/rewards и treasury contracts в локальном EVM; фиксированный выпуск, отсутствие privileged mint/tax, immutable claims и лимиты treasury. Реального deploy нет.
+- [x] Реализовать deterministic snapshots, proofs, claims и защиту повторного получения; CLI требует явный бюджет и target address.
 - [ ] Публиковать распределение supply и полномочия; не называть распределение «fair launch», пока правила не соответствуют этому описанию.
 - [ ] Treasury dashboard: полученный USDC, затраты, PAPER, queue и исполненные buybacks; сверка transaction receipts.
-- [ ] Buyback policy с бюджетом, лимитом price impact и возможностью остановки. Никакой гарантированной доходности.
+- [x] Реализовать расчёт buyback policy из cash/revenue, reserve, period и price-impact limits; execution выключен.
 
 **Готово, когда:** supply/claims/permissions invariants проходят тесты, все allocations объяснимы, budget моделируется при нулевом builder revenue. Контракты развёрнуты только в тестовом контуре; mainnet launch идёт после отдельного review готовых параметров и результатов.
 
 ## Этап 5. Vault и strategy research — 7–15 дней
 
-- [ ] Расширить close-only модель до path simulation: неатомарные открытия, latency, market gaps, liquidation buffer, queue, harvest, pauses и changes in emission rate.
-- [ ] Сравнить no-trade baseline, ограниченное treasury trading и парную стратегию. PAPER держать отдельным активом без предполагаемой ликвидной цены.
-- [ ] Подключить historical replay; исключить lookahead, учитывать доступное на момент исполнения состояние.
+- [x] Расширить модель до sequential path simulation с задержкой ног, conservative OHLC liquidation, queue, modeled harvest, pauses/outage и emission sensitivity.
+- [x] Сравнить no-trade baseline, periodic long и парную стратегию на условном капитале; PAPER не оценивается как cash.
+- [x] Подключить replay завершённых BTC candles и no-lookahead tests. Historical protocol config неизвестен; текущие параметры обозначены как допущение.
 - [ ] Проверить contract-wallet integration. Если она недоступна, зафиксировать vault как blocked capability и продолжать остальные модули.
 - [ ] Подготовить стратегию на собственном ограниченном капитале только после симуляции и отдельного review её write-пути и бюджета.
-- [ ] Для пользовательского vault формально определить deposits, shares, cash NAV, queued claims, распределение PAPER economics, withdrawal requests и убытков.
-- [ ] Проверить partial redemption, отсутствие выплат из новых deposits, liquidation/relayer outages, вмешательство owner и недоступность HyperCore операций.
+- [x] Определить cash-only accounting model shares/NAV/redemption и сохранения queued/PAPER entitlements; это не deployable public vault.
+- [x] Проверить partial redemption, deposit/payment isolation и path liquidation/outages локально. Реальные HyperCore/owner/recovery сценарии ещё не подтверждены.
 
 **Готово, когда:** capital-at-risk и drawdown укладываются в заранее выбранные лимиты; downside сценарии понятны; cash redeem возможен по заявленным правилам без продажи non-transferable PAPER. Положительный APY на коротком периоде не считается доказательством. Если модель не проходит, public deposits не включаются; treasury-данные и хаб продолжают работать.
 
 ## Этап 6. Проверка и ограниченный запуск — 5–10 дней плюс внешний аудит
 
 - [ ] Провести review token/rewards/treasury/vault контрактов и wallet/relayer границ; независимый аудит перед публичным custody.
-- [ ] Добавить fork/invariant tests, upgrade monitoring, incident playbook и restore-проверку indexer.
+- [x] Добавить local EVM/accounting invariants, manual upgrade monitoring, incident playbook и backup/restore. Fork tests по verified Papertrade source ещё невозможны.
 - [ ] Подготовить конкретные адреса deploy, неизменяемые правила claims, лимиты, бюджет и начальную ликвидность к финальному review.
 - [ ] После разрешения соответствующего денежного действия включать модули с небольшими лимитами, наблюдая реальные settled receipts и cash availability.
 - [ ] Расширять лимиты только по результатам pilot; не компенсировать отрицательную экономику повышением плеча.

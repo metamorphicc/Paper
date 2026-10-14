@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { requestWallet } from '../../../packages/wallet/provider.js';
 type Provider = { request(input: { method: string; params?: unknown[] }): Promise<unknown> };
 export default function CampaignPanel() {
   const [busy, setBusy] = useState(false),
@@ -15,10 +16,12 @@ export default function CampaignPanel() {
         throw new Error(
           'A browser wallet is required to participate. Public data is available without one.',
         );
-      const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as string[];
+      const accounts = (await requestWallet(provider, {
+        method: 'eth_requestAccounts',
+      })) as string[];
       const account = accounts[0];
       if (!account) throw new Error('No address selected by the wallet.');
-      const chain = await provider.request({ method: 'eth_chainId' });
+      const chain = await requestWallet(provider, { method: 'eth_chainId' });
       if (chain !== '0x3e7') throw new Error('Switch your wallet to HyperEVM (999).');
       setAddress(account);
       const response = await fetch('/api/campaign', {
@@ -34,14 +37,14 @@ export default function CampaignPanel() {
         [...new TextEncoder().encode(challenge.message)]
           .map((value) => value.toString(16).padStart(2, '0'))
           .join('');
-      const signature = await provider.request({
+      const signature = await requestWallet(provider, {
         method: 'personal_sign',
         params: [encoded, account],
       });
-      const latest = (await provider.request({ method: 'eth_accounts' })) as string[];
+      const latest = (await requestWallet(provider, { method: 'eth_accounts' })) as string[];
       if (
         latest[0]?.toLowerCase() !== account.toLowerCase() ||
-        (await provider.request({ method: 'eth_chainId' })) !== '0x3e7'
+        (await requestWallet(provider, { method: 'eth_chainId' })) !== '0x3e7'
       )
         throw new Error('Address or network changed. Try again.');
       const claim = await fetch('/api/campaign', {

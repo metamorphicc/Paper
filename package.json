@@ -29,7 +29,8 @@
     "rewards:snapshot": "tsx scripts/campaign-snapshot.ts",
     "strategy:replay": "tsx scripts/replay-strategies.ts",
     "monitor:upgrades": "tsx scripts/check-upgrades.ts",
-    "data:backup": "tsx scripts/backup-data.ts"
+    "data:backup": "tsx scripts/backup-data.ts",
+    "launch:check": "tsx scripts/launch-readiness.ts"
   },
   "dependencies": {
     "viem": "2.57.6"

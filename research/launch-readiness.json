@@ -1,0 +1,97 @@
+{
+  "observedAtUtc": "2026-10-14T12:23:29.627Z",
+  "scope": "public financial launch",
+  "decision": "do-not-launch",
+  "blockers": [
+    {
+      "gate": "protocolSourceVerified",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "tokenomicsApproved",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "liquidityBudgetSelected",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "campaignBudgetSelected",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "recipientsAndMultisigReviewed",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "officialDomainVerified",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "collateralFlowVerified",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "thirdPartyRelayerSettlementVerified",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "contractWalletCompatibilityVerified",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "exactApiRpcReconciliation",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "independentAuditComplete",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "hyperEvmContractsTested",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "productionOpsValidated",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "claimsPrefunded",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "capitalPilotApproved",
+      "status": "not-satisfied"
+    }
+  ],
+  "liveSubmission": false,
+  "automaticDeploy": false,
+  "gates": {
+    "protocolSourceVerified": false,
+    "tokenomicsApproved": false,
+    "liquidityBudgetSelected": false,
+    "campaignBudgetSelected": false,
+    "recipientsAndMultisigReviewed": false,
+    "officialDomainVerified": false,
+    "collateralFlowVerified": false,
+    "thirdPartyRelayerSettlementVerified": false,
+    "contractWalletCompatibilityVerified": false,
+    "exactApiRpcReconciliation": false,
+    "independentAuditComplete": false,
+    "hyperEvmContractsTested": false,
+    "productionOpsValidated": false,
+    "claimsPrefunded": false,
+    "capitalPilotApproved": false
+  },
+  "localCapabilities": [
+    "English read-only hub",
+    "Signed local points",
+    "Isolated virtual trading sandbox",
+    "Local EVM token/claims/treasury tests",
+    "Historical-price scenario replay",
+    "Cash-only vault accounting research",
+    "Manual upgrade check and validated SQLite backup"
+  ],
+  "integrationEvidencePresent": true,
+  "explanation": "Passing local checks does not supply missing launch parameters, verified protocol integration, independent audit or real settlement evidence."
+}
