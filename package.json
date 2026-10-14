@@ -1,0 +1,17 @@
+{
+  "name": "papertrade-meme-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only protocol research and economic simulation for a Papertrade community product",
+  "engines": { "node": ">=24.11.1" },
+  "scripts": {
+    "capture": "tsx scripts/capture-docs.ts",
+    "probe": "tsx scripts/probe-chain.ts",
+    "simulate": "tsx scripts/simulate.ts",
+    "check": "tsc --noEmit",
+    "test": "tsx --test packages/economics/model.test.ts"
+  },
+  "dependencies": { "viem": "2.57.6" },
+  "devDependencies": { "@types/node": "26.6.5", "tsx": "4.23.15", "typescript": "7.0.2" }
+}

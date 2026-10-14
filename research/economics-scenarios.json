@@ -1,0 +1,276 @@
+{
+  "generatedAtUtc": "2026-10-14T09:20:41.573Z",
+  "kind": "illustrative-scenarios-not-live-forecast",
+  "assumptions": [
+    "BTC launch impact constants from official docs, not confirmed as current onchain values.",
+    "Both legs enter and close at identical timestamps/prices; real relayer execution may differ.",
+    "No liquidations, MEV, gaps, extra execution costs, market pause or changing admin parameters.",
+    "Fixed 100 PAPER per eligible dollar for examples only, not the current emission rate.",
+    "Queue-active case assumes the winning payout remains queued; actual timing depends on harvest and cash.",
+    "PAPER has no assumed liquid market price and is not valued as cash.",
+    "Revenue and stake-share scenarios are hypothetical inputs, not measured protocol returns.",
+    "Builder revenue set to zero in the business plan until launch and payout basis verification.",
+    "Stake owned by the model is constant; external stake grows once per month after distribution."
+  ],
+  "pairs": [
+    {
+      "name": "illustrative-solvent-close",
+      "marginPerLeg": 1000,
+      "leverage": 100,
+      "absoluteMove": 0.001,
+      "assumedPaperPerLossDollar": 100,
+      "queueActive": false,
+      "winPaidFraction": 1,
+      "initialCash": 2000,
+      "notionalPerLeg": 100000,
+      "rawLoss": 100,
+      "netWin": 72.43488360854863,
+      "economicCost": 27.56511639145137,
+      "availableCash": 1972.4348836085487,
+      "queuedGain": 0,
+      "lossMintBasis": 98,
+      "mintedPaperApprox": 9800,
+      "acquisitionCostPerPaper": 0.0028127669787195273
+    },
+    {
+      "name": "illustrative-queued-win",
+      "marginPerLeg": 1000,
+      "leverage": 100,
+      "absoluteMove": 0.001,
+      "assumedPaperPerLossDollar": 100,
+      "queueActive": true,
+      "winPaidFraction": 0,
+      "initialCash": 2000,
+      "notionalPerLeg": 100000,
+      "rawLoss": 100,
+      "netWin": 72.43488360854863,
+      "economicCost": 27.56511639145137,
+      "availableCash": 1900,
+      "queuedGain": 72.43488360854863,
+      "lossMintBasis": 100,
+      "mintedPaperApprox": 10000,
+      "acquisitionCostPerPaper": 0.0027565116391451367
+    }
+  ],
+  "projections": [
+    {
+      "name": "zero-paid-revenue",
+      "acquisitionCost": 1000,
+      "initialStakeShare": 0.01,
+      "monthlyPaidPoolRewards": 0,
+      "monthlyOtherStakeGrowth": 0.2,
+      "months": 12,
+      "monthly": [
+        {
+          "month": 1,
+          "share": 0.01,
+          "received": 0
+        },
+        {
+          "month": 2,
+          "share": 0.008347245409015026,
+          "received": 0
+        },
+        {
+          "month": 3,
+          "share": 0.006965728615213151,
+          "received": 0
+        },
+        {
+          "month": 4,
+          "share": 0.00581152075875215,
+          "received": 0
+        },
+        {
+          "month": 5,
+          "share": 0.004847629315359617,
+          "received": 0
+        },
+        {
+          "month": 6,
+          "share": 0.004042957556061267,
+          "received": 0
+        },
+        {
+          "month": 7,
+          "share": 0.0033714030366146248,
+          "received": 0
+        },
+        {
+          "month": 8,
+          "share": 0.0028110820789550473,
+          "received": 0
+        },
+        {
+          "month": 9,
+          "share": 0.002343666438916788,
+          "received": 0
+        },
+        {
+          "month": 10,
+          "share": 0.001953818548924131,
+          "received": 0
+        },
+        {
+          "month": 11,
+          "share": 0.0016287124922164686,
+          "received": 0
+        },
+        {
+          "month": 12,
+          "share": 0.0013576289413831616,
+          "received": 0
+        }
+      ],
+      "cumulativeReceived": 0,
+      "netAfterAcquisition": -1000,
+      "breakEvenMonth": null
+    },
+    {
+      "name": "hypothetical-stable-revenue",
+      "acquisitionCost": 1000,
+      "initialStakeShare": 0.01,
+      "monthlyPaidPoolRewards": 10000,
+      "monthlyOtherStakeGrowth": 0,
+      "months": 12,
+      "monthly": [
+        {
+          "month": 1,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 2,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 3,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 4,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 5,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 6,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 7,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 8,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 9,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 10,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 11,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 12,
+          "share": 0.01,
+          "received": 100
+        }
+      ],
+      "cumulativeReceived": 1200,
+      "netAfterAcquisition": 200,
+      "breakEvenMonth": 10
+    },
+    {
+      "name": "same-revenue-with-dilution",
+      "acquisitionCost": 1000,
+      "initialStakeShare": 0.01,
+      "monthlyPaidPoolRewards": 10000,
+      "monthlyOtherStakeGrowth": 0.2,
+      "months": 12,
+      "monthly": [
+        {
+          "month": 1,
+          "share": 0.01,
+          "received": 100
+        },
+        {
+          "month": 2,
+          "share": 0.008347245409015026,
+          "received": 83.47245409015026
+        },
+        {
+          "month": 3,
+          "share": 0.006965728615213151,
+          "received": 69.65728615213152
+        },
+        {
+          "month": 4,
+          "share": 0.00581152075875215,
+          "received": 58.1152075875215
+        },
+        {
+          "month": 5,
+          "share": 0.004847629315359617,
+          "received": 48.47629315359617
+        },
+        {
+          "month": 6,
+          "share": 0.004042957556061267,
+          "received": 40.42957556061267
+        },
+        {
+          "month": 7,
+          "share": 0.0033714030366146248,
+          "received": 33.71403036614625
+        },
+        {
+          "month": 8,
+          "share": 0.0028110820789550473,
+          "received": 28.110820789550473
+        },
+        {
+          "month": 9,
+          "share": 0.002343666438916788,
+          "received": 23.436664389167877
+        },
+        {
+          "month": 10,
+          "share": 0.001953818548924131,
+          "received": 19.53818548924131
+        },
+        {
+          "month": 11,
+          "share": 0.0016287124922164686,
+          "received": 16.287124922164686
+        },
+        {
+          "month": 12,
+          "share": 0.0013576289413831616,
+          "received": 13.576289413831615
+        }
+      ],
+      "cumulativeReceived": 534.8139319141144,
+      "netAfterAcquisition": -465.1860680858856,
+      "breakEvenMonth": null
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "observedAtUtc": "2026-10-14T09:20:42.938Z",
+  "status": "rpc-connected",
+  "chainId": 999,
+  "blockNumber": "48508187",
+  "blockHash": "0x7480a0fc20736a16c0937f2761d5ec9af855ee92ea9e05e8a8a440b0e8288486",
+  "blockTimestampUtc": "2026-10-14T09:20:44.000Z",
+  "contracts": [
+    {
+      "name": "Exchange",
+      "address": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+      "codeBytes": 925,
+      "implementationSlot": "0x0000000000000000000000000f3febfc94876b0c895f7acecdc8f5c863b549ee",
+      "status": "code-present"
+    },
+    {
+      "name": "BatchExecutor",
+      "address": "0x233ff29b239abc1d7748605da9b205c3e008626e",
+      "codeBytes": 925,
+      "implementationSlot": "0x000000000000000000000000e0bc9cc7b067060aafccbaa3e250700c9cdd7262",
+      "status": "code-present"
+    },
+    {
+      "name": "PriceOracle",
+      "address": "0xa9b4c7b7ca5835652d81e25739c870d49f39cc2e",
+      "codeBytes": 925,
+      "implementationSlot": "0x0000000000000000000000003997ffc8cbd281d4fc8d0548e505ae2fbbbd985a",
+      "status": "code-present"
+    },
+    {
+      "name": "SessionKeyManager",
+      "address": "0x8326eb8896e358717f10502ec73ce8d28e37b108",
+      "codeBytes": 925,
+      "implementationSlot": "0x0000000000000000000000008a5069fe303e8f81e91825436e956d595032e558",
+      "status": "code-present"
+    },
+    {
+      "name": "DepositProxyFactory",
+      "address": "0x1629b7d46bef6e13ff754174fc9f32dea309b38f",
+      "codeBytes": 925,
+      "implementationSlot": "0x0000000000000000000000008f22a73a23a2de0dbfdf6729f4d8c07dbdc69cf0",
+      "status": "code-present"
+    },
+    {
+      "name": "PaperToken",
+      "address": "0xe40f17915daa230324030003a197cdaef2261c0e",
+      "codeBytes": 925,
+      "implementationSlot": "0x000000000000000000000000433bd418ec92818a960585f4d5fae563e735bb4a",
+      "status": "code-present"
+    },
+    {
+      "name": "PaperStaking",
+      "address": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+      "codeBytes": 925,
+      "implementationSlot": "0x000000000000000000000000e6e3519455170913c5c3bfe541dd918a2d0cbb15",
+      "status": "code-present"
+    },
+    {
+      "name": "PaperTokenomics",
+      "address": "0x75174549dbbd44497d31a47e2e2d7406408d63d9",
+      "codeBytes": 925,
+      "implementationSlot": "0x000000000000000000000000600d1b9653fd47fc1543d1cc87f33ba2d2fdf48f",
+      "status": "code-present"
+    },
+    {
+      "name": "USDC",
+      "address": "0xb88339cb7199b77e23db6e890353e22632ba630f",
+      "codeBytes": 1798,
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "status": "code-present"
+    },
+    {
+      "name": "Timelock",
+      "address": "0xb915fa41e824d6aa31bb833ee81220c0f2c8ea0f",
+      "codeBytes": 3207,
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "status": "code-present"
+    },
+    {
+      "name": "Multisig",
+      "address": "0x696292762fd5ac3677a45edbe54eaece4194d1f6",
+      "codeBytes": 3134,
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "status": "code-present"
+    }
+  ],
+  "tokenReads": {
+    "totalSupply": "7014332481220165713285292372",
+    "decimals": 18,
+    "symbol": "PAPER"
+  },
+  "limitations": [
+    "Bytecode presence does not verify source or safety.",
+    "Builder activation, relayer access and economic state not inferred from bytecode.",
+    "No transactions or wallet signing performed."
+  ]
+}

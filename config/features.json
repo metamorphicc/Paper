@@ -1,0 +1,11 @@
+{
+  "communityReadOnly": true,
+  "walletSigning": false,
+  "tradingSubmission": false,
+  "builderRevenue": false,
+  "tokenDeployment": false,
+  "rewardsDistribution": false,
+  "vaultDeposits": false,
+  "treasuryTrading": false,
+  "reason": "Research environment; enable each live feature only after its acceptance criteria in docs/PLAN.md are met."
+}
