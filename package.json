@@ -20,6 +20,7 @@
     "build": "npm run build --workspace=@paperclub/web",
     "check:web": "npm run check --workspace=@paperclub/web",
     "read:protocol": "tsx scripts/read-protocol.ts",
+    "read:domains": "tsx scripts/read-signature-domains.ts",
     "capture:official": "tsx scripts/capture-official.ts",
     "validate:integration": "tsx scripts/validate-integration.ts",
     "index": "tsx scripts/index-chain.ts",

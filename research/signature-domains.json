@@ -1,0 +1,84 @@
+{
+  "observedAtUtc": "2026-10-14T15:41:52.403Z",
+  "chainId": 999,
+  "block": "48531432",
+  "blockHash": "0x71daa4233db20e4770ca26589af7de6a6bcb321bdcba0b3ea15f7a72eae3d872",
+  "contracts": [
+    {
+      "name": "Exchange",
+      "address": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+      "implementation": "0x0f3febfc94876b0c895f7acecdc8f5c863b549ee",
+      "runtimeHash": "0x9d20287df886415035d53344a0dc8a1044949308cc3283ee0fe7ea5f3ea28d92",
+      "expected": {
+        "name": "String",
+        "version": "1",
+        "chainId": 999,
+        "verifyingContract": "0x6cd5661646289fb6e65ea5c032310fded797d0a2"
+      },
+      "expectedSeparator": "0x53a2ab5a64b3239d36b108fb4cd035ebb40ed3f71dec28e37966622670147e77",
+      "separators": [
+        {
+          "getter": "DOMAIN_SEPARATOR",
+          "selector": "0x3644e515",
+          "selectorLiteralInRuntime": false,
+          "status": "unavailable",
+          "errorClass": "ContractFunctionExecutionError"
+        },
+        {
+          "getter": "domainSeparator",
+          "selector": "0xf698da25",
+          "selectorLiteralInRuntime": false,
+          "status": "unavailable",
+          "errorClass": "ContractFunctionExecutionError"
+        }
+      ],
+      "introspection": {
+        "status": "unavailable",
+        "errorClass": "ContractFunctionExecutionError"
+      },
+      "domainObservedAtBlock": false
+    },
+    {
+      "name": "PaperStaking",
+      "address": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+      "implementation": "0xe6e3519455170913c5c3bfe541dd918a2d0cbb15",
+      "runtimeHash": "0x54573c497e5109e353cf5330343323915e0c0f26e1b410fd3cb2cd8d1460f154",
+      "expected": {
+        "name": "PaperStaking",
+        "version": "1",
+        "chainId": 999,
+        "verifyingContract": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016"
+      },
+      "expectedSeparator": "0x71706d56c8b436981e93987cd97df512528491b243c6d8d1614cad52659e7eb0",
+      "separators": [
+        {
+          "getter": "DOMAIN_SEPARATOR",
+          "selector": "0x3644e515",
+          "selectorLiteralInRuntime": true,
+          "status": "observed",
+          "value": "0x71706d56c8b436981e93987cd97df512528491b243c6d8d1614cad52659e7eb0",
+          "matchesExpected": true
+        },
+        {
+          "getter": "domainSeparator",
+          "selector": "0xf698da25",
+          "selectorLiteralInRuntime": false,
+          "status": "unavailable",
+          "errorClass": "ContractFunctionExecutionError"
+        }
+      ],
+      "introspection": {
+        "status": "unavailable",
+        "errorClass": "ContractFunctionExecutionError"
+      },
+      "domainObservedAtBlock": true
+    }
+  ],
+  "evidenceComplete": false,
+  "liveSubmission": false,
+  "limitations": [
+    "Only common public separator getters and EIP-5267 were tested; unavailable does not prove the absence of an internal domain.",
+    "Domain evidence alone does not verify intent execution, EIP-1271, relayer access, deposits or source equivalence.",
+    "CancelIntent has a separate observed frontend domain and is not covered by these checks."
+  ]
+}

@@ -30,3 +30,5 @@ The rejected warm palette was replaced with the original light Cobalt system. Si
 - Browser evidence: artifacts/design/overview-full.jpg and research-spacing.jpg. Source/reference evidence remains separate from runtime data; no source video published.
 
 This validates the local design revision. Source equivalence, EIP-712 domain, relayer access, contract-wallet settlement, capital choices and a public-money pilot remain unresolved.
+
+Read-only integration follow-up: root/web typechecks passed. The domain reader observed the PaperStaking public separator matching the expected domain at block 48531432; Exchange remains unavailable through the tested getters. Chain ID, implementation/runtime hashes, actual separators and block hash are retained in research/signature-domains.json. No signature, transaction or relayer POST was submitted, and no feature gate changed.

@@ -37,3 +37,11 @@ Observed POST route `/intents`, cancellation `/intents/ID/cancel`, header X-Pape
 `scripts/validate-integration.ts` фиксирует совпадение type-hash literals с runtime и пробует EIP-5267 domain. В данном чтении domain getters недоступны. Сверка official summary с RPC на заявленном `source.block` обнаружила несовпадение supply/stake/tracked LP; queue совпала. Причина не установлена: нельзя объявлять summary точным canonical snapshot. API и RPC в UI имеют отдельное происхождение, timestamp и status; live submission выключен также при таких расхождениях.
 
 Deposit/withdraw: внутренний margin/balance USD-18; WithdrawToCore typed amount — external USD-6. Withdrawals требуют wallet signature, session key не используется. Полный sweep/finalize/withdraw lifecycle и contract wallets не проверены. Emergency revoke/withdraw показываем как пользовательский переход к официальному интерфейсу/контракту, без выдуманного calldata.
+
+## Read-only domain follow-up
+
+`npm run read:domains` checks the RPC chain ID, pins one block, resolves both EIP-1967 implementations and records their runtime hashes. It compares the observed frontend domains with public `DOMAIN_SEPARATOR()` / `domainSeparator()` getters and attempts EIP-5267 introspection. It submits no signatures, transactions or relayer POST requests.
+
+At block 48531432, PaperStaking's `DOMAIN_SEPARATOR()` equals the computed separator for name `PaperStaking`, version `1`, chain ID `999` and staking proxy address `0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016`. This confirms that domain at the pinned block; EIP-5267 remains unavailable. Exchange's two tested separator getters and EIP-5267 remain unavailable, so its observed frontend name `String` is still unconfirmed onchain. Unavailable getters do not prove that an internal domain is absent.
+
+The report is `research/signature-domains.json`. CancelIntent's separate domain is outside these checks. Matching a domain does not verify signature authorization, EIP-1271, relayer access, deposits, settlement or source equivalence. The financial launch gate remains incomplete and live submission remains disabled.
