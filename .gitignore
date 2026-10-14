@@ -7,4 +7,7 @@ dist/
 out/
 cache/
 *.log
+research/explorer/
+research/contracts/*.explorer.html
+research/third-party-evidence.json
 

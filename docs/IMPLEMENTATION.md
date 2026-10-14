@@ -4,8 +4,8 @@
 
 | Подэтап | Результат | Статус |
 |---|---|---|
-| 0 | Сохранить исходный исследовательский стенд | В работе |
-| 1.1 | ABI/source текущих implementations и происхождение данных | Ожидает |
+| 0 | Сохранить исходный исследовательский стенд | Готово: 37959f1 |
+| 1.1 | ABI/source текущих implementations и происхождение данных | Проверка реализована; source/ABI внешне недоступны, см. INTEGRATION.md |
 | 1.2 | Live economics, read-only adapter и capability matrix | Ожидает |
 | 1.3 | Intents/relayer, подписи, deposits/withdrawals и contract wallet evidence | Ожидает |
 | 2.1 | Web app, навигация, общий data API и дизайн | Ожидает |

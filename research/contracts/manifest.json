@@ -1,0 +1,291 @@
+{
+  "observedAtUtc": "2026-10-14T09:41:34.982Z",
+  "chainId": 999,
+  "blockNumber": "48509455",
+  "records": [
+    {
+      "name": "Exchange",
+      "proxy": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+      "implementation": "0x0f3febfc94876b0c895f7acecdc8f5c863b549ee",
+      "runtimeHash": "0x9d20287df886415035d53344a0dc8a1044949308cc3283ee0fe7ea5f3ea28d92",
+      "runtimeBytes": 23052,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmX46b3W8qXKJWqiheKCwQaeyY1AhJK88ct7FQwezQiGyE",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x0f3febfc94876b0c895f7acecdc8f5c863b549ee?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x0f3febfc94876b0c895f7acecdc8f5c863b549ee#code",
+          "status": 200,
+          "sha256": "7f5682464371206cf9a57108aaeac48193467c47b437be0260e0eda84307560a"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmX46b3W8qXKJWqiheKCwQaeyY1AhJK88ct7FQwezQiGyE",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmX46b3W8qXKJWqiheKCwQaeyY1AhJK88ct7FQwezQiGyE",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "BatchExecutor",
+      "proxy": "0x233ff29b239abc1d7748605da9b205c3e008626e",
+      "implementation": "0xe0bc9cc7b067060aafccbaa3e250700c9cdd7262",
+      "runtimeHash": "0xe926c659aca61daaaf9e68267817be4dae5152f11320a6ba970549dfdd15f62a",
+      "runtimeBytes": 3451,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmTiKErBBVePcUG4H1B7v5RUjsNhC8GErCosgsgW27Qkoj",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0xe0bc9cc7b067060aafccbaa3e250700c9cdd7262?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0xe0bc9cc7b067060aafccbaa3e250700c9cdd7262#code",
+          "status": 200,
+          "sha256": "0a3130efd1b6a569799aa3166dabdb7f5774624c070debbd0c3211fddbbc857b"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmTiKErBBVePcUG4H1B7v5RUjsNhC8GErCosgsgW27Qkoj",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmTiKErBBVePcUG4H1B7v5RUjsNhC8GErCosgsgW27Qkoj",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "PriceOracle",
+      "proxy": "0xa9b4c7b7ca5835652d81e25739c870d49f39cc2e",
+      "implementation": "0x3997ffc8cbd281d4fc8d0548e505ae2fbbbd985a",
+      "runtimeHash": "0x75f094dab1fb771fc5ed5953a02be453a5d35dc4878b53a9e6a11c7d9e4e679c",
+      "runtimeBytes": 2475,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmQ4M1bWwdR7kd87K7RUxKAkyKY4LxEM7ohptyxqG52LVf",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x3997ffc8cbd281d4fc8d0548e505ae2fbbbd985a?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x3997ffc8cbd281d4fc8d0548e505ae2fbbbd985a#code",
+          "status": 200,
+          "sha256": "00fae1aeea8b2a7e0dec3aa7db28e7f2701d5210031582dfc7316224fc0bc9e7"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmQ4M1bWwdR7kd87K7RUxKAkyKY4LxEM7ohptyxqG52LVf",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmQ4M1bWwdR7kd87K7RUxKAkyKY4LxEM7ohptyxqG52LVf",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "SessionKeyManager",
+      "proxy": "0x8326eb8896e358717f10502ec73ce8d28e37b108",
+      "implementation": "0x8a5069fe303e8f81e91825436e956d595032e558",
+      "runtimeHash": "0x337787e630c4fe48e2cea45e1dbd7cb12be2254d158042ee1cd446e706d5c484",
+      "runtimeBytes": 3764,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "Qmb7JMRfihfJtQQb7TyKX7XCRyYqTv6cJ5gu9zjaNAoRCz",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x8a5069fe303e8f81e91825436e956d595032e558?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x8a5069fe303e8f81e91825436e956d595032e558#code",
+          "status": 200,
+          "sha256": "319552db8811119ff9fdaf53fb9445535abc80401dd58f35165d522bfbd1dbcb"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/Qmb7JMRfihfJtQQb7TyKX7XCRyYqTv6cJ5gu9zjaNAoRCz",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/Qmb7JMRfihfJtQQb7TyKX7XCRyYqTv6cJ5gu9zjaNAoRCz",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "DepositProxyFactory",
+      "proxy": "0x1629b7d46bef6e13ff754174fc9f32dea309b38f",
+      "implementation": "0x8f22a73a23a2de0dbfdf6729f4d8c07dbdc69cf0",
+      "runtimeHash": "0xb8ab2884da3e386fc6a5e27971a39247ea6285f35160e85b304be742c0f28812",
+      "runtimeBytes": 3917,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmXzpjtPZvHohaykjmN8vfiEXPDop6Q4PUQzxxv7wDp5cE",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x8f22a73a23a2de0dbfdf6729f4d8c07dbdc69cf0?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x8f22a73a23a2de0dbfdf6729f4d8c07dbdc69cf0#code",
+          "status": 200,
+          "sha256": "4092f5772abd18e08c261f39f67d640ac0af81a0320ed6a5731442eab0ec8425"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmXzpjtPZvHohaykjmN8vfiEXPDop6Q4PUQzxxv7wDp5cE",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmXzpjtPZvHohaykjmN8vfiEXPDop6Q4PUQzxxv7wDp5cE",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "PaperToken",
+      "proxy": "0xe40f17915daa230324030003a197cdaef2261c0e",
+      "implementation": "0x433bd418ec92818a960585f4d5fae563e735bb4a",
+      "runtimeHash": "0x087aaaf8472c1ca9bb313493a83fca6f5497d639ef46e6ca2ed0ef4cab85a590",
+      "runtimeBytes": 3528,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmaVaqWSfTTojgwEGNoxx6fwcb4HHfxLgEZHMnyypTDimW",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x433bd418ec92818a960585f4d5fae563e735bb4a?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x433bd418ec92818a960585f4d5fae563e735bb4a#code",
+          "status": 200,
+          "sha256": "f6337d59034f574fdd69fb4aadaaa7426c6ff043879c857e8bc903dba0da5065"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmaVaqWSfTTojgwEGNoxx6fwcb4HHfxLgEZHMnyypTDimW",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmaVaqWSfTTojgwEGNoxx6fwcb4HHfxLgEZHMnyypTDimW",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "PaperStaking",
+      "proxy": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+      "implementation": "0xe6e3519455170913c5c3bfe541dd918a2d0cbb15",
+      "runtimeHash": "0x54573c497e5109e353cf5330343323915e0c0f26e1b410fd3cb2cd8d1460f154",
+      "runtimeBytes": 6054,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmfQfc7F2GkFqT2erj6Y4wSjv3aGmKvqVeJAhHphTU443j",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0xe6e3519455170913c5c3bfe541dd918a2d0cbb15?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0xe6e3519455170913c5c3bfe541dd918a2d0cbb15#code",
+          "status": 200,
+          "sha256": "721b9d65fa2cb62d28b6924643acc810307d6070a8d27724370d735dad56e11d"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmfQfc7F2GkFqT2erj6Y4wSjv3aGmKvqVeJAhHphTU443j",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmfQfc7F2GkFqT2erj6Y4wSjv3aGmKvqVeJAhHphTU443j",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "name": "PaperTokenomics",
+      "proxy": "0x75174549dbbd44497d31a47e2e2d7406408d63d9",
+      "implementation": "0x600d1b9653fd47fc1543d1cc87f33ba2d2fdf48f",
+      "runtimeHash": "0xd9fbc7091e10f4d56188f3097454bd8464ed4b77b5f44d1c6391be72b9362169",
+      "runtimeBytes": 3324,
+      "compilerFromCbor": "0.8.24",
+      "metadataCid": "QmTzAufKD1E4sr8hrGJmBDhGFrfoqbY8uaojfXwj2kz4zh",
+      "metadataPresent": false,
+      "abiPresent": false,
+      "explorerVerified": false,
+      "sourceEquivalenceVerified": false,
+      "attempts": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x600d1b9653fd47fc1543d1cc87f33ba2d2fdf48f?fields=all",
+          "status": 404,
+          "sha256": null
+        },
+        {
+          "url": "https://hyperevmscan.io/address/0x600d1b9653fd47fc1543d1cc87f33ba2d2fdf48f#code",
+          "status": 200,
+          "sha256": "a7ba9489efb300eadac3873ecb6c4202d7ad215866e27335d30de73c76dd4b17"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmTzAufKD1E4sr8hrGJmBDhGFrfoqbY8uaojfXwj2kz4zh",
+          "status": 429,
+          "sha256": null
+        },
+        {
+          "url": "https://dweb.link/ipfs/QmTzAufKD1E4sr8hrGJmBDhGFrfoqbY8uaojfXwj2kz4zh",
+          "status": 429,
+          "sha256": null
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Metadata/ABI presence alone does not prove source equivalence; compilation match is required.",
+    "No retrieved JavaScript or Solidity is executed."
+  ]
+}
