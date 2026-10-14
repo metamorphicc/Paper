@@ -11,7 +11,7 @@ console.table(Object.entries(snapshot.values).map(([field, value]) => ({ field, 
 // Staking/tokenomics contracts are deterministic control addresses, not invented users.
 const profiles = await Promise.all(
   [ADDRESSES.PaperStaking, ADDRESSES.Exchange, ADDRESSES.PaperTokenomics].map((address) =>
-    readProfile(address, BigInt(snapshot.blockNumber)),
+    readProfile(address),
   ),
 );
 await writeFile(
@@ -19,5 +19,5 @@ await writeFile(
   JSON.stringify(profiles, null, 2) + '\n',
 );
 console.log(
-  `Pinned snapshot at ${snapshot.blockNumber}; ${profiles.length} control profiles recorded.`,
+  `Latest observations, sampled head ${snapshot.blockNumber}; ${profiles.length} control profiles recorded. State is not block-pinned.`,
 );

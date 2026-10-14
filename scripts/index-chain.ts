@@ -33,13 +33,20 @@ try {
   const from = cursor ? Math.max(cursor.from_block, cursor.through_block - 12) : configuredFrom;
   // Bounded batches prevent huge accidental backfills. Re-run to continue larger histories.
   const to = Math.min(latest, from + 127);
-  const logs = await client.getLogs({
-    address: ADDRESSES.PaperToken,
-    event: parseAbiItem('event Transfer(address indexed from, address indexed to, uint256 value)'),
-    fromBlock: BigInt(from),
-    toBlock: BigInt(to),
-    strict: true,
-  });
+  const logs = [];
+  for (let chunkFrom = from; chunkFrom <= to; chunkFrom += 50) {
+    logs.push(
+      ...(await client.getLogs({
+        address: ADDRESSES.PaperToken,
+        event: parseAbiItem(
+          'event Transfer(address indexed from, address indexed to, uint256 value)',
+        ),
+        fromBlock: BigInt(chunkFrom),
+        toBlock: BigInt(Math.min(to, chunkFrom + 49)),
+        strict: true,
+      })),
+    );
+  }
   const blocks: BlockRecord[] = [];
   for (let start = from; start <= to; start += 8) {
     const batch = await Promise.all(

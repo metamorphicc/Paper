@@ -1,14 +1,16 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { keccak256, toHex, parseAbi, type Address } from 'viem';
 import { intentDomain, intentTypes } from '../packages/protocol/intents.js';
-import { ADDRESSES, publicClient } from '../packages/protocol/registry.js';
+import { ADDRESSES, archiveClient } from '../packages/protocol/registry.js';
+import { assertHistoricalState } from '../packages/protocol/archive.js';
 const manifest = JSON.parse(
   await readFile(new URL('../research/contracts/manifest.json', import.meta.url), 'utf8'),
 );
 const state = JSON.parse(
   await readFile(new URL('../research/official-state.json', import.meta.url), 'utf8'),
 );
-const client = publicClient();
+const client = archiveClient();
+await assertHistoricalState(client, ADDRESSES.PaperToken);
 const comparisons = await Promise.all(
   [
     ['PaperToken', 'totalSupply', state.summary.paper.supply],

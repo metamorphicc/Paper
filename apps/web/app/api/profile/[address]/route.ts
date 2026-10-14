@@ -23,6 +23,9 @@ export async function GET(_request: Request, context: { params: Promise<{ addres
         ? {
             source: 'rpc',
             block: rpc.blockNumber,
+            statePinned: rpc.statePinned,
+            stateMode: rpc.stateMode,
+            headAfter: rpc.headAfter,
             observedAt: rpc.observedAtUtc,
             value: rpc.values.pendingReward,
           }

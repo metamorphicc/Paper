@@ -32,3 +32,7 @@ Integration continuation: added a reproducible public signature-domain reader (`
 ### Remaining integration work: first follow-up
 
 The passive source/relayer/contract-wallet probe is complete. Source metadata still cannot be verified; OPTIONS `/intents` returned 405 for the local frontend origin. Contract-wallet support remains unproven. These observations do not authorize or simulate settlement. Staking capability copy now reflects the separately confirmed onchain domain while retaining its write/settlement blockers. The next independent deliverable is confirmed treasury transfer accounting (stage 4 dashboard support).
+
+### RPC provenance correction
+
+The default RPC silently returned current state for historical tags. Earlier statements of pinned code/domain/balance observations are superseded by the correction in INTEGRATION.md. Readers now expose latest-state provenance; exact historical validation requires an explicit archive provider plus capability checks. PaperStaking domain equality is still observed, but not at a pinned block. An archive-canary regression test rejects latest-only responses and failures. Indexer log ranges now respect the documented 50-block limit.

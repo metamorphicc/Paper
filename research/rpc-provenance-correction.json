@@ -1,0 +1,11 @@
+{
+  "scope": "RPC provenance correction",
+  "primaryDocumentation": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/json-rpc",
+  "defaultRpcHistoricalStateSupported": false,
+  "observation": "PaperToken code and balance requests at genesis and two later blocks returned the same latest state",
+  "affectedEarlierEvidence": ["chain-snapshot.json", "contracts/manifest.json", "live-protocol.json", "control-profiles.json", "integration-validation.json", "signature-domains.json", "upgrade-check.json"],
+  "interpretation": "Earlier state block numbers are sampled head context, not historical state pinning. Earlier summary/RPC mismatch does not prove a protocol accounting defect.",
+  "stakingDomain": "Equality remains observed in latest state; no pinned-block guarantee",
+  "requiredForHistoricalState": "Explicit archive RPC, capability canary and balance/receipt consistency",
+  "liveSubmission": false
+}

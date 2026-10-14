@@ -137,7 +137,7 @@ export default function Profile() {
               <p className="fine-print">
                 {' '}
                 PendingBase is an accumulator snapshot, not the full current pendingReward.
-                Claimable USDC is read separately below from RPC, with its own block.{' '}
+                Claimable USDC is read separately below from the latest RPC state.{' '}
               </p>
             </section>
             <section className="notes-column">
@@ -227,7 +227,7 @@ export default function Profile() {
             </strong>
             <p className="fine-print">
               {result.pendingReward
-                ? `pendingReward · block ${result.pendingReward.block} · ${localTime(result.pendingReward.observedAt)} UTC`
+                ? `pendingReward · latest RPC · sampled head ${result.pendingReward.block} · ${localTime(result.pendingReward.observedAt)} UTC`
                 : 'RPC read unavailable; an unknown reward is not treated as zero.'}
             </p>
           </section>

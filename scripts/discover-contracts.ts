@@ -38,12 +38,12 @@ const records = await Promise.all(
     const proxy = raw.toLowerCase() as Address;
     const slot = await client.getStorageAt({
       address: proxy,
-      blockNumber,
+      blockTag: 'latest',
       slot: '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc',
     });
     const implementation =
       slot && BigInt(slot) !== 0n ? (('0x' + slot.slice(-40)) as Address) : proxy;
-    const runtime = await client.getCode({ address: implementation, blockNumber });
+    const runtime = await client.getCode({ address: implementation, blockTag: 'latest' });
     if (!runtime || runtime === '0x') throw new Error(`No code at ${name}`);
     const cbor = runtime.match(/a264697066735822(1220[0-9a-f]{64})64736f6c6343([0-9a-f]{6})0033$/i);
     const cid = cbor ? base58(cbor[1]!) : null;
@@ -101,8 +101,11 @@ const report = {
   observedAtUtc: new Date().toISOString(),
   chainId: 999,
   blockNumber: blockNumber.toString(),
+  statePinned: false,
+  stateMode: 'latest-observation',
   records,
   limitations: [
+    'Block number is sampled head context. Default RPC state methods support latest only, so code/storage observations are not pinned to that block.',
     'Metadata/ABI presence alone does not prove source equivalence; compilation match is required.',
     'No retrieved JavaScript or Solidity is executed.',
   ],

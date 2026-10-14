@@ -21,6 +21,9 @@ try {
     chainId: observed.chainId,
     block: observed.blockNumber,
     blockHash: observed.blockHash,
+    statePinned: observed.statePinned,
+    stateMode: observed.stateMode,
+    headAfter: observed.headAfter,
     fingerprint: observed.fingerprint,
     ...comparison,
   };

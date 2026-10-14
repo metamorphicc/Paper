@@ -20,12 +20,19 @@ export const ADDRESSES = {
 } as const satisfies Record<string, Address>;
 export const IMPLEMENTATION_SLOT =
   '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
-export function publicClient() {
+export function publicClient(
+  rpcUrl = process.env.HYPEREVM_RPC_URL ?? 'https://rpc.hyperliquid.xyz/evm',
+) {
   return createPublicClient({
     chain: hyperEvm,
-    transport: http(process.env.HYPEREVM_RPC_URL ?? 'https://rpc.hyperliquid.xyz/evm', {
+    transport: http(rpcUrl, {
       timeout: 12_000,
       retryCount: 1,
     }),
   });
+}
+export function archiveClient() {
+  const rpcUrl = process.env.HYPEREVM_ARCHIVE_RPC_URL;
+  if (!rpcUrl) throw new Error('Historical state requires a separately configured archive RPC');
+  return publicClient(rpcUrl);
 }

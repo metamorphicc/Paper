@@ -1,8 +1,11 @@
 {
-  "observedAtUtc": "2026-10-14T15:41:52.403Z",
+  "observedAtUtc": "2026-10-14T16:13:24.609Z",
   "chainId": 999,
-  "block": "48531432",
-  "blockHash": "0x71daa4233db20e4770ca26589af7de6a6bcb321bdcba0b3ea15f7a72eae3d872",
+  "block": "48533358",
+  "blockHash": "0xff667330b73332ce3329b3d94560bb4a7b0adb757f8da65ef9c421d3eb6cf592",
+  "statePinned": false,
+  "stateMode": "latest-observation",
+  "headAfter": "48533360",
   "contracts": [
     {
       "name": "Exchange",
@@ -36,7 +39,7 @@
         "status": "unavailable",
         "errorClass": "ContractFunctionExecutionError"
       },
-      "domainObservedAtBlock": false
+      "domainObserved": false
     },
     {
       "name": "PaperStaking",
@@ -71,12 +74,13 @@
         "status": "unavailable",
         "errorClass": "ContractFunctionExecutionError"
       },
-      "domainObservedAtBlock": true
+      "domainObserved": true
     }
   ],
   "evidenceComplete": false,
   "liveSubmission": false,
   "limitations": [
+    "Block/hash are sampled head context. Default HyperEVM RPC only supports latest state; these reads are not pinned to that block.",
     "Only common public separator getters and EIP-5267 were tested; unavailable does not prove the absence of an internal domain.",
     "Domain evidence alone does not verify intent execution, EIP-1271, relayer access, deposits or source equivalence.",
     "CancelIntent has a separate observed frontend domain and is not covered by these checks."

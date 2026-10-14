@@ -8,7 +8,7 @@ import {
 } from '../packages/protocol/registry.js';
 import { intentDomain } from '../packages/protocol/intents.js';
 
-// Public view calls only. An observed domain is evidence at a pinned block,
+// Public view calls only. Default RPC observations are latest state,
 // not permission to submit an intent or proof of settlement/source equivalence.
 const client = publicClient();
 const [chainId, block] = await Promise.all([client.getChainId(), client.getBlock()]);
@@ -32,13 +32,13 @@ const contracts = await Promise.all(
     const slot = await client.getStorageAt({
       address,
       slot: IMPLEMENTATION_SLOT,
-      blockNumber: block.number,
+      blockTag: 'latest',
     });
     if (!slot || slot.length !== 66) throw new Error('Implementation slot unavailable');
     const implementation = `0x${slot.slice(-40)}` as Address;
     const runtime = await client.getBytecode({
       address: implementation,
-      blockNumber: block.number,
+      blockTag: 'latest',
     });
     if (!runtime || runtime === '0x') throw new Error('Implementation bytecode unavailable');
     const separators = await Promise.all(
@@ -50,7 +50,7 @@ const contracts = await Promise.all(
             address,
             abi: parseAbi([`function ${getter}() view returns (bytes32)`]),
             functionName: getter,
-            blockNumber: block.number,
+            blockTag: 'latest',
           });
           return {
             getter,
@@ -79,7 +79,7 @@ const contracts = await Promise.all(
           'function eip712Domain() view returns (bytes1 fields, string name, string version, uint256 chainId, address verifyingContract, bytes32 salt, uint256[] extensions)',
         ]),
         functionName: 'eip712Domain',
-        blockNumber: block.number,
+        blockTag: 'latest',
       });
       introspection = {
         status: 'observed',
@@ -113,7 +113,7 @@ const contracts = await Promise.all(
       expectedSeparator,
       separators,
       introspection,
-      domainObservedAtBlock:
+      domainObserved:
         separators.some((row) => row.status === 'observed' && row.matchesExpected) ||
         introspection.matchesExpected === true,
     };
@@ -124,10 +124,14 @@ const report = {
   chainId,
   block: String(block.number),
   blockHash: block.hash,
+  statePinned: false,
+  stateMode: 'latest-observation',
+  headAfter: String(await client.getBlockNumber()),
   contracts,
-  evidenceComplete: contracts.every((row) => row.domainObservedAtBlock),
+  evidenceComplete: contracts.every((row) => row.domainObserved),
   liveSubmission: false,
   limitations: [
+    'Block/hash are sampled head context. Default HyperEVM RPC only supports latest state; these reads are not pinned to that block.',
     'Only common public separator getters and EIP-5267 were tested; unavailable does not prove the absence of an internal domain.',
     'Domain evidence alone does not verify intent execution, EIP-1271, relayer access, deposits or source equivalence.',
     'CancelIntent has a separate observed frontend domain and is not covered by these checks.',
@@ -140,7 +144,7 @@ console.table(
     block: String(block.number),
     introspection: row.introspection.status,
     separator: row.separators.map((value) => `${value.getter}:${value.status}`).join(', '),
-    domainObservedAtBlock: row.domainObservedAtBlock,
+    domainObserved: row.domainObserved,
   })),
 );
 if (!report.evidenceComplete)

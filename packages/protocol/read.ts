@@ -1,5 +1,12 @@
 import { parseAbi, keccak256, toFunctionSelector, type Address } from 'viem';
-import { ADDRESSES, CHAIN_ID, IMPLEMENTATION_SLOT, publicClient } from './registry.js';
+import {
+  ADDRESSES,
+  CHAIN_ID,
+  IMPLEMENTATION_SLOT,
+  publicClient,
+  archiveClient,
+} from './registry.js';
+import { assertHistoricalState } from './archive.js';
 
 export type Observation =
   | { status: 'ok'; raw: string; signature: string; unit: string }
@@ -11,6 +18,9 @@ export type ProtocolSnapshot = {
   blockNumber: string;
   blockHash: string | null;
   fingerprint: string;
+  statePinned: false;
+  stateMode: 'latest-observation';
+  headAfter: string;
   implementations: Record<string, { address: string; runtimeHash: string }>;
   values: Record<string, Observation>;
   limitations: string[];
@@ -91,9 +101,13 @@ export async function readProtocol(): Promise<ProtocolSnapshot> {
   const block = await client.getBlock({ blockNumber });
   const entries = await Promise.all(
     Object.entries(ADDRESSES).map(async ([name, address]) => {
-      const slot = await client.getStorageAt({ address, blockNumber, slot: IMPLEMENTATION_SLOT });
+      const slot = await client.getStorageAt({
+        address,
+        blockTag: 'latest',
+        slot: IMPLEMENTATION_SLOT,
+      });
       const implementation = slot && BigInt(slot) !== 0n ? '0x' + slot.slice(-40) : address;
-      const code = await client.getCode({ address: implementation as Address, blockNumber });
+      const code = await client.getCode({ address: implementation as Address, blockTag: 'latest' });
       if (!code || code === '0x') throw new Error(`No code: ${name}`);
       return [name, { address: implementation, runtimeHash: keccak256(code) }] as const;
     }),
@@ -106,7 +120,7 @@ export async function readProtocol(): Promise<ProtocolSnapshot> {
           address: ADDRESSES[contract],
           abi: parseAbi([signature]),
           functionName: method,
-          blockNumber,
+          blockTag: 'latest',
         });
         return [
           `${contract}.${method}`,
@@ -127,9 +141,13 @@ export async function readProtocol(): Promise<ProtocolSnapshot> {
     blockNumber: blockNumber.toString(),
     blockHash: block.hash,
     fingerprint: keccak256(new TextEncoder().encode(JSON.stringify(implementations))),
+    statePinned: false,
+    stateMode: 'latest-observation',
+    headAfter: String(await client.getBlockNumber()),
     implementations,
     values: Object.fromEntries(observations),
     limitations: [
+      'Block/hash identify the sampled head context; latest RPC state reads are not a pinned or atomic snapshot.',
       'Narrow read ABI does not establish complete source equivalence or event schemas.',
       'Official frontend wire/build confirms internal USD-18, withdrawal USD-6; remaining raw fields retain provenance labels.',
       'Official browser schemas observed; source equivalence and approved third-party submission remain unverified.',
@@ -138,8 +156,10 @@ export async function readProtocol(): Promise<ProtocolSnapshot> {
 }
 
 export async function readProfile(address: Address, blockNumber?: bigint) {
-  const client = publicClient();
+  const historical = blockNumber !== undefined;
+  const client = historical ? archiveClient() : publicClient();
   if ((await client.getChainId()) !== CHAIN_ID) throw new Error('Wrong RPC chain');
+  if (historical) await assertHistoricalState(client, ADDRESSES.PaperToken);
   blockNumber ??= await client.getBlockNumber();
   const fields = [
     ['PaperToken', 'balanceOf', 'function balanceOf(address) view returns (uint256)', 'PAPER-18'],
@@ -170,7 +190,7 @@ export async function readProfile(address: Address, blockNumber?: bigint) {
           abi: parseAbi([signature]),
           functionName: method,
           args: [address],
-          blockNumber,
+          ...(historical ? { blockNumber } : { blockTag: 'latest' as const }),
         });
         return [
           method,
@@ -189,6 +209,9 @@ export async function readProfile(address: Address, blockNumber?: bigint) {
     chainId: CHAIN_ID,
     blockNumber: blockNumber.toString(),
     observedAtUtc: new Date().toISOString(),
+    statePinned: historical,
+    stateMode: historical ? 'archive-canary-checked' : 'latest-observation',
+    headAfter: String(await client.getBlockNumber()),
     values: Object.fromEntries(values),
   };
 }

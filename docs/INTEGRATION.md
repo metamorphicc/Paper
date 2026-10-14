@@ -51,3 +51,13 @@ The report is `research/signature-domains.json`. CancelIntent's separate domain 
 A passive follow-up (`npm run probe:integration`) retried source metadata for the archived Exchange/PaperStaking implementations: Sourcify returned 404, IPFS returned 429. No verified ABI/source was obtained. A standard OPTIONS preflight for `/intents`, with the local frontend origin and observed request-header names, returned 405. This does not establish that server-to-server access is denied; it also supplies no permission or settlement proof. No POST, signature or transaction was submitted.
 
 Archived runtime PUSH analysis found no EIP-1271 magic constants in the four checked implementations. This is a static clue, not proof of incompatibility: optimized code, indirect calls or nonstandard paths can escape this check. The positive contract-wallet evidence required by stage 5 is still absent. Public vault integration remains blocked, so treasury receipt accounting and other local work proceed independently. Evidence and limitations are recorded in research/integration-surface.json.
+
+## Correction: default RPC state is latest-only
+
+This section supersedes earlier wording that described state calls as pinned to a historical block. The default HyperEVM RPC supports only latest state for eth_call, eth_getCode and eth_getStorageAt. Block headers and historical receipts remain available. See the primary RPC specification: https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/json-rpc.
+
+A capability probe requested PaperToken code/balance at genesis and two later blocks; the default provider returned the same current code and balance for every tag. Accordingly, the earlier API/RPC comparisons are not historical reconciliation evidence. The observed mismatch does not establish a protocol accounting defect. Earlier manifest/domain head numbers are context, not proof that the corresponding state was read at that block.
+
+Current protocol/profile/domain readers now request latest explicitly and mark statePinned=false. Domain equality for PaperStaking remains a latest observation; Exchange remains unconfirmed. Historical comparison and treasury receipt readers require a separately configured archive RPC and a post-genesis ERC-20 canary that checks both code and raw eth_call at genesis. The canary is a capability test, not a trustless state proof. Historical log queries are split into at most 50-block ranges.
+
+No feature gate is enabled by this correction. An archive provider still must pass the canary and balance/receipt consistency checks before its historical values are used.
