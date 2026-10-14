@@ -99,6 +99,11 @@ main { max-width: 1600px; padding: 28px 16px 48px; margin: 0 auto; min-height: c
 .data-list dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 500; overflow-wrap: anywhere; text-align: end; }
 .fine-print { font-size: 12px; margin-block-start: 20px; }
 .history-panel { margin-block-start: 28px; }
+.campaign-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-block: 24px; }
+.quiz { display: grid; gap: 16px; margin-block-end: 24px; }
+.quiz label { font-size: 14px; display: grid; gap: 8px; }
+.feedback { padding: 12px; background: var(--color-paper-2); color: var(--color-ink); border-radius: var(--radius); margin-block-start: 16px; overflow-wrap: anywhere; }
+.address-text { overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 14px; margin-block-end: 24px; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
 th { text-align: start; font-weight: 400; color: var(--color-muted); }
 th, td { padding: 14px 12px; border-block-end: 1px solid var(--color-line); }
