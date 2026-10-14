@@ -8,8 +8,8 @@
 | 1.1 | ABI/source текущих implementations и происхождение данных | Проверка реализована; source/ABI внешне недоступны, см. INTEGRATION.md |
 | 1.2 | Live economics, read-only adapter и capability matrix | Готово: 16 RPC getters, 3 RPC profiles, 2 official SSE wallet frames; parser tests прошли |
 | 1.3 | Intents/relayer, подписи, deposits/withdrawals и contract wallet evidence | Код и локальные signature checks готовы; third-party settlement/source/domain и collateral path внешне не подтверждены |
-| 2.1 | Web app, навигация, общий data API и дизайн | Реализован Next.js workspace, overview и /api/protocol; проверка перед коммитом |
-| 2.2 | Persistent indexer, replay/reorg, profiles и snapshots | Ожидает |
+| 2.1 | Web app, навигация, общий data API и дизайн | Готово: 166bd71; production build и web typecheck прошли |
+| 2.2 | Persistent indexer, replay/reorg, profiles и snapshots | Готово: 184 live PAPER events на 64 блоках; 4 store tests, profile API и overview HTTP 200 |
 | 2.3 | Leaderboard, treasury, points campaign и pilot metrics | Ожидает |
 | 3.1 | Wallet connection, risk calculator и signature preview | Ожидает |
 | 3.2 | Trading/staking adapter, intent lifecycle, retry/cancel и emergency actions | Ожидает |
