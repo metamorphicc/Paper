@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "workspaces": ["apps/*"],
   "description": "Read-only protocol research and economic simulation for a Papertrade community product",
   "engines": { "node": ">=24.11.1" },
   "scripts": {
@@ -10,7 +11,13 @@
     "probe": "tsx scripts/probe-chain.ts",
     "simulate": "tsx scripts/simulate.ts",
     "check": "tsc --noEmit",
-    "test": "tsx --test packages/economics/model.test.ts"
+    "test": "tsx --test packages/**/*.test.ts",
+    "dev": "npm run dev --workspace=@paperclub/web",
+    "build": "npm run build --workspace=@paperclub/web",
+    "check:web": "npm run check --workspace=@paperclub/web",
+    "read:protocol": "tsx scripts/read-protocol.ts",
+    "capture:official": "tsx scripts/capture-official.ts",
+    "validate:integration": "tsx scripts/validate-integration.ts"
   },
   "dependencies": { "viem": "2.57.6" },
   "devDependencies": { "@types/node": "26.6.5", "tsx": "4.23.15", "typescript": "7.0.2" }

@@ -1,0 +1,1 @@
+export default function TreasuryPage() { return <section className="page-heading"><div><h1>Treasury</h1><p>Адрес treasury ещё не выбран. Неизвестные balances не считаются нулевыми.</p></div></section>; }

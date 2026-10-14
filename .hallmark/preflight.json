@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-14",
+  "source": "package.json:1; no existing web CSS or design system",
+  "audience": "HyperEVM community",
+  "use": "Inspect protocol, addresses and trade risk",
+  "tone": "precise",
+  "genre": "modern-minimal",
+  "theme": "Cobalt",
+  "macrostructure": "Stat-Led adapted to an application workspace",
+  "fonts": ["Space Grotesk", "IBM Plex Sans"],
+  "motion": "button press only",
+  "framework": "Next.js",
+  "assets": "No decorative imagery; charts use actual data"
+}
