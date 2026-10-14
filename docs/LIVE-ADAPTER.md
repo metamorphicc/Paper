@@ -38,3 +38,5 @@ Root/web typechecks, formatting and production build passed. 26 HTTP checks cove
 ## Completion dependencies
 
 To close launch blocks 1–2 fully, obtain official source/ABI and supported relayer/test-environment documentation, verify current domains and deployed implementations, prove collateral/recovery and contract-wallet behavior, then run a reviewed end-to-end lifecycle in an authorized environment with explicit capital limits. No test deployment has been provided. Public-money feature flags remain false and release blockers are exposed by `/api/trading/readiness`.
+
+The user confirmed that they have no official Papertrade test-environment access or third-party relayer documentation. This dependency is externally unavailable, rather than an unanswered request for user information. Local fixtures and public read-only observations remain useful but cannot establish supported signed submission or settlement. Mainnet orders are not a substitute for this missing validation. Blocks 1–2 remain partially implemented; no automatic release follows this clarification.
