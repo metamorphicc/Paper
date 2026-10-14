@@ -17,4 +17,5 @@ next-env.d.ts
 data/
 test-results/
 playwright-report/
+artifacts/contracts/
 

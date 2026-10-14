@@ -7,8 +7,8 @@ The UI, errors, accessibility labels and dates use English (UTC). Existing histo
 | Step | Deliverable | Status |
 |---|---|---|
 | English | Translate the full site and rename the branch | Completed; browser checks on all five pages |
-| 4.1 | Tokenomics proposals, capital scenarios, local Solidity/EVM toolchain | In progress |
-| 4.2 | Fixed-supply token, immutable funded Merkle claims and local EVM tests | Planned |
+| 4.1 | Tokenomics proposals, capital scenarios, local Solidity/EVM toolchain | 202695e; proposals only, not launch approval |
+| 4.2 | Fixed-supply token, immutable funded Merkle claims and local EVM tests | Completed locally: compilation and four focused tests |
 | 4.3 | Deterministic snapshots, treasury budget policy and rewards preview | Planned |
 | 5.1 | Sequential path simulator with latency, liquidation, pauses and queued payouts | Planned |
 | 5.2 | Historical candle replay and baseline/paired-strategy comparisons | Planned |

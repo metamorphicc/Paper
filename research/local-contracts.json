@@ -1,0 +1,29 @@
+{
+  "compiler": "0.8.37+commit.f401782d.Emscripten.clang",
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmVersion": "cancun"
+  },
+  "localChainId": 31337,
+  "mainnetDeployed": false,
+  "contracts": [
+    {
+      "name": "CampaignClaims",
+      "sourceHash": "0x94a6f6883e4c856252d22319420065a3a41feb5f1a41064b99c22be45ddb5e1a",
+      "bytecodeHash": "0xf782077c0b11329eb7af47f4de104f9f43c068b15d7687032bbb1ed14c0e5441"
+    },
+    {
+      "name": "ClubToken",
+      "sourceHash": "0x3cd2d6451f375afacb37c211943962c421a93d7c5107ba381908e127c957a0f4",
+      "bytecodeHash": "0x9d0eca89739c5d12ba8f4f896a6c56182352efb4f3bf1416b58e4bc45f28cdba"
+    },
+    {
+      "name": "TreasuryBudget",
+      "sourceHash": "0x1980a3356dfc38d3d5e9d2c03606d1d7bc384ab23bbc4b4c8ded088223291053",
+      "bytecodeHash": "0x281689be6de5b3a10fd4ab569a726807aa76c71731e51df5c567c0ef64500f31"
+    }
+  ]
+}
