@@ -22,6 +22,7 @@
     "read:protocol": "tsx scripts/read-protocol.ts",
     "read:domains": "tsx scripts/read-signature-domains.ts",
     "probe:integration": "tsx scripts/probe-integration-surface.ts",
+    "read:treasury": "tsx scripts/read-treasury.ts",
     "capture:official": "tsx scripts/capture-official.ts",
     "validate:integration": "tsx scripts/validate-integration.ts",
     "index": "tsx scripts/index-chain.ts",

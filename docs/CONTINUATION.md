@@ -36,3 +36,7 @@ The passive source/relayer/contract-wallet probe is complete. Source metadata st
 ### RPC provenance correction
 
 The default RPC silently returned current state for historical tags. Earlier statements of pinned code/domain/balance observations are superseded by the correction in INTEGRATION.md. Readers now expose latest-state provenance; exact historical validation requires an explicit archive provider plus capability checks. PaperStaking domain equality is still observed, but not at a pinned block. An archive-canary regression test rejects latest-only responses and failures. Indexer log ranges now respect the documented 50-block limit.
+
+### Treasury dashboard continuation (stage 4)
+
+Confirmed-transfer engine, bounded archive reader and explicit-address CLI are implemented. Actual local EVM receipts reconcile with balances; bad, duplicate/conflicting, orphaned, unconfirmed and missing evidence are covered. Incoming transfers are unclassified and never automatically entered as revenue. The initial default-RPC experiment is retained as invalid historical evidence, with an explicit correction. The live treasury address/asset and archive endpoint are still unselected; no financial writes are enabled. Detailed limits and replay instructions are in TREASURY-RECEIPTS.md.
