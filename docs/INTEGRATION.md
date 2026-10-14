@@ -45,3 +45,9 @@ Deposit/withdraw: внутренний margin/balance USD-18; WithdrawToCore typ
 At block 48531432, PaperStaking's `DOMAIN_SEPARATOR()` equals the computed separator for name `PaperStaking`, version `1`, chain ID `999` and staking proxy address `0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016`. This confirms that domain at the pinned block; EIP-5267 remains unavailable. Exchange's two tested separator getters and EIP-5267 remain unavailable, so its observed frontend name `String` is still unconfirmed onchain. Unavailable getters do not prove that an internal domain is absent.
 
 The report is `research/signature-domains.json`. CancelIntent's separate domain is outside these checks. Matching a domain does not verify signature authorization, EIP-1271, relayer access, deposits, settlement or source equivalence. The financial launch gate remains incomplete and live submission remains disabled.
+
+## Integration access observations
+
+A passive follow-up (`npm run probe:integration`) retried source metadata for the archived Exchange/PaperStaking implementations: Sourcify returned 404, IPFS returned 429. No verified ABI/source was obtained. A standard OPTIONS preflight for `/intents`, with the local frontend origin and observed request-header names, returned 405. This does not establish that server-to-server access is denied; it also supplies no permission or settlement proof. No POST, signature or transaction was submitted.
+
+Archived runtime PUSH analysis found no EIP-1271 magic constants in the four checked implementations. This is a static clue, not proof of incompatibility: optimized code, indirect calls or nonstandard paths can escape this check. The positive contract-wallet evidence required by stage 5 is still absent. Public vault integration remains blocked, so treasury receipt accounting and other local work proceed independently. Evidence and limitations are recorded in research/integration-surface.json.

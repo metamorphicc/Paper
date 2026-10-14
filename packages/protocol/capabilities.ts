@@ -22,7 +22,8 @@ export const capabilities = [
     id: 'staking',
     title: 'Live staking',
     status: 'blocked',
-    reason: 'Browser schema observed; current domain and third-party writes need verification.',
+    reason:
+      'Staking domain matched a pinned onchain separator; source equivalence, third-party writes and settlement remain unverified.',
   },
   {
     id: 'builder',

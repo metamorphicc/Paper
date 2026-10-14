@@ -1,0 +1,180 @@
+{
+  "observedAtUtc": "2026-10-14T15:58:56.723Z",
+  "sources": [
+    {
+      "name": "Exchange",
+      "observations": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0x0f3febfc94876b0c895f7acecdc8f5c863b549ee?fields=all",
+          "method": "GET",
+          "status": 404,
+          "bodySha256": "81e215e1e6653e1680d0f7575f564e4b63296400f7a24c484f8f3516324f0015",
+          "abiPresent": false,
+          "allowOrigin": "*",
+          "allowMethods": null,
+          "allowHeaders": null,
+          "allowCredentials": null
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmX46b3W8qXKJWqiheKCwQaeyY1AhJK88ct7FQwezQiGyE",
+          "method": "GET",
+          "status": 429,
+          "bodySha256": "9f06493dc8c64d394ad393a911b34eaeb2a4144f09d88c5cf1b3fcede359b752",
+          "abiPresent": false,
+          "allowOrigin": "*",
+          "allowMethods": null,
+          "allowHeaders": null,
+          "allowCredentials": null
+        }
+      ],
+      "sourceEquivalenceVerified": false
+    },
+    {
+      "name": "PaperStaking",
+      "observations": [
+        {
+          "url": "https://sourcify.dev/server/v2/contract/999/0xe6e3519455170913c5c3bfe541dd918a2d0cbb15?fields=all",
+          "method": "GET",
+          "status": 404,
+          "bodySha256": "5e7963b2ddacccbd5f70f31528c1fe28c7c5634063e2f3fc2e87e9444594e12c",
+          "abiPresent": false,
+          "allowOrigin": "*",
+          "allowMethods": null,
+          "allowHeaders": null,
+          "allowCredentials": null
+        },
+        {
+          "url": "https://ipfs.io/ipfs/QmfQfc7F2GkFqT2erj6Y4wSjv3aGmKvqVeJAhHphTU443j",
+          "method": "GET",
+          "status": 429,
+          "bodySha256": "19e6203e477bbb351ccfe5163e126b32440539c622f68c2ad00c7431e0f8f189",
+          "abiPresent": false,
+          "allowOrigin": "*",
+          "allowMethods": null,
+          "allowHeaders": null,
+          "allowCredentials": null
+        }
+      ],
+      "sourceEquivalenceVerified": false
+    }
+  ],
+  "runtimeEvidence": [
+    {
+      "name": "Exchange",
+      "runtimeHash": "0x9d20287df886415035d53344a0dc8a1044949308cc3283ee0fe7ea5f3ea28d92",
+      "eip1271MagicPushOffsets": [],
+      "domainHashConstants": [
+        {
+          "value": "String",
+          "hash": "0x7ff6a077f248416948843f592327444c45801847787632efa8e679f72a85215f",
+          "pushOffsets": []
+        },
+        {
+          "value": "1",
+          "hash": "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
+          "pushOffsets": []
+        },
+        {
+          "value": "PaperStaking",
+          "hash": "0xa590bdeba6833d2f012b59246147e3ca39761a6d26f69a0b227977965a50f955",
+          "pushOffsets": []
+        }
+      ],
+      "contractWalletVerified": false
+    },
+    {
+      "name": "PaperStaking",
+      "runtimeHash": "0x54573c497e5109e353cf5330343323915e0c0f26e1b410fd3cb2cd8d1460f154",
+      "eip1271MagicPushOffsets": [],
+      "domainHashConstants": [
+        {
+          "value": "String",
+          "hash": "0x7ff6a077f248416948843f592327444c45801847787632efa8e679f72a85215f",
+          "pushOffsets": []
+        },
+        {
+          "value": "1",
+          "hash": "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
+          "pushOffsets": [
+            4204
+          ]
+        },
+        {
+          "value": "PaperStaking",
+          "hash": "0xa590bdeba6833d2f012b59246147e3ca39761a6d26f69a0b227977965a50f955",
+          "pushOffsets": [
+            4166
+          ]
+        }
+      ],
+      "contractWalletVerified": false
+    },
+    {
+      "name": "BatchExecutor",
+      "runtimeHash": "0xe926c659aca61daaaf9e68267817be4dae5152f11320a6ba970549dfdd15f62a",
+      "eip1271MagicPushOffsets": [],
+      "domainHashConstants": [
+        {
+          "value": "String",
+          "hash": "0x7ff6a077f248416948843f592327444c45801847787632efa8e679f72a85215f",
+          "pushOffsets": []
+        },
+        {
+          "value": "1",
+          "hash": "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
+          "pushOffsets": []
+        },
+        {
+          "value": "PaperStaking",
+          "hash": "0xa590bdeba6833d2f012b59246147e3ca39761a6d26f69a0b227977965a50f955",
+          "pushOffsets": []
+        }
+      ],
+      "contractWalletVerified": false
+    },
+    {
+      "name": "SessionKeyManager",
+      "runtimeHash": "0x337787e630c4fe48e2cea45e1dbd7cb12be2254d158042ee1cd446e706d5c484",
+      "eip1271MagicPushOffsets": [],
+      "domainHashConstants": [
+        {
+          "value": "String",
+          "hash": "0x7ff6a077f248416948843f592327444c45801847787632efa8e679f72a85215f",
+          "pushOffsets": []
+        },
+        {
+          "value": "1",
+          "hash": "0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6",
+          "pushOffsets": []
+        },
+        {
+          "value": "PaperStaking",
+          "hash": "0xa590bdeba6833d2f012b59246147e3ca39761a6d26f69a0b227977965a50f955",
+          "pushOffsets": []
+        }
+      ],
+      "contractWalletVerified": false
+    }
+  ],
+  "runtimeEvidenceBlock": "48509455",
+  "latestDomainEvidenceBlock": "48531432",
+  "preflight": {
+    "url": "https://exchange.papertrade.xyz/intents",
+    "method": "OPTIONS",
+    "status": 405,
+    "bodySha256": "0e3ae3475a519a5c9f23858c084d3bcd133111e4f42234e99bf09652c5fd937f",
+    "abiPresent": false,
+    "allowOrigin": null,
+    "allowMethods": null,
+    "allowHeaders": null,
+    "allowCredentials": null
+  },
+  "thirdPartyRelayerSettlementVerified": false,
+  "liveSubmission": false,
+  "limitations": [
+    "A preflight response is not relayer authorization or settlement evidence.",
+    "PUSH constants are static clues, not proof that a signing or EIP-1271 execution path exists.",
+    "Runtime evidence belongs to the archived manifest block, not a new deployment observation.",
+    "Fetched metadata or ABI alone does not prove compiler/source equivalence. No writes or signatures submitted."
+  ]
+}

@@ -28,3 +28,7 @@ Design revision after user review: restored the original paper/white/cobalt pale
 Remaining product work is protocol source/domain/relayer and contract-wallet integration, a deployable audited vault, chosen tokenomics/capital limits, and production launch evidence. These are not completed by styling, simulated trades or passing local tests. Public money operations remain disabled.
 
 Integration continuation: added a reproducible public signature-domain reader (`npm run read:domains`). At pinned block 48531432, the PaperStaking public domain separator matches the observed frontend domain. Exchange and CancelIntent domain evidence remain incomplete; no live transport or financial gate was enabled. Runtime hashes, getter outcomes and block hash are recorded in research/signature-domains.json.
+
+### Remaining integration work: first follow-up
+
+The passive source/relayer/contract-wallet probe is complete. Source metadata still cannot be verified; OPTIONS `/intents` returned 405 for the local frontend origin. Contract-wallet support remains unproven. These observations do not authorize or simulate settlement. Staking capability copy now reflects the separately confirmed onchain domain while retaining its write/settlement blockers. The next independent deliverable is confirmed treasury transfer accounting (stage 4 dashboard support).
