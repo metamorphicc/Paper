@@ -1,0 +1,145 @@
+{
+  "observedAtUtc": "2026-10-14T09:44:32.946Z",
+  "blockTimestampUtc": "2026-10-14T09:44:30.000Z",
+  "chainId": 999,
+  "blockNumber": "48509637",
+  "blockHash": "0x26966dcedc32e6ccaf709e69f069e82ccea3cb5b6bdc5c12a4ad6f1cc3c2d37c",
+  "fingerprint": "0x77ca15e95e5e3c46b04579bad57f2895227ce5df421c766668ca3b283a1fe26d",
+  "implementations": {
+    "Exchange": {
+      "address": "0x0f3febfc94876b0c895f7acecdc8f5c863b549ee",
+      "runtimeHash": "0x9d20287df886415035d53344a0dc8a1044949308cc3283ee0fe7ea5f3ea28d92"
+    },
+    "BatchExecutor": {
+      "address": "0xe0bc9cc7b067060aafccbaa3e250700c9cdd7262",
+      "runtimeHash": "0xe926c659aca61daaaf9e68267817be4dae5152f11320a6ba970549dfdd15f62a"
+    },
+    "PaperToken": {
+      "address": "0x433bd418ec92818a960585f4d5fae563e735bb4a",
+      "runtimeHash": "0x087aaaf8472c1ca9bb313493a83fca6f5497d639ef46e6ca2ed0ef4cab85a590"
+    },
+    "PaperStaking": {
+      "address": "0xe6e3519455170913c5c3bfe541dd918a2d0cbb15",
+      "runtimeHash": "0x54573c497e5109e353cf5330343323915e0c0f26e1b410fd3cb2cd8d1460f154"
+    },
+    "PaperTokenomics": {
+      "address": "0x600d1b9653fd47fc1543d1cc87f33ba2d2fdf48f",
+      "runtimeHash": "0xd9fbc7091e10f4d56188f3097454bd8464ed4b77b5f44d1c6391be72b9362169"
+    },
+    "SessionKeyManager": {
+      "address": "0x8a5069fe303e8f81e91825436e956d595032e558",
+      "runtimeHash": "0x337787e630c4fe48e2cea45e1dbd7cb12be2254d158042ee1cd446e706d5c484"
+    },
+    "PriceOracle": {
+      "address": "0x3997ffc8cbd281d4fc8d0548e505ae2fbbbd985a",
+      "runtimeHash": "0x75f094dab1fb771fc5ed5953a02be453a5d35dc4878b53a9e6a11c7d9e4e679c"
+    },
+    "DepositProxyFactory": {
+      "address": "0x8f22a73a23a2de0dbfdf6729f4d8c07dbdc69cf0",
+      "runtimeHash": "0xb8ab2884da3e386fc6a5e27971a39247ea6285f35160e85b304be742c0f28812"
+    }
+  },
+  "values": {
+    "PaperToken.totalSupply": {
+      "status": "ok",
+      "raw": "7022547211746707630991825388",
+      "signature": "function totalSupply() view returns (uint256)",
+      "unit": "PAPER-18"
+    },
+    "PaperToken.decimals": {
+      "status": "ok",
+      "raw": "18",
+      "signature": "function decimals() view returns (uint8)",
+      "unit": "count"
+    },
+    "Exchange.lpBankrollAvailable": {
+      "status": "ok",
+      "raw": "4978529395283862152878505",
+      "signature": "function lpBankrollAvailable() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "Exchange.treasury": {
+      "status": "ok",
+      "raw": "64842640508671950000000000",
+      "signature": "function treasury() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "Exchange.sideBucket": {
+      "status": "ok",
+      "raw": "0",
+      "signature": "function sideBucket() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "Exchange.totalQueued": {
+      "status": "ok",
+      "raw": "0",
+      "signature": "function totalQueued() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "Exchange.stakerFeeAccumulator": {
+      "status": "ok",
+      "raw": "14868243041802125426",
+      "signature": "function stakerFeeAccumulator() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "Exchange.tradingPaused": {
+      "status": "ok",
+      "raw": "false",
+      "signature": "function tradingPaused() view returns (bool)",
+      "unit": "flag"
+    },
+    "Exchange.owner": {
+      "status": "ok",
+      "raw": "0xB915Fa41e824D6aA31BB833Ee81220C0F2c8EA0F",
+      "signature": "function owner() view returns (address)",
+      "unit": "address"
+    },
+    "PaperTokenomics.trackedLpUsd": {
+      "status": "ok",
+      "raw": "4978529395283862152878505",
+      "signature": "function trackedLpUsd() view returns (int256)",
+      "unit": "raw-unverified-USD"
+    },
+    "PaperTokenomics.lpFlatThresholdUsd": {
+      "status": "ok",
+      "raw": "2000000000000000000000000",
+      "signature": "function lpFlatThresholdUsd() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "PaperTokenomics.tailDecayScaleUsd": {
+      "status": "ok",
+      "raw": "120000000000000000000000000",
+      "signature": "function tailDecayScaleUsd() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "PaperTokenomics.tailProgressUsd": {
+      "status": "ok",
+      "raw": "135571247472452640333453023",
+      "signature": "function tailProgressUsd() view returns (uint256)",
+      "unit": "raw-unverified-USD"
+    },
+    "PaperTokenomics.flatRate": {
+      "status": "ok",
+      "raw": "100000000000000000000",
+      "signature": "function flatRate() view returns (uint256)",
+      "unit": "raw-unverified-rate"
+    },
+    "PaperStaking.totalStaked": {
+      "status": "ok",
+      "raw": "6958969783993906192070541546",
+      "signature": "function totalStaked() view returns (uint256)",
+      "unit": "PAPER-18"
+    },
+    "PaperStaking.accRewardPerShare": {
+      "status": "ok",
+      "raw": "11080754186049047051602612",
+      "signature": "function accRewardPerShare() view returns (uint256)",
+      "unit": "raw-accumulator"
+    }
+  },
+  "limitations": [
+    "Narrow read ABI does not establish complete source equivalence or event schemas.",
+    "USD/rate getter units are raw until independently verified; never used for signing or NAV.",
+    "No official relayer submission schema or endpoint confirmed."
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "observedAtUtc": "2026-10-14T09:50:45.558Z",
+  "origin": "https://exchange.papertrade.xyz",
+  "summary": {
+    "source": {
+      "block": "48510016",
+      "at": 1791971443000,
+      "genesis": 1791326520000
+    },
+    "balances": {
+      "tvl": "64862766698979950000000000",
+      "margin": "16077536780416464908345033",
+      "lp": "4998400198800878446399219",
+      "reserve": "0",
+      "queue": "0"
+    },
+    "paper": {
+      "supply": "7026536380154093799620726761",
+      "staked": "6961046046854874722609028673",
+      "trackedLp": "4998400198800878446399219",
+      "accumulator": "11088432531991516512934711",
+      "reserve": "3320137404663146416495071",
+      "unallocated": "0",
+      "pendingRewards": "17482980430689947029",
+      "cap": "5000000000000000000000000",
+      "cliff": "2000000000000000000000000",
+      "rate": "100000000000000000000",
+      "decay": "120000000000000000000000000",
+      "tailProgress": "135752319536800497044069608"
+    },
+    "activity": {
+      "volume": "980487460313895326167308153150",
+      "open": 2935
+    },
+    "fees": {
+      "pending": "17482980430689947029",
+      "lifetime": "35089498037452195664395608"
+    }
+  },
+  "trading": {
+    "schemaVersion": 1,
+    "indexedThroughBlock": 48510017,
+    "tradingPaused": false,
+    "minimumTradeSizeRaw": "10000000000000000000",
+    "minimumOpenNotionalRaw": "1000000000000000000000",
+    "instruments": [
+      {
+        "id": 0,
+        "symbol": "BTC",
+        "assetIndex": 0,
+        "priceScaleRaw": "10",
+        "active": true,
+        "paused": false,
+        "terminal": false,
+        "retired": false,
+        "closeOnly": false,
+        "frozenBidRaw": null,
+        "frozenAskRaw": null,
+        "rateMultiplierRaw": "15000000000000000000000",
+        "positionMultiplierRaw": "814598000000000000000",
+        "maxLeverage": 1000,
+        "maxPositionNotionalRaw": "10000000000000000000000000",
+        "bustBufferRaw": "476041580087574",
+        "baseRateRaw": "100000000000000000",
+        "referenceNotionalRaw": "100000000000000000000000",
+        "longOiRaw": "3214463981105874587346",
+        "shortOiRaw": "2857759480735348073978",
+        "longCapRaw": "3219980405750584613046",
+        "shortCapRaw": "2884873098018053180247"
+      },
+      {
+        "id": 1,
+        "symbol": "ETH",
+        "assetIndex": 1,
+        "priceScaleRaw": "100",
+        "active": true,
+        "paused": false,
+        "terminal": false,
+        "retired": false,
+        "closeOnly": false,
+        "frozenBidRaw": null,
+        "frozenAskRaw": null,
+        "rateMultiplierRaw": "15000000000000000000000",
+        "positionMultiplierRaw": "483979000000000000000",
+        "maxLeverage": 1000,
+        "maxPositionNotionalRaw": "10000000000000000000000000",
+        "bustBufferRaw": "481304050180130",
+        "baseRateRaw": "100000000000000000",
+        "referenceNotionalRaw": "100000000000000000000000",
+        "longOiRaw": "64909985759768269455050",
+        "shortOiRaw": "46309370294420241680126",
+        "longCapRaw": "65343780238609504803011",
+        "shortCapRaw": "48311652896586711455670"
+      }
+    ],
+    "intake": {
+      "revision": 1791969372354858,
+      "minimumPaperStakeRaw": "1000000000000000000000",
+      "maximumNetOpenInterestRaw": "60000000000000000000000000",
+      "disabledActions": []
+    }
+  },
+  "wallets": [
+    {
+      "address": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+      "snapshot": {
+        "address": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+        "indexedThroughBlock": 48510017,
+        "indexedThroughTimestamp": 1791971444,
+        "sessionKeys": [],
+        "walletRevision": 0,
+        "queueRevision": "0",
+        "balance": "0",
+        "queued": "0",
+        "locked": "0",
+        "funds": {
+          "reservedBalance": "0",
+          "reservedQueued": "0",
+          "availableBalance": "0",
+          "availableQueued": "0"
+        },
+        "queueNodeCount": 0,
+        "consumableDebt": "0",
+        "paper": {
+          "balance": "0",
+          "staked": "0",
+          "pendingBase": "0",
+          "rewardDebt": "0"
+        },
+        "lifetime": {
+          "depositedRaw": "0",
+          "withdrawnRaw": "0",
+          "realizedPnlRaw": "0",
+          "feesPaidRaw": "0",
+          "tradedNotionalRaw": "0",
+          "paperRewardsClaimedRaw": "0"
+        },
+        "openPositions": [],
+        "operations": [],
+        "accountRevision": 1
+      }
+    },
+    {
+      "address": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+      "snapshot": {
+        "address": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+        "indexedThroughBlock": 48510017,
+        "indexedThroughTimestamp": 1791971444,
+        "sessionKeys": [],
+        "walletRevision": 48510016,
+        "queueRevision": "0",
+        "balance": "3320137404663146416495071",
+        "queued": "0",
+        "locked": "0",
+        "funds": {
+          "reservedBalance": "0",
+          "reservedQueued": "0",
+          "availableBalance": "3320137404663146416495071",
+          "availableQueued": "0"
+        },
+        "queueNodeCount": 0,
+        "consumableDebt": "0",
+        "paper": {
+          "balance": "0",
+          "staked": "0",
+          "pendingBase": "0",
+          "rewardDebt": "0"
+        },
+        "lifetime": {
+          "depositedRaw": "0",
+          "withdrawnRaw": "0",
+          "realizedPnlRaw": "0",
+          "feesPaidRaw": "0",
+          "tradedNotionalRaw": "0",
+          "paperRewardsClaimedRaw": "0"
+        },
+        "openPositions": [],
+        "operations": [],
+        "accountRevision": 1
+      }
+    }
+  ],
+  "sourceFiles": [
+    {
+      "url": "https://exchange.papertrade.xyz/assets/build-BX8MMfdq.js",
+      "sha256": "95bd506bdcaacb9fca6b3bbb54675a8de2b6c7e7835f1b913a151d68a294cc85"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/execution-Daqijf7p.js",
+      "sha256": "3f6933219720d7efa9f3e584fb97df809c27dd85d4a0a86c3dbf1cd2f6d7b6dc"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/hooks-CuIAzff3.js",
+      "sha256": "0cbbaab1cd4939f354cbbad25d702bdfc5e9a3fd566ed205a2a9373d3820895e"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/index-9zxq8TOY.js",
+      "sha256": "498eba2c5e9ce5fd675ccc5ac642b99408d64f768e217f2d4aa18b8002529c59"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/query-api-client-DGxZQjmt.js",
+      "sha256": "82c86b9300bda6cda6d8beb1d512b315afa4a479288ed588a28c38dca2cb228b"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/ring-BRaQqCnH.js",
+      "sha256": "70632e93e1138c6a6b6f9aec35cf53d2362e6ca5aff659351d2cdf7e34d37b10"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/RollingNumber-CwDKR4qS.js",
+      "sha256": "c92bcef4c3bcfd0633d588362c8e80f93e1bf0a2a2bd7061c7998d0de0759e9a"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/schemas-DQcsmr3n.js",
+      "sha256": "d90b2ff6acf7fd4d824b0c0a639b83287dc618131987237fd8fe399d2dabfb81"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/selection-DCjx2Wmi.js",
+      "sha256": "be13e4c4041e9a24e312d8bd7a1a5ea57db7391f3e90de370e7008f040d3dd7e"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/typed-data-MuKdbS29.js",
+      "sha256": "9bcf18a526e9fd8f1e93ad496be12f8110a04fac7d4d7789cb09e1b4d91930c4"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/useMarket-DwrYXOyV.js",
+      "sha256": "365e30a84985a652f6c334536f7eed764ae42b0bc13f6f09ca636c440f57ddd1"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/useTradingNetwork-MmeHC4Lo.js",
+      "sha256": "f8226baf27f7dc4637e1cce9dbe0c90ea0892a98db0a5b656c40681fe06dff4d"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/valuation-CsZxL1aT.js",
+      "sha256": "2c72ab59ad1d2ce7135e54ad6fb4c61d86216288634d6bf1fe71533c0fe3f45e"
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/wire-6uaVMmnq.js",
+      "sha256": "582c0ca3e111318e5293184c2c83820a7bb017221f2bc4b1fde0c280f51f4450"
+    }
+  ],
+  "units": {
+    "internalUsdDecimals": 18,
+    "paperDecimals": 18,
+    "withdrawalAmountDecimals": 6,
+    "evidence": "Official wire collateralScale=10^(18-6), typed-data and build USD formatting; RPC threshold/decay checks agree."
+  },
+  "collateralMismatch": {
+    "docs": "0xb88339cb7199b77e23db6e890353e22632ba630f",
+    "frontend": "0x6b9e773128f453f5c2c60935ee2de2cbc5390a24",
+    "status": "Unresolved; deposits disabled"
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "address": "0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
+    "chainId": 999,
+    "blockNumber": "48509637",
+    "observedAtUtc": "2026-10-14T09:44:33.651Z",
+    "values": {
+      "balanceOf": {
+        "status": "ok",
+        "raw": "6958969783993906192070541546",
+        "signature": "function balanceOf(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "pendingReward": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function pendingReward(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      },
+      "stakedBalance": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function stakedBalance(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "balances": {
+        "status": "ok",
+        "raw": "3271263901115517555910535",
+        "signature": "function balances(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      }
+    }
+  },
+  {
+    "address": "0x6cd5661646289fb6e65ea5c032310fded797d0a2",
+    "chainId": 999,
+    "blockNumber": "48509637",
+    "observedAtUtc": "2026-10-14T09:44:33.642Z",
+    "values": {
+      "balanceOf": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function balanceOf(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "pendingReward": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function pendingReward(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      },
+      "stakedBalance": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function stakedBalance(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "balances": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function balances(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      }
+    }
+  },
+  {
+    "address": "0x75174549dbbd44497d31a47e2e2d7406408d63d9",
+    "chainId": 999,
+    "blockNumber": "48509637",
+    "observedAtUtc": "2026-10-14T09:44:33.651Z",
+    "values": {
+      "balanceOf": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function balanceOf(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "pendingReward": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function pendingReward(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      },
+      "stakedBalance": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function stakedBalance(address) view returns (uint256)",
+        "unit": "PAPER-18"
+      },
+      "balances": {
+        "status": "ok",
+        "raw": "0",
+        "signature": "function balances(address) view returns (uint256)",
+        "unit": "raw-unverified-USD"
+      }
+    }
+  }
+]
