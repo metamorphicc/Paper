@@ -1,0 +1,293 @@
+{
+  "date": "2026-10-14T15:30:31.277Z",
+  "design": "original cobalt, horizontal app",
+  "checks": [
+    {
+      "route": "/",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24, 24],
+      "heading": "Overview",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/trade",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24],
+      "heading": "Terminal",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/profile",
+      "bodyWidth": 305,
+      "gaps": [24, 24],
+      "heading": "Profile",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/leaderboard",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24],
+      "heading": "Community",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/rewards",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24, 24],
+      "heading": "Rewards",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/research",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24, 24, 24, 24, 24],
+      "heading": "Research",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/treasury",
+      "bodyWidth": 305,
+      "gaps": [24, 24, 24],
+      "heading": "Treasury",
+      "overflow": [],
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "route": "/",
+      "gaps": [24, 24, 24, 24],
+      "heading": "Overview",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/trade",
+      "gaps": [24, 24, 24],
+      "heading": "Terminal",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/profile",
+      "gaps": [24, 24],
+      "heading": "Profile",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/leaderboard",
+      "gaps": [24, 24, 24],
+      "heading": "Community",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/rewards",
+      "gaps": [24, 24, 24, 24],
+      "heading": "Rewards",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/research",
+      "gaps": [24, 24, 24, 24, 24, 24, 24],
+      "heading": "Research",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/treasury",
+      "gaps": [24, 24, 24],
+      "heading": "Treasury",
+      "overflow": [],
+      "scrollWidth": 360,
+      "width": 375
+    },
+    {
+      "route": "/",
+      "gaps": [24, 24, 24, 24],
+      "heading": "Overview",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/trade",
+      "gaps": [24, 24, 24],
+      "heading": "Terminal",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/profile",
+      "gaps": [24, 24],
+      "heading": "Profile",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/leaderboard",
+      "gaps": [24, 24, 24],
+      "heading": "Community",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/rewards",
+      "gaps": [24, 24, 24, 24],
+      "heading": "Rewards",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/research",
+      "gaps": [24, 24, 24, 24, 24, 24, 24],
+      "heading": "Research",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/treasury",
+      "gaps": [24, 24, 24],
+      "heading": "Treasury",
+      "overflow": [],
+      "scrollWidth": 399,
+      "width": 414
+    },
+    {
+      "route": "/",
+      "gaps": [32, 32, 32, 32],
+      "heading": "Overview",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/trade",
+      "gaps": [32, 32, 32],
+      "heading": "Terminal",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/profile",
+      "gaps": [32, 32],
+      "heading": "Profile",
+      "overflow": [],
+      "scrollWidth": 768,
+      "width": 768
+    },
+    {
+      "route": "/leaderboard",
+      "gaps": [32, 32, 32],
+      "heading": "Community",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/rewards",
+      "gaps": [32, 32, 32, 32],
+      "heading": "Rewards",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/research",
+      "gaps": [32, 32, 32, 32, 32, 32, 32],
+      "heading": "Research",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/treasury",
+      "gaps": [32, 32, 32],
+      "heading": "Treasury",
+      "overflow": [],
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/",
+      "gaps": [32, 32, 32, 32],
+      "heading": "Overview",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "route": "/trade",
+      "gaps": [32, 32, 32],
+      "heading": "Terminal",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "route": "/profile",
+      "gaps": [32, 32],
+      "heading": "Profile",
+      "overflow": [],
+      "scrollWidth": 1280,
+      "width": 1280
+    },
+    {
+      "route": "/leaderboard",
+      "gaps": [32, 32, 32],
+      "heading": "Community",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "route": "/rewards",
+      "gaps": [32, 32, 32, 32],
+      "heading": "Rewards",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "route": "/research",
+      "gaps": [32, 32, 32, 32, 32, 32, 32],
+      "heading": "Research",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    },
+    {
+      "route": "/treasury",
+      "gaps": [32, 32, 32],
+      "heading": "Treasury",
+      "overflow": [],
+      "scrollWidth": 1265,
+      "width": 1280
+    }
+  ]
+}

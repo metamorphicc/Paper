@@ -17,3 +17,16 @@ Public-money decision: **Do not launch**. Tokenomics, budgets and actual recipie
 ## Subsequent UI correction
 
 After stage 6 was committed, slogan headings were replaced with functional section names across the site. Wallet feedback supports a dismiss button, Escape, six-second automatic expiry and clearing on route/account/network changes. Browser checks confirmed dismiss, Escape, timed expiry and navigation reset, plus popup containment at 320/375/414/768 px. All seven page headings were verified in English with no wallet message on entry. Evidence: `artifacts/qa/ui-followup.json` and `ui-clean-research.jpg`. Web typecheck/format check and the updated production build passed.
+
+## Horizontal application design revision
+
+The rejected warm palette was replaced with the original light Cobalt system. Sidebar navigation became a top application bar with a mobile menu. Overview now uses real public BTC/ETH BBO quotes and 15-minute candles, selectable 1h/24h windows, pointer inspection, background refresh and explicit loading/unavailable/cached states. Links select the correct market in Terminal. Research, community and reward controls remain operational.
+
+- Production build and web TypeScript checks passed; 44 existing tests passed.
+- 35 browser layout checks: seven routes at 320, 375, 414, 768 and 1280px. No horizontal overflow or protruding visible content; every direct section gap is 24px mobile or 32px larger. This verifies the specific touching-block bug, beyond just viewport overflow.
+- Mobile menu closes on route change; background main/footer are inert while open. Wallet error dismissal still removes the popup. Research scenario selection updates modeled balances. Overview period selection changes the plotted candle window. ETH market link opens Terminal with ETH selected.
+- Twelve contrast checks passed: text >=4.5:1; controls/focus >=3:1. Exact colors are in tokens.css; evidence is in artifacts/design/contrast.json.
+- HTTP smoke passed 19 checks, including seven pages, public market/profile data and origin/body-size/write guards.
+- Browser evidence: artifacts/design/overview-full.jpg and research-spacing.jpg. Source/reference evidence remains separate from runtime data; no source video published.
+
+This validates the local design revision. Source equivalence, EIP-712 domain, relayer access, contract-wallet settlement, capital choices and a public-money pilot remain unresolved.

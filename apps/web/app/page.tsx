@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { protocolData } from '../lib/server';
 import { capabilities } from '../../../packages/protocol/capabilities.js';
 import { amount, localTime } from '../lib/format';
+import OverviewMarkets from '../components/overview-markets';
 export const dynamic = 'force-dynamic';
 export default async function Overview() {
   let summary = null;
@@ -18,92 +19,103 @@ export default async function Overview() {
     <>
       <section className="page-heading">
         <div>
-          <p className="overline">PAPERTRADE / COMMUNITY</p>
+          <p className="overline">PAPERTRADE / HYPEREVM</p>
           <h1>Overview</h1>
-          <p> Protocol state, PAPER ownership and trade risk in one place. </p>
+          <p>Markets, protocol liquidity and your PAPER activity.</p>
         </div>
         <Link href="/trade" className="button primary">
-          {' '}
-          Open terminal ↗{' '}
+          Open terminal ↗
         </Link>
       </section>
-      <section className="protocol-hero" aria-label="Protocol state">
-        <div className="hero-number">
-          <span> Protocol LP </span>
+      <section className="protocol-band" aria-label="Protocol state">
+        <div className="protocol-band-heading">
+          <p className="overline">PROTOCOL LIQUIDITY</p>
           <strong>{amount(summary?.balances.lp)}</strong>
-          <p> From the official indexer. Treasury includes user collateral. </p>
+          <p>USDC in the shared LP · reported by the official indexer</p>
         </div>
         <div className="hero-details">
           <div>
-            <span> Active positions </span>
+            <span>Active positions</span>
             <strong>{summary?.activity.open.toLocaleString('en-US') ?? '—'}</strong>
           </div>
           <div>
-            <span> Queued payouts </span>
+            <span>Queued payouts</span>
             <strong>{amount(summary?.balances.queue)}</strong>
           </div>
           <div>
-            <span> Staked PAPER </span>
+            <span>Staked PAPER</span>
             <strong>{amount(summary?.paper.staked, 'paper')}</strong>
           </div>
           <div>
-            <span>Supply PAPER</span>
+            <span>PAPER supply</span>
             <strong>{amount(summary?.paper.supply, 'paper')}</strong>
           </div>
         </div>
+        <div className={`source-line ${error ? 'error-text' : ''}`}>
+          <span className="status-dot" />
+          {summary
+            ? `${stale ? 'Cached data' : 'Official API'} · block ${summary.source.block} · ${localTime(summary.source.at)} UTC`
+            : 'Official API unavailable. Refresh this page later.'}
+          <span>RPC reconciliation incomplete</span>
+        </div>
       </section>
-      <div className={`source-line ${error ? 'error-text' : ''}`}>
-        <span className="status-dot" />
-        {summary
-          ? `${stale ? 'Cached data' : 'Official API'} · block ${summary.source.block} · ${localTime(summary.source.at)} UTC`
-          : 'Official API unavailable. Refresh this page later.'}
-        <span> RPC reconciliation is incomplete </span>
-      </div>
-      <div className="split-layout">
-        <section className="panel">
-          <div className="section-heading">
-            <h2> Available features </h2>
-            <span> Integration status </span>
-          </div>
-          <div className="capability-list">
-            {capabilities.map((item) => (
-              <div key={item.id}>
-                <div>
-                  <strong>{item.title}</strong>
-                  <p>{item.reason}</p>
-                </div>
-                <span className={`tag ${item.status === 'available' ? 'positive' : ''}`}>
-                  {item.status === 'available'
-                    ? 'Available'
-                    : item.status === 'planned'
-                      ? 'Planned'
-                      : 'Unverified'}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="notes-column">
-          <h2>Community points</h2>
+      <OverviewMarkets />
+      <section className="overview-actions" aria-label="Your workspace">
+        <div>
+          <p className="overline">COMMUNITY</p>
+          <h2>Your participation</h2>
           <p>
-            {' '}
-            Explore the protocol, track your address and take part in the points campaign. Losses
-            and trading volume earn no bonuses.{' '}
+            Track your address, complete the risk quiz and collect community points. Trading volume
+            and losses earn no bonuses.
           </p>
-          <Link href="/leaderboard" className="text-link">
-            {' '}
-            Community campaign →{' '}
+          <Link href="/leaderboard" className="button primary">
+            Open community →
           </Link>
-          <div className="note">
-            <strong> 1000x is the protocol ceiling. </strong>
-            <p>
-              {' '}
-              Estimate net profit and distance to the bust price before opening a position. The
-              local sandbox uses virtual funds.{' '}
-            </p>
-          </div>
-        </section>
-      </div>
+        </div>
+        <div className="quick-links">
+          <Link className="quick-link" href="/profile">
+            <div>
+              <strong>Profile</strong>
+              <p>Balances, staked PAPER and position history.</p>
+            </div>
+            <span aria-hidden="true">↗</span>
+          </Link>
+          <Link className="quick-link" href="/research">
+            <div>
+              <strong>Research</strong>
+              <p>Compare historical scenarios and cash constraints.</p>
+            </div>
+            <span aria-hidden="true">↗</span>
+          </Link>
+          <Link className="quick-link" href="/rewards">
+            <div>
+              <strong>Rewards</strong>
+              <p>Inspect a snapshot allocation and its claim proof.</p>
+            </div>
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+      </section>
+      <details className="integration-details">
+        <summary>Integration status · live trading disabled</summary>
+        <div className="capability-list">
+          {capabilities.map((item) => (
+            <div key={item.id}>
+              <div>
+                <strong>{item.title}</strong>
+                <p>{item.reason}</p>
+              </div>
+              <span className={`tag ${item.status === 'available' ? 'positive' : ''}`}>
+                {item.status === 'available'
+                  ? 'Available'
+                  : item.status === 'planned'
+                    ? 'Planned'
+                    : 'Unverified'}
+              </span>
+            </div>
+          ))}
+        </div>
+      </details>
     </>
   );
 }

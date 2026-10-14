@@ -1,0 +1,19 @@
+{
+  "revision": "Original cobalt, horizontal application",
+  "checks": {
+    "mobileNavigationClosesOnRoute": true,
+    "walletMessageDismissed": true,
+    "researchScenarioUpdatesBalances": true,
+    "marketPeriodChangesActualCandleWindow": true,
+    "ethLinkSelectsEthInTerminal": true,
+    "marketPricesFromPublicApi": true,
+    "directSectionGapsMeasured": true,
+    "productionBuild": "passed",
+    "existingTestsPassed": 44,
+    "responsiveChecksPassed": 35,
+    "httpChecksPassed": 19
+  },
+  "screenshots": ["overview-full.jpg", "research-spacing.jpg"],
+  "liveMoneyActions": false,
+  "pushed": false
+}

@@ -1,5 +1,10 @@
 import Terminal from '../../components/terminal';
-export default function TradePage() {
+export default async function TradePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ coin?: string | string[] }>;
+}) {
+  const { coin } = await searchParams;
   return (
     <>
       <section className="page-heading">
@@ -9,7 +14,7 @@ export default function TradePage() {
         </div>
         <span className="tag"> Live submission disabled </span>
       </section>
-      <Terminal />
+      <Terminal initialCoin={coin === 'ETH' ? 'ETH' : 'BTC'} />
     </>
   );
 }

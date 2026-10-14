@@ -23,9 +23,9 @@ type Calculation =
       exit: bigint;
     }
   | { ok: false; issue: string };
-export default function Terminal() {
+export default function Terminal({ initialCoin = 'BTC' }: { initialCoin?: 'BTC' | 'ETH' }) {
   const wallet = useWallet();
-  const [coin, setCoin] = useState<'BTC' | 'ETH'>('BTC'),
+  const [coin, setCoin] = useState<'BTC' | 'ETH'>(initialCoin),
     [market, setMarket] = useState<MarketData | null>(null),
     [error, setError] = useState(''),
     [loading, setLoading] = useState(false);
@@ -37,6 +37,7 @@ export default function Terminal() {
   const [now, setNow] = useState(Date.now());
   const currentCoin = useRef(coin);
   currentCoin.current = coin;
+  useEffect(() => setCoin(initialCoin), [initialCoin]);
   async function refresh() {
     setLoading(true);
     setError('');
