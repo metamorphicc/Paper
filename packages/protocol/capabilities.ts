@@ -1,3 +1,7 @@
+import features from '../../config/features.json' with { type: 'json' };
+import release from '../../config/trading-release.json' with { type: 'json' };
+import manifest from '../../research/contracts/manifest.json' with { type: 'json' };
+import domains from '../../research/signature-domains.json' with { type: 'json' };
 export const capabilities = [
   {
     id: 'read',
@@ -44,8 +48,32 @@ export const capabilities = [
     reason: 'Mock settlement and intent lifecycle with virtual funds.',
   },
 ] as const;
-export function assertLiveSubmissionAllowed(): never {
-  throw new Error(
-    'Live submission blocked: third-party relayer access, source equivalence and settlement are unverified.',
-  );
+export function liveSubmissionReadiness() {
+  const checks = {
+    implementationSourceVerified:
+      manifest.records.length === 8 &&
+      manifest.records.every((row) => row.sourceEquivalenceVerified),
+    exchangeDomainVerified: domains.contracts.some(
+      (row) => row.name === 'Exchange' && row.domainObserved,
+    ),
+    cancellationDomainVerified: release.cancellationDomainVerified,
+    collateralLifecycleVerified: release.collateralLifecycleVerified,
+    thirdPartyAccessVerified: release.thirdPartyAccessVerified,
+    settlementVerified: release.settlementVerified,
+    sessionAuthorizationVerified: release.sessionAuthorizationVerified,
+    releaseApproved: release.approved && features.tradingSubmission,
+  };
+  return {
+    enabled: Object.values(checks).every(Boolean),
+    checks,
+    blockers: Object.entries(checks)
+      .filter(([, value]) => !value)
+      .map(([key]) => key),
+  };
+}
+export function assertLiveSubmissionAllowed(): void {
+  if (!liveSubmissionReadiness().enabled)
+    throw new Error(
+      'Live submission blocked: third-party relayer access, source equivalence and settlement are unverified.',
+    );
 }

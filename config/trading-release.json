@@ -1,0 +1,10 @@
+{
+  "approved": false,
+  "observedBuildId": "32abe9f9c6a6",
+  "thirdPartyAccessVerified": false,
+  "settlementVerified": false,
+  "cancellationDomainVerified": false,
+  "collateralLifecycleVerified": false,
+  "sessionAuthorizationVerified": false,
+  "notes": "Observed frontend schemas and archive reads do not authorize live financial submission. External evidence remains incomplete."
+}

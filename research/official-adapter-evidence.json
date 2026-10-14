@@ -1,0 +1,47 @@
+{
+  "observedAtUtc": "2026-10-14T17:32:13.334Z",
+  "sources": [
+    {
+      "url": "https://exchange.papertrade.xyz/assets/index-9zxq8TOY.js",
+      "status": 404,
+      "sha256": "e3ebaa16dd9d9b9fc107c42183fb6cf9d22927e1af03dbbdfa0ccc38e4e4ac31",
+      "matchesArchivedAsset": false
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/typed-data-MuKdbS29.js",
+      "status": 404,
+      "sha256": "e3ebaa16dd9d9b9fc107c42183fb6cf9d22927e1af03dbbdfa0ccc38e4e4ac31",
+      "matchesArchivedAsset": false
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/build-BX8MMfdq.js",
+      "status": 404,
+      "sha256": "e3ebaa16dd9d9b9fc107c42183fb6cf9d22927e1af03dbbdfa0ccc38e4e4ac31",
+      "matchesArchivedAsset": false
+    }
+  ],
+  "metadata": [
+    {
+      "name": "Exchange",
+      "url": "https://dweb.link/ipfs/QmX46b3W8qXKJWqiheKCwQaeyY1AhJK88ct7FQwezQiGyE",
+      "status": 429,
+      "sourceEquivalenceVerified": false
+    },
+    {
+      "name": "PaperStaking",
+      "url": "https://dweb.link/ipfs/QmfQfc7F2GkFqT2erj6Y4wSjv3aGmKvqVeJAhHphTU443j",
+      "status": 429,
+      "sourceEquivalenceVerified": false
+    }
+  ],
+  "invalidRequestProbe": {
+    "method": "POST",
+    "endpoint": "https://exchange.papertrade.xyz/intents",
+    "payload": "Empty object; no wallet, action or signature",
+    "status": 400,
+    "code": null,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "settlementVerified": false
+  },
+  "realSignedIntentsSubmitted": false
+}

@@ -5,7 +5,7 @@ import {
   type IntentMessage,
   type IntentType,
 } from '../protocol/intents.js';
-import { assertLiveSubmissionAllowed } from '../protocol/capabilities.js';
+export { OfficialRelayerTransport as LiveRelayerTransport } from './official-transport.js';
 import { closePnl, WAD } from '../protocol/quote.js';
 import type { Instrument } from '../protocol/official.js';
 
@@ -51,17 +51,6 @@ export function sandboxTypedData(type: IntentType, message: IntentMessage) {
 }
 export function sandboxId(type: IntentType, message: IntentMessage): Hex {
   return keccak256(toHex(`paperclub:sandbox:v1:${hashTypedData(sandboxTypedData(type, message))}`));
-}
-export class LiveRelayerTransport {
-  async submit(_payload: Envelope): Promise<Receipt> {
-    assertLiveSubmissionAllowed();
-  }
-  async status(_id: Hex): Promise<Receipt> {
-    assertLiveSubmissionAllowed();
-  }
-  async cancel(_id: Hex): Promise<Receipt> {
-    assertLiveSubmissionAllowed();
-  }
 }
 export class MockRelayer {
   readonly mode = 'sandbox';

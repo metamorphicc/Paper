@@ -48,3 +48,7 @@ Next unresolved substeps, in order: select and validate an archive data source; 
 ### Requested launch blocks 1–2, archive substep
 
 A public archive source passed capability checks, four named historical summary fields reconciled, and a real public PAPER receipt window reconciled. The default research archive includes the documented native-transaction flag to avoid inconsistent logs/receipt numbering. This closes the lack of a usable research archive; production capacity and full protocol/wallet reconciliation remain separate. Next: wire-compatible official transport, nonce/signature preparation, status reconciliation and cancellation with explicit release gates.
+
+### Requested launch blocks 1–2: HTTP/signing implementation
+
+Real official-wire HTTP code replaces the transport stub. It includes exact schemas, signature/authority checks, deadlines, coordinated nonces, bound acknowledgements, cancellation, status reads and retained identical retries after unknown acknowledgements. Four new network/controller tests pass. Current official assets were refreshed through browser-discovered URLs; build ID changed to 32abe9f9c6a6. Source metadata and external lifecycle/settlement evidence remain unavailable, so launch blocks 1–2 are not marked fully complete. Details and substeps are in LIVE-ADAPTER.md.

@@ -1,0 +1,32 @@
+{
+  "observedAtUtc": "2026-10-14T17:34:35.459Z",
+  "source": "Current official browser DOM script/modulepreload URLs",
+  "sources": [
+    {
+      "url": "https://exchange.papertrade.xyz/assets/index-DLWz5-XS.js",
+      "sha256": "b3f6e31ffd78c7fc0dd394389502e73ff3057b1e2382fb2bc09164fa6d9b4b95",
+      "bytes": 519409
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/typed-data-B0hqt2-N.js",
+      "sha256": "ff04eb15141ecc5fd02bf9a2f7cf3a0440396b5e7d08bb6aed6d545e244213de",
+      "bytes": 2727
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/build-CHqOs8Q9.js",
+      "sha256": "61d8917121a646abdbb0669fadc972c05ca06211b8bf96d7e2e9be9e22e61a3b",
+      "bytes": 79
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/wire-CyKk-C34.js",
+      "sha256": "c4a348d13c047bc4362811143330786920f34b34fe8c91c6d29c05ac73ac8f35",
+      "bytes": 26181
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/execution-Cy--kh-L.js",
+      "sha256": "b5e11518d7d06684061dc11fe8e1ee1017a6b6bb2993530670b19a181d1780e0",
+      "bytes": 166090
+    }
+  ],
+  "downloadedJavaScriptExecutedByWorkspace": false
+}
