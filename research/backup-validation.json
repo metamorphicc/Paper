@@ -1,0 +1,21 @@
+{
+  "observedAtUtc": "2026-10-14T12:22:09.391Z",
+  "backupFile": "data/backups/paperclub-2026-10-14T12-22-09-379Z.sqlite",
+  "sha256": "a604daea40440a7d77db604acf31eea649403bdec9ad4e276006e26c934f6fc5",
+  "integrity": "ok",
+  "scratchRestore": true,
+  "statistics": {
+    "events": 689,
+    "snapshots": 31,
+    "streams": [
+      {
+        "stream": "paper-transfers",
+        "chain_id": 999,
+        "from_block": 48510776,
+        "through_block": 48510954,
+        "updated_at": "2026-10-14T11:04:06.207Z"
+      }
+    ]
+  },
+  "liveDatabaseReplaced": false
+}

@@ -1,0 +1,11 @@
+{
+  "observedAtUtc": "2026-10-14T12:21:11.268Z",
+  "chainId": 999,
+  "block": "48519192",
+  "blockHash": "0x4ee809a01e12cc97b3b0d3a1e0b97697256a219042a7a47a500527e63cfae0f5",
+  "fingerprint": "0x77ca15e95e5e3c46b04579bad57f2895227ce5df421c766668ca3b283a1fe26d",
+  "status": "unchanged",
+  "changes": [],
+  "liveSubmission": false,
+  "sourceVerification": false
+}

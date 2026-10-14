@@ -13,8 +13,8 @@ The UI, errors, accessibility labels and dates use English (UTC). Existing histo
 | 5.1 | Sequential path simulator with latency, liquidation, pauses and queued payouts | 8b1cf75; four path tests, delayed legs, loss stop, emission/distribution sensitivity and no-lookahead check |
 | 5.2 | Historical candle replay and baseline/paired-strategy comparisons | eb1086e; seven days of completed BTC 15-minute bars, contiguous timestamps and hashed input; baseline, long, paired and three sensitivities |
 | 5.3 | Cash-only vault accounting, redemption tests and research UI | 98c7663; three accounting tests and English research page with selectable scenario/cash/equity charts; no deployable vault or live deposits |
-| 6.1 | Security review and concrete fixes | Completed locally: bounded streaming I/O, local API rate/origin guards, redacted diagnostics, dependency patch and security report |
-| 6.2 | Upgrade monitor, backup/restore tooling and incident playbook | Planned |
+| 6.1 | Security review and concrete fixes | 5aa0609; bounded streaming I/O, local API rate/origin guards, redacted diagnostics, dependency patch and security report |
+| 6.2 | Upgrade monitor, backup/restore tooling and incident playbook | Completed: eight implementations unchanged at pinned block, online backup quick_check and scratch/table restore passed; no schedule or public launch |
 | 6.3 | Final integration, responsive checks and launch evidence | Planned |
 
 Token name, ticker, allocations, liquidity and capital limits are proposals until the user chooses them. No elapsed time is treated as approval. Local tests may use draft parameters and public demo addresses. Public claims, token deployment and custody remain disabled while required parameters, protocol integration and independent contract audit are unresolved.
