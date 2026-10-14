@@ -12,7 +12,7 @@
 | 2.2 | Persistent indexer, replay/reorg, profiles и snapshots | Готово: 184 live PAPER events на 64 блоках; 4 store tests, profile API и overview HTTP 200 |
 | 2.3 | Leaderboard, treasury, points campaign и pilot metrics | Готово: signed local points, quiz, per-address cap, mint activity и treasury view; 2 campaign security tests |
 | 3.1 | Wallet connection, risk calculator и signature preview | Готово: injected wallet, account/network invalidation, real BBO/candles, fixed-point risk и observed schema preview; 3 quote tests |
-| 3.2 | Trading/staking adapter, intent lifecycle, retry/cancel и emergency actions | Ожидает |
+| 3.2 | Trading/staking adapter, intent lifecycle, retry/cancel и emergency actions | Готово локально: open/close, stake/unstake/claim/withdraw, session revoke, reservations, retry того же ID, outage/expiry/cancel; live transport fail-closed |
 | 3.3 | Интеграционные проверки, responsive QA и запуск локального preview | Ожидает |
 
 ## Условия проверки

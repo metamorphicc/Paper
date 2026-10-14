@@ -139,6 +139,20 @@ input[type=range] { padding: 0; border: 0; accent-color: var(--color-accent); }
 .signature-preview p { font-size: 12px; margin-block-start: 8px; }
 .signature-preview pre { max-height: 320px; overflow: auto; background: var(--color-paper-2); color: var(--color-ink); padding: 12px; border-radius: var(--radius); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (min-width: 60rem) { .trade-workspace { grid-template-columns: minmax(0,1.7fr) minmax(320px,1fr); } }
+.sandbox-panel { margin-block-start: 32px; padding: 24px; background: var(--color-surface); color: var(--color-ink); border: 1px solid var(--color-line); border-radius: var(--radius); }
+.sandbox-panel > .button { margin-block-start: 20px; }
+.sandbox-balances { margin-block: 28px; }
+.sandbox-controls { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+.sandbox-controls label { display: grid; gap: 8px; min-width: 0; flex: 1 1 260px; }
+.positions-list,.local-operations,.intent-list { margin-block: 28px; padding-block-start: 24px; border-block-start: 1px solid var(--color-line); }
+.positions-list > div { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-block: 16px; }
+.positions-list span { font-size: 14px; font-variant-numeric: tabular-nums; }
+.operation-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.operation-fields label { font-size: 14px; display: grid; gap: 8px; }
+.intent-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.intent-list small { display: block; margin-block-start: 4px; font-size: 12px; }
+.emergency-actions { margin-block-start: 32px; padding-block-start: 28px; border-block-start: 1px solid var(--color-line); }
+.emergency-actions p { margin-block-start: 16px; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
 th { text-align: start; font-weight: 400; color: var(--color-muted); }
 th, td { padding: 14px 12px; border-block-end: 1px solid var(--color-line); }
