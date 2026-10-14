@@ -19,14 +19,14 @@ try {
   const blockNumber = await client.getBlockNumber();
   const block = await client.getBlock({ blockNumber });
   const contracts = [];
-  // A single pinned block makes this snapshot internally consistent.
+  // Default HyperEVM RPC state calls support latest only; the head is context.
   for (const [name, rawAddress] of Object.entries(config.contracts) as [string, string][]) {
     const address = rawAddress.toLowerCase() as Address;
     try {
-      const code = await client.getCode({ address, blockNumber });
+      const code = await client.getCode({ address, blockTag: 'latest' });
       const implementationSlot = await client.getStorageAt({
         address,
-        blockNumber,
+        blockTag: 'latest',
         slot: '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc',
       });
       contracts.push({
@@ -57,7 +57,7 @@ try {
         address: config.contracts.PaperToken.toLowerCase() as Address,
         abi,
         functionName,
-        blockNumber,
+        blockTag: 'latest',
       });
       tokenReads[functionName] = typeof value === 'bigint' ? value.toString() : value;
     } catch (error) {
@@ -70,10 +70,14 @@ try {
     chainId,
     blockNumber: blockNumber.toString(),
     blockHash: block.hash,
+    statePinned: false,
+    stateMode: 'latest-observation',
+    headAfter: String(await client.getBlockNumber()),
     blockTimestampUtc: new Date(Number(block.timestamp) * 1000).toISOString(),
     contracts,
     tokenReads,
     limitations: [
+      'Sampled head/hash are context; latest code/storage/call observations are not an atomic or block-pinned snapshot.',
       'Bytecode presence does not verify source or safety.',
       'Builder activation, relayer access and economic state not inferred from bytecode.',
       'No transactions or wallet signing performed.',

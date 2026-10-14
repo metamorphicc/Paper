@@ -10,13 +10,11 @@ test('RPC reader reconciles actual local EVM transfer receipts and rejects a wro
   try {
     const [owner, treasury] = evm.accounts as [Address, Address];
     const artifact = compileContracts().ClubToken!;
-    const deployment = await evm
-      .wallet(owner)
-      .deployContract({
-        abi: artifact.abi,
-        bytecode: artifact.bytecode,
-        args: ['Paperclub', 'CLUB', 1000n, [owner], [1000n]],
-      });
+    const deployment = await evm.wallet(owner).deployContract({
+      abi: artifact.abi,
+      bytecode: artifact.bytecode,
+      args: ['Paperclub', 'CLUB', 1000n, [owner], [1000n]],
+    });
     const receipt = await evm.publicClient.waitForTransactionReceipt({ hash: deployment });
     const asset = receipt.contractAddress!;
     const write = async (actor: Address, functionName: string, args: unknown[]) => {

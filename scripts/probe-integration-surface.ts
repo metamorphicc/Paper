@@ -113,7 +113,8 @@ const report = {
   observedAtUtc: new Date().toISOString(),
   sources,
   runtimeEvidence,
-  runtimeEvidenceBlock: manifest.blockNumber,
+  runtimeManifestHeadContext: manifest.blockNumber,
+  runtimeStatePinned: false,
   latestDomainEvidenceBlock: domainReport.block,
   preflight,
   thirdPartyRelayerSettlementVerified: false,
@@ -121,7 +122,7 @@ const report = {
   limitations: [
     'A preflight response is not relayer authorization or settlement evidence.',
     'PUSH constants are static clues, not proof that a signing or EIP-1271 execution path exists.',
-    'Runtime evidence belongs to the archived manifest block, not a new deployment observation.',
+    'Runtime bytes belong to archived latest-state observations; the manifest head context does not establish state pinning.',
     'Fetched metadata or ABI alone does not prove compiler/source equivalence. No writes or signatures submitted.',
   ],
 };
