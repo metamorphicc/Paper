@@ -1,0 +1,16 @@
+{
+  "style": {
+    "name": "DESIGN (2).md",
+    "bytes": 20995,
+    "sha256": "ed0b05b83e5dabe551c5e5b53cb646d5e8d30b12cd633d8fb6a1407e6040693f"
+  },
+  "video": {
+    "name": "d7be6a2d-e1ac-40f9-bb86-2fc3402278f7.mp4",
+    "bytes": 2014057,
+    "sha256": "f114d455eb3203fa44725a7194f0b4cdd0ed0bb7aa519f66f49a8094a4144f42",
+    "durationSeconds": 9.27,
+    "reviewedFrameSeconds": [0.1854, 1.854, 3.708, 5.562, 7.416, 8.8992]
+  },
+  "structure": "Seven-route application, no landing-page conversion",
+  "referenceFilesPublished": false
+}

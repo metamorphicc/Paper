@@ -1,0 +1,77 @@
+{
+  "method": "WCAG relative luminance; exact source RGB before equivalent OKLCH conversion",
+  "results": [
+    {
+      "foreground": "linen",
+      "background": "obsidian-ember",
+      "minimum": 4.5,
+      "ratio": 18.41
+    },
+    {
+      "foreground": "linen",
+      "background": "dark-cocoa",
+      "minimum": 4.5,
+      "ratio": 16.46
+    },
+    {
+      "foreground": "warm-ash",
+      "background": "obsidian-ember",
+      "minimum": 4.5,
+      "ratio": 9.08
+    },
+    {
+      "foreground": "warm-ash",
+      "background": "dark-cocoa",
+      "minimum": 4.5,
+      "ratio": 8.11
+    },
+    {
+      "foreground": "flare-orange",
+      "background": "obsidian-ember",
+      "minimum": 4.5,
+      "ratio": 6.13
+    },
+    {
+      "foreground": "flare-orange",
+      "background": "dark-cocoa",
+      "minimum": 4.5,
+      "ratio": 5.48
+    },
+    {
+      "foreground": "obsidian-ember",
+      "background": "vapor-peach",
+      "minimum": 4.5,
+      "ratio": 17.04
+    },
+    {
+      "foreground": "light-muted",
+      "background": "vapor-peach",
+      "minimum": 4.5,
+      "ratio": 5.71
+    },
+    {
+      "foreground": "signal-red",
+      "background": "vapor-peach",
+      "minimum": 4.5,
+      "ratio": 7.41
+    },
+    {
+      "foreground": "control-dark",
+      "background": "obsidian-ember",
+      "minimum": 3,
+      "ratio": 3.99
+    },
+    {
+      "foreground": "control-light",
+      "background": "vapor-peach",
+      "minimum": 3,
+      "ratio": 4.04
+    },
+    {
+      "foreground": "warm-blush",
+      "background": "obsidian-ember",
+      "minimum": 3,
+      "ratio": 10.83
+    }
+  ]
+}

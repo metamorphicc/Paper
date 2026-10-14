@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { WalletButton, WalletProvider } from './wallet';
 import Commands from './commands';
+import { BrandMark, NavIcon } from './nav-icon';
 const items = [
   ['/', 'Overview', '◈'],
   ['/trade', 'Terminal', '↗'],
@@ -31,20 +32,21 @@ function ShellContent({ children }: { children: React.ReactNode }) {
       </a>
       <aside className={`rail ${open ? 'is-open' : ''}`}>
         <Link href="/" className="wordmark" onClick={() => setOpen(false)}>
+          <BrandMark />
           paperclub<span>_</span>
         </Link>
         <div className="network-label">
           <span className="status-dot" /> HyperEVM · 999
         </div>
         <nav aria-label="Main navigation">
-          {items.map(([href, label, icon]) => (
+          {items.map(([href, label]) => (
             <Link
               key={href}
               href={href}
               aria-current={path === href ? 'page' : undefined}
               onClick={() => setOpen(false)}
             >
-              <span aria-hidden="true">{icon}</span>
+              <NavIcon name={label} />
               {label}
             </Link>
           ))}

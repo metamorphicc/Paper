@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-10-14",
+    "scope": "app",
+    "macrostructure": "Application workbench",
+    "theme": "studied-DNA",
+    "source": "User-provided Altius style document and scrolling video",
+    "enrichment": "none — existing price and research charts",
+    "fonts": ["Inter", "IBM Plex Mono"],
+    "brief": "Reference-derived ember/peach styling across seven existing Paperclub routes",
+    "nav": "Preserved application sidebar",
+    "footer": "Compact application status row"
+  },
+  {
+    "date": "2026-10-14",
     "macrostructure": "Stat-Led application workspace",
     "theme": "Cobalt",
     "enrichment": "none — real data charts",

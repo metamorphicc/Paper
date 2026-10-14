@@ -1,38 +1,6 @@
-/* Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V4
- * genre: modern-minimal · macrostructure: Stat-Led / application workspace
- * theme: Cobalt · nav: application rail · footer: Ft2 · enrichment: real data
- * audience: HyperEVM community · use: inspect protocol and risk · tone: precise
- */
-:root {
-  --color-paper: #f4f6fa;
-  --color-surface: #fdfefe;
-  --color-paper-2: #edf1f7;
-  --color-ink: #19243a;
-  --color-muted: #56647a;
-  --color-line: #dce2ec;
-  --color-accent: #244cda;
-  --color-accent-ink: #ffffff;
-  --color-accent-soft: #e9efff;
-  --color-positive: #24624b;
-  --color-positive-soft: #e8f3ed;
-  --color-error: #a22f37;
-  --color-error-soft: #faecee;
-  --color-focus: #122966;
-  --color-transparent: transparent;
-  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
-  --font-body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, monospace;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --radius: 6px;
-  --dur-micro: 120ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Hallmark · genre: reference-derived technical · macrostructure: workbench · design-system: design.md · designed-as-app */
+@import '../../../tokens.css';
+
 * {
   box-sizing: border-box;
 }

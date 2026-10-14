@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
-import '@fontsource/space-grotesk/700.css';
-import '@fontsource/ibm-plex-sans/400.css';
-import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
+import './ember.css';
 import Shell from '../components/shell';
 export const metadata: Metadata = {
   title: 'Paperclub — protocol, community, positions',

@@ -1,14 +1,30 @@
 {
   "date": "2026-10-14",
-  "source": "package.json:1; no existing web CSS or design system",
+  "source": [
+    "apps/web/package.json",
+    "apps/web/app/globals.css",
+    "apps/web/app/layout.tsx",
+    "design.md"
+  ],
   "audience": "HyperEVM community",
-  "use": "Inspect protocol, addresses and trade risk",
-  "tone": "precise",
-  "genre": "modern-minimal",
-  "theme": "Cobalt",
-  "macrostructure": "Stat-Led adapted to an application workspace",
-  "fonts": ["Space Grotesk", "IBM Plex Sans"],
-  "motion": "button press only",
-  "framework": "Next.js",
-  "assets": "No decorative imagery; charts use actual data"
+  "use": "Inspect balances and trade risk, use local community and sandbox controls",
+  "tone": "technical",
+  "genre": "reference-derived technical",
+  "theme": "Altius ember/peach adaptation",
+  "macrostructure": "Application workbench",
+  "fonts": ["Inter", "IBM Plex Mono"],
+  "motion": "Subtle press/opacity only, no scroll reveals",
+  "framework": "Next.js 16.4.0",
+  "preserved": [
+    "Seven routes and data flow",
+    "Application sidebar",
+    "English section names",
+    "Wallet dismissal and local safety gates"
+  ],
+  "introduced": [
+    "Named portable OKLCH tokens",
+    "Reference-derived warm surfaces",
+    "Outline icon system",
+    "Consistent compact module rhythm"
+  ]
 }
