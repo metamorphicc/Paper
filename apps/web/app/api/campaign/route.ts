@@ -1,7 +1,11 @@
 import { campaign, assertLocalOrigin } from '../../../lib/campaign';
 import { object } from '../../../../../packages/protocol/official.js';
+import { boundedText, BodyLimitError } from '../../../../../packages/http/guards.js';
+import { guardRead } from '../../../lib/request-guard';
 export const dynamic = 'force-dynamic';
-export async function GET() {
+export async function GET(request: Request) {
+  const rejection = guardRead(request, 'campaign-read', 60);
+  if (rejection) return rejection;
   return Response.json({
     campaign: 'founding-01',
     leaderboard: campaign().leaderboard(),
@@ -13,9 +17,18 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const origin = assertLocalOrigin(request);
-    const text = await request.text();
-    if (text.length > 10_000) throw new Error('Request too large');
-    const body = object(JSON.parse(text));
+    const rejection = guardRead(request, 'campaign-write', 30);
+    if (rejection) return rejection;
+    if (!request.headers.get('content-type')?.startsWith('application/json'))
+      return Response.json({ error: 'JSON content type required' }, { status: 415 });
+    const text = await boundedText(request, 10_000, 5000);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      throw new Error('Invalid JSON body');
+    }
+    const body = object(parsed);
     if (body.operation === 'challenge')
       return Response.json(
         campaign().issue(String(body.address ?? ''), String(body.action ?? ''), origin),
@@ -43,7 +56,7 @@ export async function POST(request: Request) {
   } catch (error) {
     return Response.json(
       { error: error instanceof Error ? error.message : 'Campaign action failed' },
-      { status: 400 },
+      { status: error instanceof BodyLimitError ? 413 : 400 },
     );
   }
 }

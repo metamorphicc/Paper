@@ -2,8 +2,11 @@ import { isAddress } from 'viem';
 import { database, walletData } from '../../../../lib/server';
 import { tradeHistory } from '../../../../../../packages/protocol/history.js';
 import { readProfile } from '../../../../../../packages/protocol/read.js';
+import { guardRead } from '../../../../lib/request-guard';
 export const dynamic = 'force-dynamic';
 export async function GET(_request: Request, context: { params: Promise<{ address: string }> }) {
+  const rejection = guardRead(_request, 'profile', 20);
+  if (rejection) return rejection;
   const { address } = await context.params;
   if (!isAddress(address)) return Response.json({ error: 'Invalid address' }, { status: 400 });
   try {

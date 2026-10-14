@@ -9,7 +9,7 @@ const wallets = await Promise.all(
     try {
       return { address, snapshot: await api.wallet(address) };
     } catch (error) {
-      return { address, error: error instanceof Error ? error.message : 'Snapshot error' };
+      return { address, error: error instanceof Error ? error.name : 'Snapshot error' };
     }
   }),
 );

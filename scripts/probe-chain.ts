@@ -37,7 +37,12 @@ try {
         status: code && code !== '0x' ? 'code-present' : 'no-code',
       });
     } catch (error) {
-      contracts.push({ name, address, status: 'read-failed', error: String(error).slice(0, 500) });
+      contracts.push({
+        name,
+        address,
+        status: 'read-failed',
+        error: error instanceof Error ? error.name : 'ReadError',
+      });
     }
   }
   const tokenReads: Record<string, unknown> = {};
@@ -56,7 +61,7 @@ try {
       });
       tokenReads[functionName] = typeof value === 'bigint' ? value.toString() : value;
     } catch (error) {
-      tokenReads[functionName] = { error: String(error).slice(0, 500) };
+      tokenReads[functionName] = { error: error instanceof Error ? error.name : 'ReadError' };
     }
   }
   const report = {
@@ -88,11 +93,15 @@ try {
   await writeFile(
     new URL('../research/chain-snapshot.json', import.meta.url),
     JSON.stringify(
-      { observedAtUtc, status: 'rpc-unavailable', error: String(error).slice(0, 1000) },
+      {
+        observedAtUtc,
+        status: 'rpc-unavailable',
+        error: error instanceof Error ? error.name : 'ReadError',
+      },
       null,
       2,
     ) + '\n',
   );
-  console.error('RPC snapshot unavailable:', String(error));
+  console.error('RPC snapshot unavailable:', error instanceof Error ? error.name : 'ReadError');
   process.exitCode = 1;
 }

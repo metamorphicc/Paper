@@ -1,4 +1,5 @@
 import { isAddress } from 'viem';
+import { boundedText } from '../http/guards.js';
 
 export const OFFICIAL_ORIGIN = 'https://exchange.papertrade.xyz';
 export type JsonObject = Record<string, unknown>;
@@ -232,8 +233,7 @@ export class OfficialReadClient {
       throw new Error('Official API rate limited');
     }
     if (!response.ok) throw new Error(`Official API HTTP ${response.status}`);
-    const text = await response.text();
-    if (text.length > 2_000_000) throw new Error('Oversized official response');
+    const text = await boundedText(response, 2_000_000);
     return JSON.parse(text);
   }
   async trading() {

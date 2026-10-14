@@ -36,6 +36,8 @@ export function validateBuyback(
   quote: BuybackQuote,
   now = Date.now(),
 ) {
+  if (!Number.isSafeInteger(policy.maxQuoteAgeMs) || policy.maxQuoteAgeMs < 1)
+    throw new Error('Invalid quote age limit');
   if (
     !Number.isSafeInteger(policy.maxImpactBps) ||
     policy.maxImpactBps < 0 ||

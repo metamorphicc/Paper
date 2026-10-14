@@ -1,6 +1,9 @@
 import { OfficialReadClient } from '../../../../../packages/protocol/official.js';
+import { guardRead } from '../../../lib/request-guard';
 export const dynamic = 'force-dynamic';
-export async function GET() {
+export async function GET(request: Request) {
+  const rejection = guardRead(request, 'protocol', 60);
+  if (rejection) return rejection;
   try {
     const api = new OfficialReadClient();
     const [summary, trading] = await Promise.all([api.summary(), api.trading()]);

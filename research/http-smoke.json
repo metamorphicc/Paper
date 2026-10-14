@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-14T11:07:42.003Z",
+  "observedAtUtc": "2026-10-14T12:18:26.366Z",
   "base": "http://127.0.0.1:3000",
   "results": [
     {
@@ -20,6 +20,14 @@
     },
     {
       "path": "/treasury",
+      "status": 200
+    },
+    {
+      "path": "/rewards",
+      "status": 200
+    },
+    {
+      "path": "/research",
       "status": 200
     },
     {
@@ -60,6 +68,18 @@
     },
     {
       "path": "POST /api/campaign wrong origin",
+      "status": 400
+    },
+    {
+      "path": "GET /api/campaign wrong origin",
+      "status": 403
+    },
+    {
+      "path": "POST /api/campaign oversized",
+      "status": 413
+    },
+    {
+      "path": "/api/market?coin=INVALID",
       "status": 400
     }
   ],

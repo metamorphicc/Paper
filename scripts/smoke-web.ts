@@ -7,6 +7,8 @@ const routes = [
   '/profile',
   '/leaderboard',
   '/treasury',
+  '/rewards',
+  '/research',
   '/api/protocol',
   '/api/market?coin=BTC',
   '/api/market?coin=ETH',
@@ -66,6 +68,21 @@ const origin = await fetch(base + '/api/campaign', {
 });
 assert.equal(origin.status, 400);
 results.push({ path: 'POST /api/campaign wrong origin', status: 400 });
+const foreignRead = await fetch(base + '/api/campaign', {
+  headers: { Origin: 'https://untrusted.example' },
+});
+assert.equal(foreignRead.status, 403);
+results.push({ path: 'GET /api/campaign wrong origin', status: 403 });
+const oversized = await fetch(base + '/api/campaign', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json', Origin: base },
+  body: JSON.stringify({ padding: 'x'.repeat(11000) }),
+});
+assert.equal(oversized.status, 413);
+results.push({ path: 'POST /api/campaign oversized', status: 413 });
+const invalidMarket = await fetch(base + '/api/market?coin=INVALID');
+assert.equal(invalidMarket.status, 400);
+results.push({ path: '/api/market?coin=INVALID', status: 400 });
 await writeFile(
   new URL('../research/http-smoke.json', import.meta.url),
   JSON.stringify(
