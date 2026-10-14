@@ -32,7 +32,9 @@ export function publicClient(
   });
 }
 export function archiveClient() {
-  const rpcUrl = process.env.HYPEREVM_ARCHIVE_RPC_URL;
-  if (!rpcUrl) throw new Error('Historical state requires a separately configured archive RPC');
+  // Public read-only research default; every historical consumer checks capability.
+  const rpcUrl =
+    process.env.HYPEREVM_ARCHIVE_RPC_URL ??
+    'https://hyperliquid.drpc.org?include_hl_native_tx=true';
   return publicClient(rpcUrl);
 }

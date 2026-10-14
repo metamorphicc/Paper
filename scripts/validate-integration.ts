@@ -10,7 +10,9 @@ const state = JSON.parse(
   await readFile(new URL('../research/official-state.json', import.meta.url), 'utf8'),
 );
 const client = archiveClient();
-await assertHistoricalState(client, ADDRESSES.PaperToken);
+if ((await client.getChainId()) !== 999) throw new Error('Wrong archive chain');
+const historicalEvidence = await assertHistoricalState(client, ADDRESSES.PaperToken);
+const sourceBlock = await client.getBlock({ blockNumber: BigInt(state.summary.source.block) });
 const comparisons = await Promise.all(
   [
     ['PaperToken', 'totalSupply', state.summary.paper.supply],
@@ -88,6 +90,11 @@ const domains = await Promise.all(
 );
 const report = {
   observedAtUtc: new Date().toISOString(),
+  historicalEvidence,
+  sourceBlockHash: sourceBlock.hash,
+  comparisonsReconciled: comparisons.every((row) => row.matches),
+  scope:
+    'Four named summary fields at the official captured source block; not full protocol or wallet reconciliation',
   comparisons,
   typeHashes,
   domains,

@@ -61,3 +61,11 @@ A capability probe requested PaperToken code/balance at genesis and two later bl
 Current protocol/profile/domain readers now request latest explicitly and mark statePinned=false. Domain equality for PaperStaking remains a latest observation; Exchange remains unconfirmed. Historical comparison and treasury receipt readers require a separately configured archive RPC and a post-genesis ERC-20 canary that checks both code and raw eth_call at genesis. The canary is a capability test, not a trustless state proof. Historical log queries are split into at most 50-block ranges.
 
 No feature gate is enabled by this correction. An archive provider still must pass the canary and balance/receipt consistency checks before its historical values are used.
+
+## 2026-10-15: public archive research source
+
+The public dRPC endpoint passed the post-genesis code/call canary. The four captured official summary fields (PAPER supply, total stake, tracked LP and queued payouts) matched archive reads at source block 48510016. This verifies those named fields, not every protocol/wallet field. Evidence includes the source block hash in integration-validation.json.
+
+Use `https://hyperliquid.drpc.org?include_hl_native_tx=true` for the public research default. dRPC documents the native-transaction flag for consistent block/receipt routing. Without it, the reader rejected inconsistent log/receipt identities; with it, the selected 128-block PAPER sample contained 38 confirmed transfers and reconciled with boundary balances (zero discrepancy). The sample is the public PaperStaking address, not a selected Paperclub treasury. Evidence is in treasury-receipts.json. This public endpoint is a tested research source, not a production SLA or a trustless state proof.
+
+Exchange/CancelIntent domains, source equivalence, relayer settlement, collateral lifecycle and contract-wallet evidence remain unresolved. No live financial write was made.

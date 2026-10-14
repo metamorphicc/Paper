@@ -44,3 +44,7 @@ Confirmed-transfer engine, bounded archive reader and explicit-address CLI are i
 The confirmed-transfer section and `/api/treasury` are now wired to the receipt reader. Unconfigured inputs show an English empty state; unavailable archival data yields an unavailable result rather than zero. The UI separates asset flow from internal protocol accounting and shows reconciliation mismatches explicitly. Local tests, production build, 21 HTTP checks and five Treasury viewport checks passed.
 
 Next unresolved substeps, in order: select and validate an archive data source; repeat exact API/RPC reconciliation; obtain verified protocol source/ABI and settle Exchange/relayer/collateral/contract-wallet evidence; record user-selected tokenomics, treasury addresses and budgets; prepare the audited deployment/pilot review. These are still external/decision dependencies. No automatic push, deployment or financial action follows passing local checks.
+
+### Requested launch blocks 1–2, archive substep
+
+A public archive source passed capability checks, four named historical summary fields reconciled, and a real public PAPER receipt window reconciled. The default research archive includes the documented native-transaction flag to avoid inconsistent logs/receipt numbering. This closes the lack of a usable research archive; production capacity and full protocol/wallet reconciliation remain separate. Next: wire-compatible official transport, nonce/signature preparation, status reconciliation and cancellation with explicit release gates.
