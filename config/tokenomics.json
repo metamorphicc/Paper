@@ -1,0 +1,40 @@
+{
+  "status": "proposal",
+  "name": "Paperclub",
+  "symbol": "CLUB",
+  "decimals": 18,
+  "capRaw": "1000000000000000000000000000",
+  "recommendedScenario": "community-first",
+  "scenarios": [
+    {
+      "id": "community-first",
+      "communityBps": 6000,
+      "liquidityBps": 2000,
+      "treasuryBps": 1000,
+      "reserveBps": 1000
+    },
+    {
+      "id": "liquidity-first",
+      "communityBps": 5000,
+      "liquidityBps": 3000,
+      "treasuryBps": 1000,
+      "reserveBps": 1000
+    },
+    {
+      "id": "community-only",
+      "communityBps": 8000,
+      "liquidityBps": 2000,
+      "treasuryBps": 0,
+      "reserveBps": 0
+    }
+  ],
+  "initialLiquidityUsdc": null,
+  "campaignBudgetRaw": null,
+  "treasuryAddress": null,
+  "recipientAddresses": null,
+  "launchApproved": false,
+  "builderRevenueAssumptionUsd": 0,
+  "tokenRights": "No claim on PAPER, protocol revenue, USDC or guaranteed yield.",
+  "supplyPolicy": "Full cap minted once to explicit recipients; no owner mint, transfer tax or upgrade proxy. Holder burn can reduce supply.",
+  "fairLaunch": false
+}
