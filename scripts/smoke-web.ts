@@ -14,6 +14,7 @@ const routes = [
   '/api/market?coin=ETH',
   '/api/campaign',
   '/api/treasury',
+  '/api/trading/readiness',
 ];
 const results = [];
 for (const path of routes) {
@@ -90,6 +91,28 @@ results.push({ path: 'POST /api/campaign oversized', status: 413 });
 const invalidMarket = await fetch(base + '/api/market?coin=INVALID');
 assert.equal(invalidMarket.status, 400);
 results.push({ path: '/api/market?coin=INVALID', status: 400 });
+const testIntent = '0x' + '00'.repeat(32);
+const statusResponse = await fetch(`${base}/api/intents/${testIntent}?user=${address}`);
+assert.equal(statusResponse.status, 200);
+const intentStatus = await statusResponse.json();
+assert.equal(intentStatus.settlementVerified, false);
+assert.equal(intentStatus.phase, 'unconfirmed');
+results.push({ path: 'GET /api/intents/unknown-id', status: 200 });
+const invalidIntent = await fetch(`${base}/api/intents/invalid?user=${address}`);
+assert.equal(invalidIntent.status, 400);
+results.push({ path: 'GET /api/intents/invalid', status: 400 });
+const cancellation = await fetch(`${base}/api/intents/${testIntent}/cancel`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: '{}',
+});
+assert.equal(cancellation.status, 403);
+results.push({ path: 'POST /api/intents/ID/cancel blocked', status: 403 });
+const foreignIntent = await fetch(`${base}/api/intents/${testIntent}?user=${address}`, {
+  headers: { Origin: 'https://untrusted.example' },
+});
+assert.equal(foreignIntent.status, 403);
+results.push({ path: 'GET /api/intents/ID foreign origin', status: 403 });
 const foreignTreasury = await fetch(base + '/api/treasury', {
   headers: { Origin: 'https://untrusted.example' },
 });

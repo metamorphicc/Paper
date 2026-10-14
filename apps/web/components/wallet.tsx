@@ -1,7 +1,13 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { isAddress } from 'viem';
+import { isAddress, createWalletClient, custom, type Address, type Hex } from 'viem';
+import {
+  officialTypedData,
+  type IntentType,
+  type IntentMessage,
+} from '../../../packages/protocol/intents';
+import { hyperEvm } from '../../../packages/protocol/registry';
 import { requestWallet } from '../../../packages/wallet/provider.js';
 type Provider = {
   request(input: { method: string; params?: unknown[] }): Promise<unknown>;
@@ -18,6 +24,7 @@ type Wallet = {
   connect: () => Promise<void>;
   disconnect: () => void;
   switchChain: () => Promise<void>;
+  signOfficial: (type: IntentType, message: IntentMessage) => Promise<Hex>;
 };
 const Context = createContext<Wallet | null>(null);
 export function useWallet() {
@@ -33,6 +40,11 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     [error, setError] = useState('');
   const provider = useRef<Provider | undefined>(undefined);
   const connected = useRef(false);
+  const authority = useRef({
+    address: null as string | null,
+    chainId: null as number | null,
+    generation: 0,
+  });
   const dismissError = useCallback(() => setError(''), []);
   useEffect(() => {
     if (!error) return;
@@ -41,7 +53,8 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   }, [error, dismissError]);
   function invalidate() {
     setError('');
-    setGeneration((value) => value + 1);
+    authority.current.generation++;
+    setGeneration(authority.current.generation);
   }
   function accountChanged(value: unknown) {
     invalidate();
@@ -50,6 +63,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         ? value[0].toLowerCase()
         : null;
     setAddress(next);
+    authority.current.address = next;
     connected.current = !!next;
   }
   function chainChanged(value: unknown) {
@@ -57,6 +71,8 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     setChain(
       typeof value === 'string' && /^0x[\da-f]+$/i.test(value) ? Number(BigInt(value)) : null,
     );
+    authority.current.chainId =
+      typeof value === 'string' && /^0x[\da-f]+$/i.test(value) ? Number(BigInt(value)) : null;
   }
   useEffect(() => {
     provider.current = (window as unknown as { ethereum?: Provider }).ethereum;
@@ -67,6 +83,8 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       setAddress(null);
       setChain(null);
       connected.current = false;
+      authority.current.address = null;
+      authority.current.chainId = null;
     };
     p.on?.('accountsChanged', accountChanged);
     p.on?.('chainChanged', chainChanged);
@@ -154,8 +172,44 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
           setAddress(null);
           setChain(null);
           connected.current = false;
+          authority.current.address = null;
+          authority.current.chainId = null;
         },
         switchChain,
+        async signOfficial(type, message) {
+          const capture = { ...authority.current };
+          const p = provider.current;
+          if (
+            !p ||
+            !connected.current ||
+            !capture.address ||
+            capture.chainId !== 999 ||
+            String(message.user).toLowerCase() !== capture.address
+          )
+            throw new Error('Connected HyperEVM wallet required');
+          const ready = await fetch('/api/trading/readiness').then((response) => response.json());
+          if (ready.enabled !== true)
+            throw new Error('Live signing is unavailable until integration is verified');
+          const check = () => {
+            if (
+              authority.current.generation !== capture.generation ||
+              authority.current.address !== capture.address ||
+              authority.current.chainId !== capture.chainId
+            )
+              throw new Error('Wallet changed while signing');
+          };
+          check();
+          const signer = createWalletClient({
+            account: capture.address as Address,
+            chain: hyperEvm,
+            transport: custom({
+              request: (input) => requestWallet(p, input as { method: string; params?: unknown[] }),
+            }),
+          });
+          const signature = await signer.signTypedData(officialTypedData(type, message));
+          check();
+          return signature;
+        },
       }}
     >
       {children}

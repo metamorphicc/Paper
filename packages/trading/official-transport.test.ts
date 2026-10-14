@@ -192,7 +192,8 @@ test('controller coordinates nonces, retries identical signatures and invalidate
   );
   assert.deepEqual(allocated, [256n, 257n, 258n, 259n, 260n]);
   let generation = 1,
-    signed = 0;
+    signed = 0,
+    rejectCancellation = false;
   const bodies: string[] = [];
   const transport = new OfficialRelayerTransport({
     assertReleased: () => {},
@@ -200,6 +201,7 @@ test('controller coordinates nonces, retries identical signatures and invalidate
     buildId: 'fixture',
     fetcher: async (_input, init) => {
       bodies.push(String(init?.body));
+      if (rejectCancellation) return Response.json({ code: 'admission_rejected' }, { status: 409 });
       throw new Error('Ambiguous timeout');
     },
   });
@@ -218,11 +220,17 @@ test('controller coordinates nonces, retries identical signatures and invalidate
   const { user: _, nonce: __, deadline: ___, ...fields } = message;
   const prepared = await controller.prepare('openPosition', fields);
   await assert.rejects(controller.submit(prepared), UnconfirmedIntentError);
+  await assert.rejects(controller.submit(prepared), /already used/);
   const id = [...controller.pending.keys()][0]!;
   await assert.rejects(controller.retrySame(id), UnconfirmedIntentError);
   assert.equal(signed, 1);
   assert.equal(bodies[0], bodies[1]);
+  rejectCancellation = true;
+  await assert.rejects(controller.cancel(id), IntentRejectedError);
+  assert.equal(controller.pending.has(id), true);
+  assert.equal(controller.pending.get(id)!.phase, 'unconfirmed');
+  assert.equal(signed, 2);
   generation++;
   await assert.rejects(controller.retrySame(id), /changed/);
-  assert.equal(bodies.length, 2);
+  assert.equal(bodies.length, 3);
 });

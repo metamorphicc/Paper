@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-10-14T17:58:51.791Z",
+  "route": "/trade",
+  "checks": [
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "noOverflow": true,
+      "noProtrudingContent": true,
+      "scrollWidth": 305,
+      "signDisabled": true,
+      "width": 320
+    },
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "noOverflow": true,
+      "noProtrudingContent": true,
+      "scrollWidth": 360,
+      "signDisabled": true,
+      "width": 375
+    },
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "noOverflow": true,
+      "noProtrudingContent": true,
+      "scrollWidth": 399,
+      "signDisabled": true,
+      "width": 414
+    },
+    {
+      "english": true,
+      "gaps": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "noOverflow": true,
+      "noProtrudingContent": true,
+      "scrollWidth": 753,
+      "signDisabled": true,
+      "width": 768
+    },
+    {
+      "english": true,
+      "gaps": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "noOverflow": true,
+      "noProtrudingContent": true,
+      "scrollWidth": 1265,
+      "signDisabled": true,
+      "width": 1280
+    }
+  ],
+  "userWalletSignatures": 0,
+  "financialTransactions": 0
+}

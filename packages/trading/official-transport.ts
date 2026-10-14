@@ -10,7 +10,7 @@ import {
   type IntentType,
 } from '../protocol/intents.js';
 import { OFFICIAL_ORIGIN, OfficialReadClient, object } from '../protocol/official.js';
-import { assertLiveSubmissionAllowed } from '../protocol/capabilities.js';
+import { assertCurrentLiveRelease } from '../protocol/current-release.js';
 import type { Action, Envelope } from './relayer.js';
 
 export class UnconfirmedIntentError extends Error {
@@ -96,7 +96,8 @@ export class OfficialRelayerTransport {
     this.now = options.now ?? Date.now;
   }
   private async released(action: Action | 'cancel') {
-    await (this.options.assertReleased ?? assertLiveSubmissionAllowed)(action);
+    if (this.options.assertReleased) await this.options.assertReleased(action);
+    else await assertCurrentLiveRelease();
   }
   private deadline(message: IntentMessage) {
     const value = uint(message.deadline, 64),
@@ -119,6 +120,7 @@ export class OfficialRelayerTransport {
       throw new Error('Wallet signature or verified active session required');
     const body = { action: envelope.action, signed: serializeSigned(message, envelope.signature) };
     await this.released(envelope.action);
+    this.deadline(message);
     return this.request('/intents', body, identity.intentId, envelope.action, true);
   }
   async cancel(
@@ -136,6 +138,7 @@ export class OfficialRelayerTransport {
       throw new Error('Main wallet cancellation signature required');
     const { intentId: _, ...body } = serializeSigned(normalized, signature);
     await this.released('cancel');
+    this.deadline(normalized);
     return this.request(`/intents/${id.toLowerCase()}/cancel`, body, id, action, false);
   }
   private async request(

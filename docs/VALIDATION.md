@@ -41,3 +41,12 @@ Read-only integration follow-up: root/web typechecks passed. The domain reader o
 - The confirmed-transfer pipeline was tested with actual receipts on local EVM chain 31337. It did not use user wallets, keys, actual capital, HyperEVM deployments or relayer writes.
 - A public PAPER sample exposed latest-state substitution on the default RPC. That experiment is invalid historical accounting evidence and is labelled accordingly. Current readers do not silently reuse it.
 - Live treasury results require explicit reviewed addresses/assets and an archive provider passing capability/consistency checks. These values remain unselected. Revenue, buybacks and burns are not inferred from transfer logs.
+
+## Launch blocks 1–2 implementation validation
+
+- Public dRPC archive canary passed. Four named summary fields matched at block 48510016. A 128-block public PAPER/PaperStaking window reconciled 38 transfers with zero boundary discrepancy. This is not a configured Paperclub treasury or complete protocol reconciliation.
+- Current official assets were captured as data with source URLs and hashes; client build 32abe9f9c6a6. Verified source/ABI, Exchange/cancellation domains and actual relayer/collateral/session/contract-wallet settlement remain incomplete.
+- All 53 package tests passed, including real loopback HTTP wire checks, signed retry, authority invalidation and retention of the original ID after rejected cancellation. These use local test keys only.
+- 26 HTTP checks passed. Submit/cancel stay 403, unknown status stays explicitly unconfirmed, and readiness exposes eight blockers. Root/web typechecks, Prettier and production build passed.
+- Trading UI passed five viewport widths (320/375/414/768/1280), English text, containment, 24/32px section spacing and disabled financial controls. Evidence: artifacts/design/trading-responsive.json and trading-connection.jpg.
+- No real user signature, deposit, order, staking, withdrawal or cancellation was submitted. Launch blocks 1–2 are implemented in part and remain open for external verification and full lifecycle settlement.

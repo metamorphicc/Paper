@@ -175,6 +175,8 @@ export class OfficialIntentController {
       signature,
       record.envelope.action,
     );
+    if (acknowledgement.intentId !== id || acknowledgement.action !== record.envelope.action)
+      throw new UnconfirmedIntentError(id);
     // Cancellation acknowledgement is not proof that the order could not execute.
     return { ...acknowledgement, cancellationVerified: false };
   }

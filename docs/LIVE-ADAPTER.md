@@ -25,9 +25,15 @@ No unobserved GET `/intents/ID` endpoint is invented. Status reads use the obser
 
 Production transport is created with the normal release guard. The injected release callback/fetcher in tests is a trusted test seam, not an HTTP parameter or user-controlled bypass. Enabling configuration alone is not new external evidence. Review source/runtime/domain/collateral and settlement before release.
 
+Before forwarding, the production guard checks chain 999 and all eight reviewed implementation slots/runtime hashes against latest RPC observations. Unavailable or changed code stops submission; these reads are not an atomic or trustless snapshot. The deadline is checked again after this guard. Changes to the order fields or loss of fresh pricing while the wallet dialog is open stop submission. A prepared intent can request a signature once; retries reuse the retained signature. An error during retry or cancellation preserves the original intent ID, because rejection of that request does not prove the original order never executed.
+
+The Terminal control currently prepares OpenPosition and supports its retained-ID lifecycle. Transport schemas cover the observed action set, but full close/stake/withdraw product flows and their actual settlement are not validated by this open/cancel implementation. Contract-wallet signatures and active-session verification are not enabled; the main EOA signing path remains release-gated too.
+
 ## Tests
 
 Four additional tests exercise a real loopback HTTP server, official wire encoding, acknowledgement identity, cancellation binding, Retry-After behavior, wrong signer/range rejection, unknown status, concurrent nonce allocation, exact signed retry and authority invalidation. All 53 package tests pass. Socket fixtures do not represent Papertrade settlement. No real signed intent, deposit, staking transaction, withdrawal or cancellation was submitted during validation.
+
+Root/web typechecks, formatting and production build passed. 26 HTTP checks cover the readiness endpoint, unknown/invalid intent status, submit/cancel blocking and foreign-origin rejection. Trading controls were checked at 320, 375, 414, 768 and 1280px: English text, no horizontal overflow/protruding controls, 24/32px direct-section gaps and disabled Sign and submit. Evidence: `artifacts/design/trading-responsive.json`, `trading-connection.jpg` and `research/http-smoke.json`. One public profile RPC observation temporarily lacked pendingReward; the strict positive-read smoke check passed on rerun without weakening its assertion.
 
 ## Completion dependencies
 

@@ -8,6 +8,7 @@ import type { TradingState } from '../../../packages/protocol/official.js';
 import { amount, localTime } from '../lib/format';
 import { useWallet } from './wallet';
 import Sandbox from './sandbox';
+import LiveOrders from './live-orders';
 type MarketData = {
   quote: MarketQuote;
   trading: TradingState;
@@ -348,19 +349,20 @@ export default function Terminal({ initialCoin = 'BTC' }: { initialCoin?: 'BTC' 
               </pre>
             </div>
           )}
-          <div className="live-blocked">
-            <strong> Live trading is not enabled. </strong>
-            <p> Third-party relayer access and settlement need verification. </p>
-            <a
-              href="https://exchange.papertrade.xyz/trade/btc"
-              target="_blank"
-              rel="noreferrer"
-              className="text-link"
-            >
-              {' '}
-              Official trading ↗{' '}
-            </a>
-          </div>
+          <LiveOrders
+            fresh={fresh && !!calculation?.ok}
+            fields={
+              calculation?.ok
+                ? {
+                    instrumentId: instrument!.id,
+                    isLong,
+                    size: calculation.valid.margin,
+                    leverage,
+                    useDebt: false,
+                  }
+                : null
+            }
+          />
         </section>
       </div>
       {market && instrument && (

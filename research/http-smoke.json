@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-14T16:20:22.442Z",
+  "observedAtUtc": "2026-10-14T17:47:48.150Z",
   "base": "http://127.0.0.1:3000",
   "results": [
     {
@@ -51,6 +51,10 @@
       "status": 200
     },
     {
+      "path": "/api/trading/readiness",
+      "status": 200
+    },
+    {
       "path": "/api/profile/0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
       "status": 200,
       "trades": 0,
@@ -85,6 +89,22 @@
     {
       "path": "/api/market?coin=INVALID",
       "status": 400
+    },
+    {
+      "path": "GET /api/intents/unknown-id",
+      "status": 200
+    },
+    {
+      "path": "GET /api/intents/invalid",
+      "status": 400
+    },
+    {
+      "path": "POST /api/intents/ID/cancel blocked",
+      "status": 403
+    },
+    {
+      "path": "GET /api/intents/ID foreign origin",
+      "status": 403
     },
     {
       "path": "GET /api/treasury wrong origin",
