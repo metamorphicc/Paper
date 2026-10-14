@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { WalletButton, WalletProvider } from './wallet';
 import Commands from './commands';
 import { BrandMark, NavIcon } from './nav-icon';
@@ -24,71 +24,93 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 function ShellContent({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 70rem)');
+    const resize = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    desktop.addEventListener('change', resize);
+    window.addEventListener('keydown', escape);
+    return () => {
+      desktop.removeEventListener('change', resize);
+      window.removeEventListener('keydown', escape);
+    };
+  }, []);
   return (
     <div className="app-shell">
       <a href="#main" className="skip">
         {' '}
         Skip to content{' '}
       </a>
-      <aside className={`rail ${open ? 'is-open' : ''}`}>
-        <Link href="/" className="wordmark" onClick={() => setOpen(false)}>
-          <BrandMark />
-          paperclub<span>_</span>
-        </Link>
-        <div className="network-label">
-          <span className="status-dot" /> HyperEVM · 999
-        </div>
-        <nav aria-label="Main navigation">
-          {items.map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={path === href ? 'page' : undefined}
-              onClick={() => setOpen(false)}
-            >
-              <NavIcon name={label} />
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <div className="rail-bottom">
-          <p>
-            {' '}
-            Independent community. <br /> Token has not launched.{' '}
-          </p>
-          <a href="https://docs.papertrade.xyz" target="_blank" rel="noreferrer">
-            {' '}
-            Documentation ↗{' '}
-          </a>
-        </div>
-      </aside>
-      <div className="workspace">
-        <header className="app-header">
-          <button
-            className="menu-toggle"
-            aria-label="Open menu"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            ☰
-          </button>
-          <span className="header-location">
-            {items.find(([href]) => href === path)?.[1] ?? 'Paperclub'}
-          </span>
+      <header className="product-header">
+        <div className="product-header-inner">
+          <Link href="/" className="wordmark" onClick={() => setOpen(false)}>
+            <BrandMark />
+            <span className="brand-name">
+              paperclub<span>_</span>
+            </span>
+          </Link>
+          <nav className="desktop-nav" aria-label="Main navigation">
+            {items.map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                aria-current={path === href ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
           <div className="header-actions">
             <Commands />
-            <span className="tag"> Local preview </span>
             <WalletButton />
+            <button
+              className="menu-toggle"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? '×' : '☰'}
+            </button>
           </div>
-        </header>
+        </div>
+      </header>
+      {open && (
+        <div className="mobile-navigation" id="mobile-navigation">
+          <nav aria-label="Mobile navigation">
+            {items.map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                aria-current={path === href ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                <NavIcon name={label} />
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <p>HyperEVM · Independent community · Local preview</p>
+        </div>
+      )}
+      <div className="workspace">
         <main id="main" inert={open}>
           {children}
         </main>
-        <footer>
+        <footer inert={open}>
           <span>Paperclub · HyperEVM</span>
           <span> Public data. Live intents disabled. </span>
           <a href="https://papertrade.xyz" target="_blank" rel="noreferrer">
             Papertrade ↗
+          </a>
+          <a href="https://docs.papertrade.xyz" target="_blank" rel="noreferrer">
+            Documentation ↗
           </a>
         </footer>
       </div>

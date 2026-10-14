@@ -1,0 +1,545 @@
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V4
+ * Horizontal application, original cobalt palette, video-derived section rhythm. */
+body {
+  font-size: var(--text-body);
+  letter-spacing: -0.015em;
+}
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-focus);
+}
+h1 {
+  font-size: var(--text-page);
+  letter-spacing: -0.045em;
+}
+h2 {
+  font-size: var(--text-panel);
+  letter-spacing: -0.035em;
+}
+.app-shell {
+  display: block;
+}
+.product-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+  position: sticky;
+  top: 0;
+  z-index: 4;
+}
+.product-header-inner {
+  max-width: 1328px;
+  margin: auto;
+  min-height: 80px;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.wordmark .brand-name {
+  color: var(--color-ink);
+}
+.brand-mark {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+}
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.desktop-nav {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  margin: auto;
+}
+.desktop-nav a {
+  padding: 0 10px;
+  min-height: 44px;
+  font-size: 13px;
+  background: var(--color-transparent);
+  position: relative;
+  border-radius: 0;
+}
+.desktop-nav a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  bottom: -19px;
+  height: 2px;
+  background: var(--color-accent);
+  left: 10px;
+  right: 10px;
+}
+.header-actions {
+  gap: 12px;
+}
+.menu-toggle {
+  display: inline-block;
+  font-size: 22px;
+}
+.mobile-navigation {
+  position: fixed;
+  z-index: 4;
+  inset: 80px 0 0;
+  padding: 24px;
+  background: var(--color-surface);
+  overflow-y: auto;
+}
+.mobile-navigation nav {
+  gap: 8px;
+}
+.mobile-navigation p {
+  margin-top: 32px;
+  font-size: 12px;
+}
+main {
+  max-width: 1264px;
+  padding: 48px 32px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-height: calc(100dvh - 168px);
+}
+/* One rhythm for every route, including fragment-rendered chart controls. */
+#main > * {
+  margin-block: 0;
+}
+.page-heading {
+  gap: 24px;
+  align-items: center;
+}
+.page-heading p {
+  font-size: 15px;
+  line-height: 1.65;
+}
+.overline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.panel,
+.chart-section,
+.order-panel,
+.sandbox-panel {
+  padding: 32px;
+  border-radius: var(--radius-card);
+}
+.split-layout {
+  gap: 24px;
+}
+.notes-column {
+  padding: 32px;
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-card);
+}
+.notes-column > p {
+  margin-block: 16px;
+}
+.section-heading {
+  margin-bottom: 24px;
+}
+.section-heading > span,
+.source-line,
+.chart-axis,
+.tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.source-line {
+  padding: 0;
+  line-height: 1.7;
+}
+.button {
+  border-color: var(--color-control-line);
+  transition:
+    background var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+.button:hover {
+  background: var(--color-paper-2);
+}
+.button.primary:hover {
+  background: var(--color-focus);
+}
+.button.selected:hover {
+  background: var(--color-accent-soft);
+}
+input,
+select {
+  border-color: var(--color-control-line);
+}
+.wallet-error {
+  border-color: var(--color-error);
+}
+.metric-strip {
+  gap: 24px;
+}
+.metric-strip > div {
+  padding-top: 20px;
+}
+.metric-strip > div > span,
+.hero-details span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.metric-strip strong {
+  font-size: 28px;
+}
+.table-wrap {
+  min-width: 0;
+}
+.data-list dd {
+  font-size: 14px;
+}
+.chart-section .price-chart {
+  min-height: 240px;
+}
+.protocol-band {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.protocol-band-heading {
+  padding: 48px 32px;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  text-align: center;
+}
+.protocol-band-heading p,
+.protocol-band-heading .overline {
+  color: var(--color-inverse-muted);
+  margin-inline: auto;
+}
+.protocol-band-heading > strong {
+  display: block;
+  font-size: var(--text-balance);
+  letter-spacing: -0.065em;
+  line-height: 1.2;
+  margin: 12px 0;
+  font-variant-numeric: tabular-nums;
+}
+.protocol-band .hero-details {
+  padding: 32px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+.protocol-band .hero-details > div + div {
+  border-left: 1px solid var(--color-line);
+  padding-left: 24px;
+}
+.protocol-band .source-line {
+  padding: 16px 32px;
+  border-top: 1px solid var(--color-line);
+}
+.market-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.market-section .section-heading {
+  margin: 0;
+}
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-actions span {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.market-card {
+  background: var(--color-surface);
+  padding: 32px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  min-width: 0;
+}
+.market-card-top,
+.market-card-price,
+.market-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.market-card-top h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.coin-mark {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: 50%;
+  font-size: 18px;
+}
+.market-card-top .pair {
+  font-size: 13px;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+.market-card-price {
+  margin-top: 24px;
+  align-items: baseline;
+}
+.market-card-price strong {
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.market-change {
+  font-size: 14px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.market-change.up {
+  color: var(--color-positive);
+}
+.market-change.down {
+  color: var(--color-error);
+}
+.market-sparkline {
+  width: 100%;
+  height: 144px;
+  margin-block: 24px;
+  display: block;
+}
+.market-sparkline .chart-line {
+  stroke-width: 2.5;
+}
+.market-card-footer {
+  border-top: 1px solid var(--color-line);
+  padding-top: 16px;
+}
+.market-card-footer p {
+  font-size: 12px;
+}
+.market-unavailable {
+  height: 144px;
+  display: flex;
+  align-items: center;
+  margin-block: 24px;
+  font-size: 14px;
+}
+.overview-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  border-block: 1px solid var(--color-line);
+  padding-block: 40px;
+  gap: 48px;
+}
+.overview-actions .overline {
+  color: var(--color-accent);
+}
+.overview-actions p {
+  margin-block: 16px 24px;
+}
+.quick-links {
+  display: grid;
+  gap: 0;
+}
+.quick-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--color-line);
+}
+.quick-link:first-child {
+  padding-top: 0;
+}
+.quick-link:last-child {
+  border: 0;
+  padding-bottom: 0;
+}
+.quick-link strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.quick-link p {
+  font-size: 13px;
+  margin: 0;
+}
+.quick-link > span {
+  font-size: 24px;
+  color: var(--color-accent);
+}
+.quick-link:hover strong {
+  color: var(--color-accent);
+}
+.integration-details {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+.integration-details > summary {
+  cursor: pointer;
+  padding: 24px 32px;
+  font-weight: 500;
+  min-height: 44px;
+}
+.integration-details .capability-list {
+  padding: 0 32px 24px;
+}
+footer {
+  max-width: 1264px;
+  margin-inline: auto;
+  padding: 20px 32px;
+  gap: 16px 24px;
+}
+footer a:first-of-type {
+  margin-left: auto;
+}
+@media (min-width: 70rem) {
+  .desktop-nav {
+    display: flex;
+  }
+  .menu-toggle {
+    display: none;
+  }
+  .product-header .command-trigger {
+    display: none;
+  }
+  .split-layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+@media (min-width: 82rem) {
+  .product-header .command-trigger {
+    display: inline-flex;
+  }
+}
+@media (max-width: 69.99rem) {
+  .header-actions {
+    margin-left: auto;
+  }
+}
+@media (max-width: 47.99rem) {
+  .product-header-inner {
+    padding: 16px;
+    gap: 12px;
+  }
+  main {
+    padding: 32px 16px 48px;
+    gap: 24px;
+  }
+  .page-heading {
+    align-items: flex-start;
+  }
+  .panel,
+  .chart-section,
+  .order-panel,
+  .sandbox-panel,
+  .notes-column,
+  .market-card {
+    padding: 24px;
+  }
+  .protocol-band-heading {
+    padding: 32px 24px;
+  }
+  .protocol-band .hero-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 24px;
+    gap: 24px;
+  }
+  .protocol-band .hero-details > div + div {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .protocol-band .source-line {
+    padding: 16px 24px;
+  }
+  .markets-grid,
+  .overview-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .overview-actions {
+    padding-block: 32px;
+    gap: 32px;
+  }
+  .source-line > span:last-child {
+    margin-left: 0;
+  }
+  .market-card-top .pair {
+    display: none;
+  }
+  .market-card-price {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .market-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  footer {
+    padding-inline: 16px;
+  }
+  footer a:first-of-type {
+    margin-left: 0;
+  }
+}
+@media (max-width: 24rem) {
+  .wordmark {
+    font-size: 21px;
+    gap: 6px;
+  }
+  .brand-mark {
+    width: 20px;
+    height: 20px;
+  }
+  .header-actions {
+    gap: 8px;
+  }
+  .header-actions .button {
+    padding-inline: 12px;
+  }
+  .section-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .market-card {
+    padding: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}
+
+.chart-point {
+  fill: var(--color-accent);
+}
+
+.panel > h2 + p,
+.panel > p + p {
+  margin-top: 16px;
+}

@@ -2,10 +2,22 @@
   {
     "date": "2026-10-14",
     "scope": "app",
+    "macrostructure": "Horizontal operational sections",
+    "theme": "Original Cobalt",
+    "source": "User-supplied video structure; latest user palette override",
+    "enrichment": "Actual live BTC/ETH charts with period selection and inspection",
+    "fonts": ["Inter", "IBM Plex Mono"],
+    "brief": "Restore palette and replace sidebar structure, fix sibling spacing",
+    "nav": "Horizontal top navigation / responsive menu",
+    "footer": "Compact application status row"
+  },
+  {
+    "date": "2026-10-14",
+    "scope": "app",
     "macrostructure": "Application workbench",
     "theme": "studied-DNA",
     "source": "User-provided Altius style document and scrolling video",
-    "enrichment": "none — existing price and research charts",
+    "enrichment": "none \u0432\u0402\u201d existing price and research charts",
     "fonts": ["Inter", "IBM Plex Mono"],
     "brief": "Reference-derived ember/peach styling across seven existing Paperclub routes",
     "nav": "Preserved application sidebar",
@@ -15,7 +27,7 @@
     "date": "2026-10-14",
     "macrostructure": "Stat-Led application workspace",
     "theme": "Cobalt",
-    "enrichment": "none — real data charts",
+    "enrichment": "none \u0432\u0402\u201d real data charts",
     "brief": "Paperclub independent community hub with protocol reads and isolated trading sandbox",
     "nav": "Application sidebar",
     "footer": "Compact source/status row"

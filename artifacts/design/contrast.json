@@ -1,77 +1,89 @@
 {
-  "method": "WCAG relative luminance; exact source RGB before equivalent OKLCH conversion",
-  "results": [
+  "palette": "original cobalt restored at user request",
+  "checks": [
     {
-      "foreground": "linen",
-      "background": "obsidian-ember",
+      "foreground": "ink",
+      "background": "paper",
+      "ratio": 14.33,
       "minimum": 4.5,
-      "ratio": 18.41
+      "passed": true
     },
     {
-      "foreground": "linen",
-      "background": "dark-cocoa",
+      "foreground": "ink",
+      "background": "surface",
+      "ratio": 15.34,
       "minimum": 4.5,
-      "ratio": 16.46
+      "passed": true
     },
     {
-      "foreground": "warm-ash",
-      "background": "obsidian-ember",
+      "foreground": "muted",
+      "background": "paper",
+      "ratio": 5.55,
       "minimum": 4.5,
-      "ratio": 9.08
+      "passed": true
     },
     {
-      "foreground": "warm-ash",
-      "background": "dark-cocoa",
+      "foreground": "muted",
+      "background": "surface",
+      "ratio": 5.94,
       "minimum": 4.5,
-      "ratio": 8.11
+      "passed": true
     },
     {
-      "foreground": "flare-orange",
-      "background": "obsidian-ember",
+      "foreground": "accent",
+      "background": "surface",
+      "ratio": 6.66,
       "minimum": 4.5,
-      "ratio": 6.13
+      "passed": true
     },
     {
-      "foreground": "flare-orange",
-      "background": "dark-cocoa",
+      "foreground": "accent-ink",
+      "background": "accent",
+      "ratio": 6.73,
       "minimum": 4.5,
-      "ratio": 5.48
+      "passed": true
     },
     {
-      "foreground": "obsidian-ember",
-      "background": "vapor-peach",
+      "foreground": "inverse-muted",
+      "background": "accent",
+      "ratio": 5.85,
       "minimum": 4.5,
-      "ratio": 17.04
+      "passed": true
     },
     {
-      "foreground": "light-muted",
-      "background": "vapor-peach",
+      "foreground": "positive",
+      "background": "surface",
+      "ratio": 7.11,
       "minimum": 4.5,
-      "ratio": 5.71
+      "passed": true
     },
     {
-      "foreground": "signal-red",
-      "background": "vapor-peach",
+      "foreground": "error",
+      "background": "surface",
+      "ratio": 6.93,
       "minimum": 4.5,
-      "ratio": 7.41
+      "passed": true
     },
     {
-      "foreground": "control-dark",
-      "background": "obsidian-ember",
+      "foreground": "control-line",
+      "background": "surface",
+      "ratio": 3.34,
       "minimum": 3,
-      "ratio": 3.99
+      "passed": true
     },
     {
-      "foreground": "control-light",
-      "background": "vapor-peach",
+      "foreground": "control-line",
+      "background": "paper",
+      "ratio": 3.12,
       "minimum": 3,
-      "ratio": 4.04
+      "passed": true
     },
     {
-      "foreground": "warm-blush",
-      "background": "obsidian-ember",
+      "foreground": "focus",
+      "background": "paper",
+      "ratio": 12.65,
       "minimum": 3,
-      "ratio": 10.83
+      "passed": true
     }
   ]
 }

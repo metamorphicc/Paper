@@ -1,38 +1,23 @@
-/* Hallmark · macrostructure: application workbench · tone: technical · anchor hue: ember coral */
+/* Hallmark · macrostructure: horizontal app · anchor hue: original cobalt */
 :root {
-  color-scheme: dark;
-  --color-obsidian-ember: oklch(15.1163% 0.040742 41.0058);
-  --color-dark-cocoa: oklch(21.9501% 0.070392 36.9884);
-  --color-molten-core: oklch(32.8279% 0.115523 33.3257);
-  --color-signal-red: oklch(43.512% 0.159239 32.468);
-  --color-flare-orange: oklch(67.3978% 0.203285 33.1211);
-  --color-warm-blush: oklch(81.7627% 0.097615 31.7444);
-  --color-vapor-peach: oklch(95.1931% 0.022552 31.1026);
-  --color-linen: oklch(97.648% 0.011965 291.2929);
-  --color-warm-ash: oklch(75.7977% 0.015297 28.0457);
-  --color-control-dark: oklch(55.9465% 0.132023 35.0814);
-  --color-control-light: oklch(56.4073% 0.053575 37.7981);
-  --color-light-muted: oklch(48.1307% 0.04043 33.9395);
-  --color-warm-rule: oklch(38.7063% 0.066717 32.2592);
-  --color-light-rule: oklch(75.1234% 0.045467 37.6627);
-  --color-light-inset: oklch(90.7984% 0.035279 35.3381);
-  --color-inset-line: oklch(32.8273% 0.072697 33.3737);
-  --color-paper: var(--color-obsidian-ember);
-  --color-surface: var(--color-dark-cocoa);
-  --color-paper-2: var(--color-molten-core);
-  --color-ink: var(--color-linen);
-  --color-muted: var(--color-warm-ash);
-  --color-line: var(--color-warm-rule);
-  --color-control-line: var(--color-control-dark);
-  --color-accent: var(--color-flare-orange);
-  --color-accent-ink: var(--color-linen);
-  --color-accent-soft: var(--color-molten-core);
-  --color-positive: var(--color-warm-blush);
-  --color-positive-soft: var(--color-molten-core);
-  --color-error: var(--color-flare-orange);
-  --color-error-soft: var(--color-dark-cocoa);
-  --color-focus: var(--color-warm-blush);
+  color-scheme: light;
+  --color-paper: #f4f6fa;
+  --color-surface: #fdfefe;
+  --color-paper-2: #edf1f7;
+  --color-ink: #19243a;
+  --color-muted: #56647a;
+  --color-line: #dce2ec;
+  --color-control-line: #7e8da2;
+  --color-accent: #244cda;
+  --color-accent-ink: #ffffff;
+  --color-accent-soft: #e9efff;
+  --color-positive: #24624b;
+  --color-positive-soft: #e8f3ed;
+  --color-error: #a22f37;
+  --color-error-soft: #faecee;
+  --color-focus: #122966;
   --color-transparent: transparent;
+  --color-inverse-muted: #e9efff;
   --font-display: 'Inter', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -49,7 +34,7 @@
   --text-body: 15px;
   --text-panel: 22px;
   --text-page: clamp(32px, 3vw, 44px);
-  --text-balance: clamp(52px, 5vw, 72px);
+  --text-balance: clamp(48px, 6vw, 80px);
   --radius: 4px;
   --radius-card: 8px;
   --radius-input: 4px;
@@ -58,5 +43,4 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --shadow-inset: inset 0 0 20px 0 var(--color-molten-core);
 }

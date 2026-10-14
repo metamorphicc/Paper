@@ -5,7 +5,7 @@ import '@fontsource/inter/700.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import './globals.css';
-import './ember.css';
+import './product.css';
 import Shell from '../components/shell';
 export const metadata: Metadata = {
   title: 'Paperclub — protocol, community, positions',

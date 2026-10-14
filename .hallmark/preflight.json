@@ -10,21 +10,21 @@
   "use": "Inspect balances and trade risk, use local community and sandbox controls",
   "tone": "technical",
   "genre": "reference-derived technical",
-  "theme": "Altius ember/peach adaptation",
-  "macrostructure": "Application workbench",
+  "theme": "Original Cobalt; reference-derived horizontal structure",
+  "macrostructure": "Horizontal application with broad operational sections",
   "fonts": ["Inter", "IBM Plex Mono"],
   "motion": "Subtle press/opacity only, no scroll reveals",
   "framework": "Next.js 16.4.0",
   "preserved": [
-    "Seven routes and data flow",
-    "Application sidebar",
+    "Original light palette",
+    "Seven routes and financial data flow",
     "English section names",
     "Wallet dismissal and local safety gates"
   ],
   "introduced": [
-    "Named portable OKLCH tokens",
-    "Reference-derived warm surfaces",
-    "Outline icon system",
-    "Consistent compact module rhythm"
+    "Top navigation and mobile menu",
+    "Shared vertical section rhythm",
+    "Live interactive Overview markets",
+    "Reference-derived broad sections"
   ]
 }
