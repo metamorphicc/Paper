@@ -37,7 +37,7 @@ npm.cmd run launch:check
 npm.cmd run smoke:web
 ```
 
-44 tests and 28 English responsive page checks passed; zero known npm vulnerabilities. See [current validation](docs/VALIDATION.md). Older documents/snapshots retain the original research language and describe their capture time.
+49 tests, 35 application responsive checks and five additional Treasury viewport checks passed. Confirmed-transfer accounting is implemented; historical state requires a separately validated archive RPC. See [current validation](docs/VALIDATION.md). Older documents/snapshots retain the original research language and describe their capture time.
 
 Public-money launch is blocked: source/ABI/domain/collateral/relayer settlement and exact API/RPC reconciliation remain unverified; tokenomics, budgets/recipients and independent audit are outstanding. Live trade/staking, public claims, deposits, buybacks and deployment remain disabled. The launch checker records missing evidence and cannot deploy anything.
 

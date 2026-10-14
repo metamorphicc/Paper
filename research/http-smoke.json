@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-14T15:34:29.491Z",
+  "observedAtUtc": "2026-10-14T16:20:22.442Z",
   "base": "http://127.0.0.1:3000",
   "results": [
     {
@@ -47,6 +47,10 @@
       "status": 200
     },
     {
+      "path": "/api/treasury",
+      "status": 200
+    },
+    {
       "path": "/api/profile/0xaad6c7b0cc3014fc80ffedae0ed7ce5967b0f016",
       "status": 200,
       "trades": 0,
@@ -81,6 +85,10 @@
     {
       "path": "/api/market?coin=INVALID",
       "status": 400
+    },
+    {
+      "path": "GET /api/treasury wrong origin",
+      "status": 403
     }
   ],
   "realTransactionsSubmitted": false

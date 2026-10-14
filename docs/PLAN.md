@@ -89,3 +89,11 @@
 Ориентир полного объёма — **6–12 недель разработки**, плюс аудит и внешние ожидания; первичный read-only продукт — около **1–2 недель**. Эти оценки предварительные, до ABI/relayer spike и выбора tokenomics. Существующий стенд не называется готовым MVP.
 
 Решения, которые потребуются позднее: бюджет, ticker/supply/allocation, initial liquidity, юрисдикция публичного продукта, формат rewards/buyback и максимальный допустимый убыток treasury. Их отсутствие сейчас не мешает исследовать интеграцию и строить read-only хаб.
+
+### Дополнение после продолжения интеграции
+
+- [x] Повторить passive source/relayer probe и сохранить ограничения; direct OPTIONS вернул 405, это не settlement proof.
+- [x] Исправить ошибочную привязку historical RPC state к блоку: стандартный RPC поддерживает latest state; архивные чтения теперь требуют отдельного источника и canary.
+- [x] Реализовать confirmed treasury transfer reader, балансовую сверку, local EVM receipt tests и dashboard/API. Выбор treasury/asset/archive provider и доказательства конкретных buyback/burn остаются открытыми.
+
+Продолжение не меняет незакрытые денежные критерии этапов 1, 4–6. Исторические заметки о pinned state заменены correction в INTEGRATION.md. Актуальные проверки: 49 tests, production build, 21 HTTP checks и пять дополнительных viewport checks Treasury.

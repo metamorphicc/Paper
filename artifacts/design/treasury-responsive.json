@@ -1,0 +1,42 @@
+[
+  {
+    "confirmedTransfers": true,
+    "english": true,
+    "gaps": [24, 24, 24, 24],
+    "scrollWidth": 305,
+    "status": true,
+    "width": 320
+  },
+  {
+    "confirmedTransfers": true,
+    "english": true,
+    "gaps": [24, 24, 24, 24],
+    "scrollWidth": 360,
+    "status": true,
+    "width": 375
+  },
+  {
+    "confirmedTransfers": true,
+    "english": true,
+    "gaps": [24, 24, 24, 24],
+    "scrollWidth": 399,
+    "status": true,
+    "width": 414
+  },
+  {
+    "confirmedTransfers": true,
+    "english": true,
+    "gaps": [32, 32, 32, 32],
+    "scrollWidth": 753,
+    "status": true,
+    "width": 768
+  },
+  {
+    "confirmedTransfers": true,
+    "english": true,
+    "gaps": [32, 32, 32, 32],
+    "scrollWidth": 1265,
+    "status": true,
+    "width": 1280
+  }
+]

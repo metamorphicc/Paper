@@ -32,3 +32,12 @@ The rejected warm palette was replaced with the original light Cobalt system. Si
 This validates the local design revision. Source equivalence, EIP-712 domain, relayer access, contract-wallet settlement, capital choices and a public-money pilot remain unresolved.
 
 Read-only integration follow-up: root/web typechecks passed. The domain reader observed the PaperStaking public separator matching the expected domain at block 48531432; Exchange remains unavailable through the tested getters. Chain ID, implementation/runtime hashes, actual separators and block hash are retained in research/signature-domains.json. No signature, transaction or relayer POST was submitted, and no feature gate changed.
+
+## Treasury and RPC continuation validation
+
+- Root/web typechecks, production build and all 49 tests passed (44 earlier tests + archive canary + four treasury receipt tests).
+- 21 HTTP checks passed, including `/api/treasury`, foreign-origin rejection and explicit latest-state provenance on profile RPC rewards.
+- Treasury UI verified at 320, 375, 414, 768 and 1280px: English text, no horizontal overflow, 24/32px direct-section gaps. Evidence: artifacts/design/treasury-responsive.json and treasury-receipts.jpg.
+- The confirmed-transfer pipeline was tested with actual receipts on local EVM chain 31337. It did not use user wallets, keys, actual capital, HyperEVM deployments or relayer writes.
+- A public PAPER sample exposed latest-state substitution on the default RPC. That experiment is invalid historical accounting evidence and is labelled accordingly. Current readers do not silently reuse it.
+- Live treasury results require explicit reviewed addresses/assets and an archive provider passing capability/consistency checks. These values remain unselected. Revenue, buybacks and burns are not inferred from transfer logs.

@@ -13,6 +13,7 @@ const routes = [
   '/api/market?coin=BTC',
   '/api/market?coin=ETH',
   '/api/campaign',
+  '/api/treasury',
 ];
 const results = [];
 for (const path of routes) {
@@ -26,6 +27,12 @@ const profileResponse = await fetch(`${base}/api/profile/${address}`, {
 });
 assert.equal(profileResponse.status, 200);
 const profile = await profileResponse.json();
+assert.equal(
+  profile.pendingReward?.statePinned,
+  false,
+  'Default RPC must not claim historical state',
+);
+assert.equal(profile.pendingReward?.stateMode, 'latest-observation');
 assert.equal(profile.value.address, address);
 assert.ok(profile.value.block > 0);
 assert.ok(profile.trades !== null, 'Official trade history should return a page');
@@ -83,6 +90,11 @@ results.push({ path: 'POST /api/campaign oversized', status: 413 });
 const invalidMarket = await fetch(base + '/api/market?coin=INVALID');
 assert.equal(invalidMarket.status, 400);
 results.push({ path: '/api/market?coin=INVALID', status: 400 });
+const foreignTreasury = await fetch(base + '/api/treasury', {
+  headers: { Origin: 'https://untrusted.example' },
+});
+assert.equal(foreignTreasury.status, 403);
+results.push({ path: 'GET /api/treasury wrong origin', status: 403 });
 await writeFile(
   new URL('../research/http-smoke.json', import.meta.url),
   JSON.stringify(

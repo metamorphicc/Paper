@@ -1,10 +1,17 @@
 import { walletData } from '../../lib/server';
 import { amount, localTime } from '../../lib/format';
 import { isAddress } from 'viem';
+import { treasuryReceipts } from '../../lib/treasury';
+import TreasuryReceipts from '../../components/treasury-receipts';
 export const dynamic = 'force-dynamic';
 export default async function TreasuryPage() {
   const address = process.env.TREASURY_ADDRESS;
   let result = null;
+  const receipts = await treasuryReceipts().catch(() => ({
+    status: 'unavailable' as const,
+    source: 'rpc-confirmed-receipts' as const,
+    error: 'Confirmed transfer data is unavailable.',
+  }));
   if (address && isAddress(address)) {
     try {
       result = await walletData(address);
@@ -26,8 +33,8 @@ export default async function TreasuryPage() {
           <h2> No treasury address selected. </h2>
           <p>
             {' '}
-            Token and treasury settings are planned. Configure a public TREASURY_ADDRESS to view it;
-            unknown balances appear as an em dash.{' '}
+            The treasury address has not been selected. Balances and receipts will appear once it is
+            connected.{' '}
           </p>
         </div>
       ) : (
@@ -46,6 +53,7 @@ export default async function TreasuryPage() {
           </div>
         ))}
       </div>
+      <TreasuryReceipts state={receipts} />
       <div className="split-layout">
         <section className="panel">
           <h2> Revenue sources </h2>
