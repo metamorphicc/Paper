@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-15T12:43:57.491Z",
+  "observedAtUtc": "2026-10-15T12:49:59.345Z",
   "scope": "local production server with pg/TCP and PostgreSQL WASM engine",
   "hostedDeploymentTested": false,
   "vercelEnvironmentSimulated": true,
@@ -76,6 +76,18 @@
     },
     {
       "name": "/api/trading/readiness",
+      "status": 200
+    },
+    {
+      "name": "History rejects invalid address",
+      "status": 400
+    },
+    {
+      "name": "History rejects oversized cursor",
+      "status": 400
+    },
+    {
+      "name": "Public history endpoint returns parsed official trades",
       "status": 200
     }
   ]

@@ -1,0 +1,12 @@
+{
+  "observedAtUtc": "2026-10-15T12:47:26.515Z",
+  "scope": "official public read API, existing public research address",
+  "address": "0x6b8c262ca939adbe3793d3eca519a9d64f74d184",
+  "sourceDecoder": "research/frontend/index-9zxq8TOY.js function Uh/Gh: limit/filter/cursor",
+  "firstPageItems": 75,
+  "secondPageItems": 75,
+  "cursorContinuationVerified": true,
+  "duplicateRowsAcrossPages": false,
+  "signedRequest": false,
+  "financialWrites": false
+}

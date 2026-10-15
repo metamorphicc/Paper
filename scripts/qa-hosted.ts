@@ -209,6 +209,24 @@ try {
     assert.equal(response.status, 200, path + ': ' + (await response.clone().text()));
     checks.push({ name: path, status: 200 });
   }
+  for (const path of [
+    '/api/profile/not-an-address/trades',
+    '/api/profile/0x6b8c262ca939adbe3793d3eca519a9d64f74d184/trades?cursor=' + 'x'.repeat(2049),
+  ]) {
+    assert.equal((await hostedRequest(path)).status, 400);
+    checks.push({
+      name: path.startsWith('/api/profile/not')
+        ? 'History rejects invalid address'
+        : 'History rejects oversized cursor',
+      status: 400,
+    });
+  }
+  const history = await hostedRequest(
+    '/api/profile/0x6b8c262ca939adbe3793d3eca519a9d64f74d184/trades',
+  );
+  assert.equal(history.status, 200);
+  assert.ok((await history.json()).items.length > 0);
+  checks.push({ name: 'Public history endpoint returns parsed official trades', status: 200 });
   assert.equal(
     existsSync(forbiddenDirectory),
     false,

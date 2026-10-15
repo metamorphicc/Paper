@@ -243,6 +243,18 @@ try {
   const enteredProfile = new Promise<void>((done) => {
     profileEntered = done;
   });
+  const historyRow = (id: number) => ({
+    timestampMs: Date.now(),
+    txHash: '0x' + String(id).repeat(64),
+    positionId: String(id),
+    symbol: 'BTC',
+    isLong: true,
+    leverage: 10,
+    kind: 'PositionClosed',
+    marginRaw: '100000000000000000000',
+    netPnlRaw: '0',
+    paperMintedRaw: '0',
+  });
   await page.route('**/api/profile/*', async (route) => {
     const address = new URL(route.request().url()).pathname.split('/').at(-1)!;
     if (address.toLowerCase() === walletA.address.toLowerCase()) {
@@ -269,13 +281,16 @@ try {
         },
         stale: false,
         observedAt: new Date().toISOString(),
-        trades: { items: [], nextCursor: null },
+        trades: { items: [historyRow(1)], nextCursor: 'older-1' },
         history: [],
         coverage: null,
         pendingReward: null,
       },
     });
   });
+  await page.route('**/api/profile/*/trades?cursor=*', (route) =>
+    route.fulfill({ json: { items: [historyRow(2)], nextCursor: null } }),
+  );
   await page.goto(server.origin + '/profile');
   await page.getByLabel('HyperEVM address').fill(walletA.address);
   await page.getByRole('button', { name: 'View', exact: true }).click();
@@ -289,34 +304,62 @@ try {
     `https://exchange.papertrade.xyz/portfolio?view=${walletB.address}`,
   );
   checks.push('Editing the profile address invalidates a slow prior-account response');
+  await page.getByRole('button', { name: 'Earlier trades', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Open ↗', exact: true })).toHaveAttribute(
+    'href',
+    'https://hyperevmscan.io/tx/' + historyRow(2).txHash,
+  );
+  await expect(page.getByRole('button', { name: 'Earlier trades', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Newer trades', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Open ↗', exact: true })).toHaveAttribute(
+    'href',
+    'https://hyperevmscan.io/tx/' + historyRow(1).txHash,
+  );
+  checks.push('Profile history navigates older/newer pages with no invented rows or cursor loops');
   await page.goto(server.origin + '/rewards');
   const claimManifest = createSnapshot([{ address: walletA.address, points: 70 }], 700n, {
     chainId: 999,
     claimContract: ('0x' + '55'.repeat(20)) as `0x${string}`,
     campaignId: ('0x' + 'ab'.repeat(32)) as `0x${string}`,
   });
-  await page
-    .getByLabel('Campaign JSON')
-    .setInputFiles({
-      name: 'campaign.json',
-      mimeType: 'application/json',
-      buffer: Buffer.from(JSON.stringify(claimManifest)),
-    });
+  await page.getByLabel('Campaign JSON').setInputFiles({
+    name: 'campaign.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(claimManifest)),
+  });
   await page.getByLabel('Account address', { exact: true }).fill(walletA.address);
   await page.getByRole('button', { name: 'Verify proof', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Raw token amount: 700');
-  await page
-    .getByLabel('Campaign JSON')
-    .setInputFiles({
-      name: 'invalid.json',
-      mimeType: 'application/json',
-      buffer: Buffer.from(JSON.stringify({ ...claimManifest, claims: [null] })),
-    });
+  await page.getByLabel('Campaign JSON').setInputFiles({
+    name: 'invalid.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify({ ...claimManifest, claims: [null] })),
+  });
   await page.getByRole('button', { name: 'Verify proof', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Invalid campaign claim');
   checks.push(
     'Claim files stay in-browser; valid raw amounts and malformed claim entries are handled',
   );
+  await page.setViewportSize({ width: 375, height: 1000 });
+  await page.getByRole('button', { name: 'Open menu', exact: true }).click();
+  await expect(
+    page.getByRole('navigation', { name: 'Mobile navigation', exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole('navigation', { name: 'Mobile navigation', exact: true })
+    .getByRole('link', { name: 'Profile', exact: true })
+    .click();
+  await expect(page).toHaveURL(server.origin + '/profile');
+  await expect(
+    page.getByRole('navigation', { name: 'Mobile navigation', exact: true }),
+  ).toHaveCount(0);
+  await page.keyboard.press('Control+k');
+  const search = page.getByRole('dialog', { name: 'Page search' });
+  await search.getByLabel('Find a page').fill('rewards');
+  await search.getByLabel('Find a page').press('Enter');
+  await expect(page).toHaveURL(server.origin + '/rewards');
+  await expect(search).not.toBeVisible();
+  checks.push('Mobile menu and keyboard page search navigate and close correctly');
   await context.addInitScript({
     content:
       "Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Storage blocked', 'SecurityError'); } });",
@@ -333,6 +376,11 @@ try {
     'Blocked browser storage retains a usable in-memory virtual account without unhandled errors',
   );
   assert.deepEqual(errors, []);
+  assert.ok(
+    methods.every((method) =>
+      ['eth_accounts', 'eth_requestAccounts', 'eth_chainId', 'personal_sign'].includes(method),
+    ),
+  );
   const report = {
     observedAtUtc: new Date().toISOString(),
     scope: 'headless Chromium, local production Next server and PostgreSQL TCP fixture',

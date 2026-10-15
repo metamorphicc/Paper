@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-15T12:43:18.153Z",
+  "observedAtUtc": "2026-10-15T12:49:52.416Z",
   "scope": "headless Chromium, local production Next server and PostgreSQL TCP fixture",
   "productionDatabaseUsed": false,
   "userWalletUsed": false,
@@ -16,7 +16,9 @@
     "Terminal renders with deterministic market fixture; live release stays disabled",
     "Corrupt browser sandbox data has an accessible reset without clearing Community data",
     "Editing the profile address invalidates a slow prior-account response",
+    "Profile history navigates older/newer pages with no invented rows or cursor loops",
     "Claim files stay in-browser; valid raw amounts and malformed claim entries are handled",
+    "Mobile menu and keyboard page search navigate and close correctly",
     "Blocked browser storage retains a usable in-memory virtual account without unhandled errors"
   ],
   "responsive": [

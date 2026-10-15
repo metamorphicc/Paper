@@ -28,10 +28,25 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const generation = useRef(0);
+  const [tradePage, setTradePage] = useState<Result['trades']>(null),
+    [activeCursor, setActiveCursor] = useState<string | null>(null),
+    [cursorTrail, setCursorTrail] = useState<(string | null)[]>([]),
+    [historyLoading, setHistoryLoading] = useState(false),
+    [historyError, setHistoryError] = useState('');
+  const historyLock = useRef(false);
+  function resetHistory() {
+    setTradePage(null);
+    setActiveCursor(null);
+    setCursorTrail([]);
+    setHistoryLoading(false);
+    setHistoryError('');
+    historyLock.current = false;
+  }
   async function load(value = address) {
     const current = ++generation.current;
     setError('');
     setResult(null);
+    resetHistory();
     setLoading(false);
     if (!isAddress(value)) {
       setError('Enter a complete 0x address with 40 hexadecimal characters.');
@@ -50,6 +65,46 @@ export default function Profile() {
       if (current === generation.current) setLoading(false);
     }
   }
+  async function showHistory(cursor: string | null, previous = false) {
+    if (!result || historyLock.current) return;
+    const capture = generation.current;
+    historyLock.current = true;
+    setHistoryLoading(true);
+    setHistoryError('');
+    try {
+      let page: Result['trades'] = null;
+      if (cursor !== null) {
+        const response = await fetch(
+          `/api/profile/${result.value.address}/trades?cursor=${encodeURIComponent(cursor)}`,
+          { signal: AbortSignal.timeout(20000) },
+        );
+        if (!response.ok) throw new Error('Could not load this history page. Try again.');
+        page = await response.json();
+        if (
+          !page ||
+          !Array.isArray(page.items) ||
+          (page.nextCursor !== null && typeof page.nextCursor !== 'string') ||
+          (!previous &&
+            page.nextCursor !== null &&
+            [...cursorTrail, activeCursor, cursor].includes(page.nextCursor))
+        )
+          throw new Error('History returned an invalid continuation. Try refreshing the profile.');
+      }
+      if (capture === generation.current) {
+        setTradePage(page);
+        setActiveCursor(cursor);
+        setCursorTrail((trail) => (previous ? trail.slice(0, -1) : [...trail, activeCursor]));
+      }
+    } catch (error) {
+      if (capture === generation.current)
+        setHistoryError(error instanceof Error ? error.message : 'Could not load history.');
+    } finally {
+      if (capture === generation.current) {
+        historyLock.current = false;
+        setHistoryLoading(false);
+      }
+    }
+  }
   useEffect(() => {
     const value = params.get('address');
     if (value && isAddress(value)) {
@@ -57,6 +112,7 @@ export default function Profile() {
       void load(value);
     }
   }, [params]);
+  const trades = tradePage ?? result?.trades;
   return (
     <>
       <form
@@ -76,6 +132,7 @@ export default function Profile() {
               ++generation.current;
               setAddress(event.target.value);
               setResult(null);
+              resetHistory();
               setLoading(false);
               setError('');
             }}
@@ -242,7 +299,7 @@ export default function Profile() {
               <h2> Trade history </h2>
               <span> Official query API · latest 75 </span>
             </div>
-            {result.trades?.items.length ? (
+            {trades?.items.length ? (
               <div className="table-wrap">
                 <table>
                   <thead>
@@ -255,7 +312,7 @@ export default function Profile() {
                     </tr>
                   </thead>
                   <tbody>
-                    {result.trades.items.map((row) => (
+                    {trades.items.map((row) => (
                       <tr key={`${row.txHash}-${row.positionId}`}>
                         <td data-label="Market">
                           {row.symbol} {row.isLong ? 'Long' : 'Short'} {row.leverage}x
@@ -286,15 +343,33 @@ export default function Profile() {
               </div>
             ) : (
               <p>
-                {result.trades
+                {trades
                   ? 'No completed trades on this history page.'
                   : 'History is unavailable. This does not mean there were no trades.'}
               </p>
             )}
-            {result.trades?.nextCursor && (
-              <p className="fine-print">
-                {' '}
-                Earlier trades exist; this version shows the latest 75.{' '}
+            {trades && (
+              <div className="campaign-actions" aria-label="Trade history pages">
+                <button
+                  className="button small"
+                  disabled={historyLoading || cursorTrail.length === 0}
+                  onClick={() => void showHistory(cursorTrail.at(-1) ?? null, true)}
+                >
+                  Newer trades
+                </button>
+                <span>Page {cursorTrail.length + 1}</span>
+                <button
+                  className="button small"
+                  disabled={historyLoading || !trades.nextCursor}
+                  onClick={() => void showHistory(trades.nextCursor)}
+                >
+                  Earlier trades
+                </button>
+              </div>
+            )}
+            {historyError && (
+              <p role="status" className="feedback">
+                {historyError}
               </p>
             )}
           </section>

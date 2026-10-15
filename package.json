@@ -44,6 +44,7 @@
     "qa:worker": "tsx scripts/qa-chain-worker.ts",
     "qa:backup": "tsx scripts/qa-encrypted-backup.ts",
     "qa:browser": "tsx scripts/qa-browser.ts",
+    "qa:history": "tsx scripts/qa-history.ts",
     "data:backup": "tsx scripts/backup-data.ts",
     "database:backup": "tsx scripts/database-backup.ts",
     "database:restore": "tsx scripts/database-backup.ts --restore",
