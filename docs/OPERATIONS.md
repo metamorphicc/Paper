@@ -1,6 +1,6 @@
-# Local operations and incident playbook
+# Operations and incident playbook
 
-This workspace runs on loopback and has no public scheduler, hosting or mainnet write path. Secrets belong in ignored environment files, not research reports. No private key is required by read/index/backup scripts. The local EVM uses in-process simulated chain 31337; no remote RPC is configured there.
+The desktop app runs on loopback; the published Vercel app now has a working PostgreSQL backend. Workflows for regular application/index/upgrade checks and encrypted daily backups are prepared in source but not activated. Setup, limits and recovery: [SCHEDULED-OPERATIONS.md](SCHEDULED-OPERATIONS.md). Secrets belong in ignored files or provider secrets. No private key is required by reads/indexing/backups. Local EVM tests use isolated chain 31337.
 
 ## Routine checks
 
@@ -14,7 +14,7 @@ npm.cmd test
 npm.cmd audit
 ```
 
-Upgrade checks compare all eight implementation addresses/runtime hashes against the saved manifest on one RPC block. Exit 0 means unchanged, 2 means changed, 1 means unavailable. Unchanged code does not mean verified source or safe trading. A changed or unavailable report never enables writes. Check is manual; no automatic background schedule or notifications are installed.
+The legacy upgrade command compares eight implementation addresses/runtime hashes using latest-state observations and retains its recorded pinning limits. Exit 0 means unchanged, 2 changed, 1 unavailable. The new ops worker uses capability-tested pinned archive observations. Unchanged code is not verified source or safe trading; failures never enable writes. No remote schedule/notifications have been activated by the agent.
 
 Indexer validates contiguous canonical headers and overlapping logs. It stops on an unsupported upgrade, cursor gap or reorg outside the overlap. Coverage is partial; do not reset the start block or publish lifetime results from it. Capture a fresh manifest only after review of the new implementation/source/domain.
 

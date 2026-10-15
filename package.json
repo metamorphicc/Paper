@@ -40,10 +40,14 @@
     "monitor:upgrades": "tsx scripts/check-upgrades.ts",
     "monitor:app": "tsx scripts/monitor-application.ts",
     "ops:run": "tsx scripts/run-operations.ts",
+    "ops:status": "tsx scripts/operations-status.ts",
     "qa:worker": "tsx scripts/qa-chain-worker.ts",
+    "qa:backup": "tsx scripts/qa-encrypted-backup.ts",
     "data:backup": "tsx scripts/backup-data.ts",
     "database:backup": "tsx scripts/database-backup.ts",
     "database:restore": "tsx scripts/database-backup.ts --restore",
+    "database:backup:encrypted": "tsx scripts/encrypted-backup.ts",
+    "database:restore:encrypted": "tsx scripts/encrypted-backup.ts --restore",
     "launch:check": "tsx scripts/launch-readiness.ts"
   },
   "dependencies": {

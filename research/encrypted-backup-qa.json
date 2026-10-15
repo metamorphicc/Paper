@@ -1,0 +1,14 @@
+{
+  "observedAtUtc": "2026-10-15T11:44:05.403Z",
+  "scope": "encrypted backup CLI with two isolated PostgreSQL fixtures",
+  "productionDatabaseUsed": false,
+  "encryptedDiskFileOnly": true,
+  "diskBytesRestoredToScratchEngineBeforeSuccess": true,
+  "separateTargetRestoreVerified": true,
+  "pointsRestored": 10,
+  "usedChallengeReplayRejected": true,
+  "exactSnapshotValueRestored": true,
+  "nonemptyTargetRejected": true,
+  "credentialsOrKeyInOutput": false,
+  "githubArtifactUploadTested": false
+}

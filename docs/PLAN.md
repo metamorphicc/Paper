@@ -8,6 +8,8 @@
 
 **Продолжение:** ветка `paperclub-development`, весь сайт на английском. Локальные подэтапы 4–6 выполнены в доступном контуре: token/claims/treasury contracts с EVM-тестами, snapshots, path replay, cash-only vault model, security fixes и ops tooling. Параметры токена и бюджет пользователь ещё не выбрал. Это не денежный launch: independent audit, production custody и verified protocol integration остаются открытыми. Актуальные результаты и подэтапы — [CONTINUATION.md](CONTINUATION.md), [VALIDATION.md](VALIDATION.md).
 
+**Эксплуатация, 15.10.2026:** PostgreSQL и Community подтверждены на опубликованном Vercel, пройдены 13 проверок чтения. Подготовлены bounded archive worker, проверка восьми implementations, GitHub workflow каждые 15 минут и ежедневный encrypted backup с полным scratch restore. Пройдены 70 тестов, CLI rehearsals и actionlint. Workflow ещё не активирован: нужны GitHub Secrets/environment и push владельца. Это не закрывает production operations/финансовый launch автоматически. Инструкция — [SCHEDULED-OPERATIONS.md](SCHEDULED-OPERATIONS.md).
+
 ## Уже выполнено
 
 - [x] Проверить исходные утверждения по официальной документации.

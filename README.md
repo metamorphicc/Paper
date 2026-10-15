@@ -44,13 +44,13 @@ npm.cmd run qa:hosted
 npm.cmd run smoke:web
 ```
 
-65 tests and 17 production HTTP scenarios with a simulated Vercel environment passed, including a signed challenge surviving a Next process restart against a real local PostgreSQL engine over TCP. Community passed five responsive widths with active controls. Earlier local HTTP/browser evidence is retained in [current validation](docs/VALIDATION.md). The current Papertrade intakeControls read schema is supported. The official HTTP/signing adapter remains behind financial release gates; real Papertrade settlement is unverified. See [adapter substeps](docs/LIVE-ADAPTER.md). A Neon database/Vercel deployment has not been provisioned or tested by the agent.
+70 tests and 17 production HTTP scenarios with a simulated Vercel environment passed, including signed-challenge persistence after restart with PostgreSQL over TCP. Community passed five responsive widths. The actual Vercel application now passes 13 read-only production checks, including PostgreSQL health, Community and fresh quotes. Real user-wallet participation on production is not claimed. Current intakeControls reads are supported; the official signing adapter remains behind financial gates and settlement is unverified. See [validation](docs/VALIDATION.md) and [adapter substeps](docs/LIVE-ADAPTER.md).
 
 Public-money launch is blocked: source/ABI/domain/collateral/relayer settlement and exact API/RPC reconciliation remain unverified; tokenomics, budgets/recipients and independent audit are outstanding. Live trade/staking, public claims, deposits, buybacks and deployment remain disabled. The launch checker records missing evidence and cannot deploy anything.
 
 ## Tools and documents
 
-`strategy:replay` captures historical-price scenarios; `monitor:upgrades` compares implementations; `data:backup` verifies scratch restore; `rewards:snapshot` requires explicit CLAIM_CONTRACT and SNAPSHOT_BUDGET_RAW. These commands do not trade or deploy to mainnet. Indexer and monitoring are manual, with no installed scheduler.
+`strategy:replay` captures historical-price scenarios; `monitor:upgrades` compares implementations; `data:backup` verifies scratch restore; `rewards:snapshot` requires explicit CLAIM_CONTRACT and SNAPSHOT_BUDGET_RAW. `monitor:app`, `ops:run` and `ops:status` cover application health, bounded indexing and worker/backup freshness. Prepared GitHub workflows run every 15 minutes and back up daily once enabled by the owner. Nothing has been pushed or scheduled remotely by the agent. See [setup](docs/SCHEDULED-OPERATIONS.md).
 
 `db:migrate` prepares a configured PostgreSQL schema. `database:backup` exports the selected shared/local database; `database:restore` requires BACKUP_FILE and a fresh empty migrated target. Exports are bounded review/transfer tools; configure production backups/PITR in the selected provider. Standalone indexer/backup/snapshot commands read database variables from the shell, and use the same database as the website. Existing desktop SQLite files are preserved; they are not silently uploaded to a provider.
 
@@ -59,6 +59,7 @@ Public-money launch is blocked: source/ABI/domain/collateral/relayer settlement 
 - [Strategy and vault research](docs/STRATEGY.md)
 - [Security findings and launch blockers](docs/SECURITY.md)
 - [Operations and recovery](docs/OPERATIONS.md)
+- [Scheduled workers, encrypted backups and account setup](docs/SCHEDULED-OPERATIONS.md)
 - [Deployment preparation and local rehearsal](docs/DEPLOYMENT.md)
 - [Vercel database setup and readiness](docs/VERCEL.md)
 - [Original plan](docs/PLAN.md), [assessment](docs/ASSESSMENT.md), [integration evidence](docs/INTEGRATION.md)

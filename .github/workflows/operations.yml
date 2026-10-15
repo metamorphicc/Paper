@@ -1,0 +1,56 @@
+name: Application operations
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paperclub-operations
+  cancel-in-progress: false
+
+jobs:
+  monitor-and-index:
+    if: vars.PAPERCLUB_OPERATIONS_ENABLED == 'true' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    environment: production-operations
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Probe deployed application without signatures or campaign writes
+        id: application
+        run: npm run monitor:app
+        env:
+          PAPERCLUB_APP_ORIGIN: ${{ vars.PAPERCLUB_APP_ORIGIN || 'https://paper-sooty.vercel.app' }}
+      - name: Check reviewed implementations and advance confirmed index
+        id: worker
+        if: success() || steps.application.outcome == 'failure'
+        run: npm run ops:run
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          HYPEREVM_ARCHIVE_RPC_URL: ${{ secrets.HYPEREVM_ARCHIVE_RPC_URL || 'https://hyperliquid.drpc.org?include_hl_native_tx=true' }}
+          INDEX_MAX_BATCHES: '16'
+      - name: Detect stale worker or backup evidence
+        if: success() || steps.worker.outcome == 'success'
+        run: npm run ops:status
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Retain safe operational reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: operations-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/operations/*.json
+          if-no-files-found: ignore
+          retention-days: 7
