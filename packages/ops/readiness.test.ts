@@ -8,7 +8,12 @@ test('unknown launch evidence blocks release and passing checks never authorize 
     independentAuditComplete: false,
   });
   assert.equal(blocked.decision, 'do-not-launch');
-  assert.equal(blocked.blockers.length, 14);
+  assert.equal(blocked.blockers.length, 15);
+  assert.ok(
+    blocked.blockers.some(
+      (row) => row.gate === 'deploymentParametersComplete' && row.status === 'unknown',
+    ),
+  );
   assert.equal(launchReadiness({}).decision, 'do-not-launch');
   const passed = launchReadiness(
     Object.fromEntries(REQUIRED_LAUNCH_GATES.map((gate) => [gate, true])),

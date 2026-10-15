@@ -20,8 +20,16 @@ Two focused tests prove domain/nonce binding, determinism without timestamps, an
 
 Compiler runtime templates contain constructor immutable placeholders. Runtime comparison must match every other executable/metadata byte and then independently check all expected immutable getter values. Masking constructor slots alone does not verify those values. Local tests reproduce all three artifacts, detect an imported ERC20 decimals change despite an unchanged primary source, and reject executable-byte changes/invalid immutable references. These are our contracts; Papertrade source equivalence remains unresolved.
 
-## Remaining substeps
+## Substep 3.3: isolated deployment rehearsal
 
-- 3.3: actual local EVM deployment/funding/claim/treasury receipt rehearsal, with code/constructor/immutable-state reconciliation.
+`npm run release:rehearse` creates and destroys an in-process chain 31337 through the existing hardcoded local EVM helper. It accepts no RPC URL, private key or public deployment plan. Its accounts, token name, allocations and budgets are fixtures; public configuration stays untouched. A six-decimal TESTUSDC fixture lives under `contracts/fixtures/`, excluded from production compilation/package discovery.
+
+The rehearsal deploys the fixture and the three planned contracts, checks current nonces and predicted addresses, matches actual transaction creation input to encoded bytecode/constructor arguments, compares runtime outside compiler-declared immutable slots, and reads every expected immutable getter plus initial supply/allocations/destination policy. It then funds campaign and treasury, submits a third-party claim paying its designated member, spends an allowed treasury amount, advances local time and recovers the unclaimed campaign remainder.
+
+Nine successful canonical receipts are recorded. Eight invalid actions are rejected: unauthorized spend, wrong claim recipient, duplicate claim, premature recovery, daily-limit excess, reserve-floor violation after a day reset, expired claim and unauthorized recovery. Separate injected nonce-drift and constructor-substitution scenarios abort before funding.
+
+The actual local ERC20 receipts reconcile 100 TESTUSDC incoming, 10 outgoing and 90 remaining. The accounting window starts after fixture deployment, because the asset has no callable state at genesis. Transfers are not classified as realized revenue, buybacks or burns. Evidence: `research/deployment-rehearsal.json`, including fixture parameters, plan/proofs, actual code/creation hashes, getter-check results, transaction/block hashes and raw-unit balance reconciliation.
+
+All 59 package tests, TypeScript and formatting checks passed. Compiler-package replay passed. Current public deployment review still reports 17 incomplete fields; launch-check now also requires deployment-parameter completeness. Local receipts do not satisfy audit, HyperEVM validation, public custody or Papertrade settlement gates.
 
 Verified Papertrade integration and contract-wallet support remain prerequisites for any strategy vault. This deployment recipe contains no vault custody contract or production trading adapter activation.

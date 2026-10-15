@@ -50,3 +50,11 @@ Read-only integration follow-up: root/web typechecks passed. The domain reader o
 - 26 HTTP checks passed. Submit/cancel stay 403, unknown status stays explicitly unconfirmed, and readiness exposes eight blockers. Root/web typechecks, Prettier and production build passed.
 - Trading UI passed five viewport widths (320/375/414/768/1280), English text, containment, 24/32px section spacing and disabled financial controls. Evidence: artifacts/design/trading-responsive.json and trading-connection.jpg.
 - No real user signature, deposit, order, staking, withdrawal or cancellation was submitted. Launch blocks 1–2 are implemented in part and remain open for external verification and full lifecycle settlement.
+
+## Deployment preparation continuation
+
+- All 59 package tests pass (six added deployment/compiler/rehearsal tests), root TypeScript and formatting pass. Self-contained compiler package reproduces three artifacts from 18 bundled sources with no import/network callback. Imported-source changes and runtime changes are detected.
+- Actual local EVM chain 31337 rehearsal verifies nonce/address binding, creation input, runtime/immutable getters, exact token supply/allocations, funded claims, recovery and six-decimal treasury receipts. Nine successful receipts, eight denied actions, and separate nonce-drift/constructor-substitution aborts are recorded.
+- Treasury cash reconciles 100 test USDC received, 10 spent and 90 remaining. Test fixture state predating deployment is not treated as a callable zero balance; the receipt window starts at its creation block. No revenue or protocol settlement is inferred.
+- Preparation reports 17 missing public parameters. Launch remains blocked on 16 gates including deployment-parameter completeness; fixture evidence is explicitly not public launch evidence. No API/UI/dependency changes required a new browser/build run. Earlier 26 HTTP checks and responsive evidence describe the preceding website change.
+- Evidence: research/deployment-plan.json, deployment-rehearsal.json, launch-readiness.json and artifacts/release/{standard-input,compilation}.json. No private key, user wallet, public-chain transaction, independent audit or Papertrade source verification was used/claimed.

@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-14T12:23:29.627Z",
+  "observedAtUtc": "2026-10-15T00:10:20.271Z",
   "scope": "public financial launch",
   "decision": "do-not-launch",
   "blockers": [
@@ -21,6 +21,10 @@
     },
     {
       "gate": "recipientsAndMultisigReviewed",
+      "status": "not-satisfied"
+    },
+    {
+      "gate": "deploymentParametersComplete",
       "status": "not-satisfied"
     },
     {
@@ -72,6 +76,7 @@
     "liquidityBudgetSelected": false,
     "campaignBudgetSelected": false,
     "recipientsAndMultisigReviewed": false,
+    "deploymentParametersComplete": false,
     "officialDomainVerified": false,
     "collateralFlowVerified": false,
     "thirdPartyRelayerSettlementVerified": false,
@@ -90,8 +95,88 @@
     "Local EVM token/claims/treasury tests",
     "Historical-price scenario replay",
     "Cash-only vault accounting research",
-    "Manual upgrade check and validated SQLite backup"
+    "Manual upgrade check and validated SQLite backup",
+    "Draft deployment parameter checks and self-contained compiler verification package",
+    "Isolated local deployment/funding/claim/treasury receipt rehearsal"
   ],
   "integrationEvidencePresent": true,
+  "deploymentIssues": [
+    {
+      "field": "deployer",
+      "reason": "Explicit nonzero deployer required"
+    },
+    {
+      "field": "startNonce",
+      "reason": "Canonical deployment nonce required"
+    },
+    {
+      "field": "token.name",
+      "reason": "Explicit English name required"
+    },
+    {
+      "field": "token.symbol",
+      "reason": "Explicit ticker required"
+    },
+    {
+      "field": "token.capRaw",
+      "reason": "Positive uint256 cap required"
+    },
+    {
+      "field": "token.allocations",
+      "reason": "1–100 explicit allocations required"
+    },
+    {
+      "field": "campaign.campaignId",
+      "reason": "Nonzero bytes32 campaign ID required"
+    },
+    {
+      "field": "campaign.budgetRaw",
+      "reason": "Positive campaign budget required"
+    },
+    {
+      "field": "campaign.deadline",
+      "reason": "Future integer Unix deadline required"
+    },
+    {
+      "field": "campaign.recovery",
+      "reason": "Explicit recovery recipient required"
+    },
+    {
+      "field": "campaign.members",
+      "reason": "Explicit bounded eligible members required"
+    },
+    {
+      "field": "treasury.asset",
+      "reason": "Explicit treasury asset required"
+    },
+    {
+      "field": "treasury.operator",
+      "reason": "Explicit operator required"
+    },
+    {
+      "field": "treasury.reserveRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.dailyLimitRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.fundingRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.destinations",
+      "reason": "1–100 explicit destinations required"
+    }
+  ],
+  "localDeploymentRehearsal": {
+    "scope": "isolated local deployment rehearsal",
+    "chainId": 31337,
+    "publicChainUsed": false,
+    "confirmedTransactions": 9,
+    "treasuryReconciled": true,
+    "launchEvidence": false
+  },
   "explanation": "Passing local checks does not supply missing launch parameters, verified protocol integration, independent audit or real settlement evidence."
 }

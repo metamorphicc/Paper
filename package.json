@@ -32,6 +32,7 @@
     "release:prepare": "tsx scripts/prepare-deployment.ts",
     "release:package": "tsx scripts/verification-package.ts",
     "release:verify": "tsx scripts/verify-package.ts",
+    "release:rehearse": "tsx scripts/rehearse-deployment.ts",
     "rewards:snapshot": "tsx scripts/campaign-snapshot.ts",
     "strategy:replay": "tsx scripts/replay-strategies.ts",
     "monitor:upgrades": "tsx scripts/check-upgrades.ts",

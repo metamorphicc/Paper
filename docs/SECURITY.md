@@ -4,7 +4,7 @@ Security decision: **Do not launch yet** for public money/custody. Local read-on
 
 ## Threat model
 
-Valuable assets are user signatures, future claim budgets/treasury funds, and reliable financial state. Trust boundaries: browser → local API → public official API/RPC; campaign signatures → SQLite; reviewed manifest → funded immutable claims; future multisig → treasury spend policy. Browser sandbox keys are publicly documented demo keys for virtual funds, never user keys. No user deposit or official live write route exists.
+Valuable assets are user signatures, future claim budgets/treasury funds, and reliable financial state. Trust boundaries: browser → local API → public official API/RPC; campaign signatures → SQLite; reviewed manifest → funded immutable claims; future multisig → treasury spend policy. Browser sandbox keys are publicly documented demo keys for virtual funds, never user keys. No user deposit route exists. Official submit/cancel code is present behind server release/implementation/runtime gates; actual integration/settlement remains unverified.
 
 ## Confirmed findings and fixes
 
@@ -27,3 +27,5 @@ Claims/token/treasury: actual local EVM tests verify cap, no privileged mint/tax
 3. Before user custody: independent contract review/audit, HyperEVM-specific testing, deployment/source verification, actual settlement/recovery evidence and funded reserve/withdrawal limits. The cash-only vault model is not a custody contract.
 
 Coverage gaps: no independent audit, static analyzer/fuzzer or fork of verified Papertrade source; no attack tests against third-party services; no real wallet/funds used. No payment webhooks or multi-tenant authentication exist. Files selected by the claim inspector remain browser-local; no upload endpoint exists. Local API guards are not intended for a public host. Browser-provider failures are mapped to English messages without echoing untrusted provider text; the add-network recovery code is preserved.
+
+Deployment-preparation follow-up: original per-contract sourceHash covered the primary source only. The new package binds all transitive imported source contents, compiler settings and artifact hashes; a dependency-tamper test demonstrates why a primary hash alone is insufficient. Runtime templates also exclude constructor immutable values and must be checked against arguments/getters; the local rehearsal does both. Draft input validation rejects nonce drift, unsafe/duplicate/underfunded allocations, wrong asset units and proofs that cannot fund every participant. These checks improve review integrity, not public-chain audit coverage. Rehearsal has no RPC/key parameters and uses only the hardcoded isolated local helper. Deployment parameters and real multisig/asset ownership remain unverified.

@@ -4,6 +4,7 @@ export const REQUIRED_LAUNCH_GATES = [
   'liquidityBudgetSelected',
   'campaignBudgetSelected',
   'recipientsAndMultisigReviewed',
+  'deploymentParametersComplete',
   'officialDomainVerified',
   'collateralFlowVerified',
   'thirdPartyRelayerSettlementVerified',

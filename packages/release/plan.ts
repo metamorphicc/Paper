@@ -195,6 +195,27 @@ export function validateDeploymentParameters(value: unknown, nowSeconds: number)
       allowed.add(destination.toLowerCase());
     }
   }
+  if (issues.length === 0) {
+    const p = value as DeploymentParameters;
+    const planned = [0n, 1n, 2n].map((offset) =>
+      getContractAddress({ from: p.deployer, nonce: BigInt(p.startNonce) + offset }).toLowerCase(),
+    );
+    require(!planned.includes(
+      p.treasury.asset.toLowerCase(),
+    ), 'treasury.asset', 'Asset collides with a planned deployment');
+    require(!p.token.allocations.some((row) =>
+      planned.includes(row.recipient.toLowerCase()),
+    ), 'token.allocations', 'Planned contracts are not allocation recipients');
+    try {
+      createSnapshot(p.campaign.members, BigInt(p.campaign.budgetRaw), {
+        chainId: p.targetChainId,
+        claimContract: planned[1] as Address,
+        campaignId: p.campaign.campaignId,
+      });
+    } catch {
+      require(false, 'campaign.members', 'Budget must fund every eligible participant');
+    }
+  }
   return issues;
 }
 

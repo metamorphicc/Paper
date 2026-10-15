@@ -111,4 +111,15 @@ test('deployment review rejects missing inputs, duplicate allocations, unit mist
     );
     assert.throws(() => buildDeploymentPlan(value, 1000), /Invalid deployment/);
   }
+  const smallBudget = fixtureParameters();
+  smallBudget.campaign.budgetRaw = '1';
+  smallBudget.campaign.members.push({ address: a, points: 10 });
+  assert.ok(
+    validateDeploymentParameters(smallBudget, 1000).some((row) => row.field === 'campaign.members'),
+  );
+  const collision = fixtureParameters();
+  collision.treasury.asset = getContractAddress({ from: a, nonce: 2n });
+  assert.ok(
+    validateDeploymentParameters(collision, 1000).some((row) => row.field === 'treasury.asset'),
+  );
 });

@@ -1,0 +1,309 @@
+{
+  "scope": "isolated local deployment rehearsal",
+  "chainId": 31337,
+  "fixtureParameters": true,
+  "publicChainUsed": false,
+  "userWalletUsed": false,
+  "mainnetDeployed": false,
+  "launchApproved": false,
+  "compilerInputHash": "0x2f42731b6b6862184e4f59d674f299b0bb1f350e294f0810efe6dc74a3ee1e54",
+  "localAssetFixture": {
+    "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    "decimals": 6,
+    "creationBytecodeHash": "0xf21718a1d8a92458a847d4a24740efdcf206b9ed78bf749d08e65d5a8cda3b7b"
+  },
+  "plan": {
+    "parameters": {
+      "schemaVersion": 1,
+      "status": "draft",
+      "targetChainId": 31337,
+      "deployer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "startNonce": "1",
+      "token": {
+        "name": "Local Test Token",
+        "symbol": "TEST",
+        "capRaw": "1000000000000000000000000000",
+        "allocations": [
+          {
+            "recipient": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "amountRaw": "1000000000000000000000000000"
+          }
+        ]
+      },
+      "campaign": {
+        "campaignId": "0xe13c595ada0081224873fc532bbe50053330f6780fe71486b75fa68f3a808a20",
+        "budgetRaw": "1000000000000000000000000",
+        "deadline": 1792109319,
+        "recovery": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "members": [
+          {
+            "address": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+            "points": 50
+          },
+          {
+            "address": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+            "points": 25
+          }
+        ]
+      },
+      "treasury": {
+        "asset": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+        "assetDecimals": 6,
+        "operator": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "reserveRaw": "80000000",
+        "dailyLimitRaw": "20000000",
+        "fundingRaw": "100000000",
+        "destinations": [
+          "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+        ]
+      }
+    },
+    "deployments": [
+      {
+        "contract": "ClubToken",
+        "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+        "nonce": "1",
+        "args": [
+          "Local Test Token",
+          "TEST",
+          "1000000000000000000000000000",
+          [
+            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+          ],
+          [
+            "1000000000000000000000000000"
+          ]
+        ]
+      },
+      {
+        "contract": "CampaignClaims",
+        "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "nonce": "2",
+        "args": [
+          "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          "0xbe8f273532e487610d1e7aa8420708918956bf95de34b44f3cb4e5245053a288",
+          "0xe13c595ada0081224873fc532bbe50053330f6780fe71486b75fa68f3a808a20",
+          "1000000000000000000000000",
+          1792109319,
+          "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ]
+      },
+      {
+        "contract": "TreasuryBudget",
+        "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+        "nonce": "3",
+        "args": [
+          "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "80000000",
+          "20000000",
+          [
+            "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+          ]
+        ]
+      }
+    ],
+    "snapshot": {
+      "domain": {
+        "chainId": 31337,
+        "claimContract": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "campaignId": "0xe13c595ada0081224873fc532bbe50053330f6780fe71486b75fa68f3a808a20"
+      },
+      "budgetRaw": "1000000000000000000000000",
+      "totalPoints": "75",
+      "root": "0xbe8f273532e487610d1e7aa8420708918956bf95de34b44f3cb4e5245053a288",
+      "claims": [
+        {
+          "index": 0,
+          "account": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+          "amountRaw": "333333333333333333333334",
+          "leaf": "0x2a787d73168c9daef9d06de1b353eb470f1cb64c1a9b6da43e23830b74203720",
+          "proof": [
+            "0xce9d3cfd444752fa78f2b68a84bb01e8fc87ec0e876aa8bb4254f9ddeeb45483"
+          ]
+        },
+        {
+          "index": 1,
+          "account": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+          "amountRaw": "666666666666666666666666",
+          "leaf": "0xce9d3cfd444752fa78f2b68a84bb01e8fc87ec0e876aa8bb4254f9ddeeb45483",
+          "proof": [
+            "0x2a787d73168c9daef9d06de1b353eb470f1cb64c1a9b6da43e23830b74203720"
+          ]
+        }
+      ]
+    },
+    "reviewDigest": "0xafae33b5d1c505ed15aba5f3c4f80a135d7c1c8ef41ab44c243ee3c63385de90",
+    "automaticDeploy": false,
+    "launchApproved": false
+  },
+  "deployed": [
+    {
+      "contract": "ClubToken",
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "creationInputHash": "0x50aa4855e4af6522e212921b80dfc2aa6c2cb19370053e18c1d8d7660cec4a6d",
+      "runtimeHash": "0xeb776611259f6e797bc7300e2c46f87f1568f1c6e7fc1f5eea0c53759a2a23d1",
+      "runtimeTemplateMatched": true,
+      "immutableGettersVerified": true
+    },
+    {
+      "contract": "CampaignClaims",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "creationInputHash": "0x844d4246a5b77636a775c3fca716ab71409a871cff65dfa09774b6ed62f28d44",
+      "runtimeHash": "0xa3392f6e02fe9a23b45304f319e33891e866ab28116e8c1f8bfe6a67245aed75",
+      "runtimeTemplateMatched": true,
+      "immutableGettersVerified": true
+    },
+    {
+      "contract": "TreasuryBudget",
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "creationInputHash": "0x87ea52963e7d5d2dbb5b9a0049a86577905982d364576d926ad403098e007064",
+      "runtimeHash": "0x6abbf171d74276fd0f97bfa85247e7cb3eb4a6f450aaf588f33e394c9dfab5e7",
+      "runtimeTemplateMatched": true,
+      "immutableGettersVerified": true
+    }
+  ],
+  "receipts": [
+    {
+      "step": "deploy-local-USDC",
+      "hash": "0x303e76c8ef3ea6c249f7bc8243b2abf2c5a74adf56e71b1df070a8225fbc6289",
+      "blockNumber": "1",
+      "blockHash": "0x707c484affc2329094b8ac2b7f7284a19f2de32ab8dbe2e9c6bb95eac967573a",
+      "gasUsed": "542283"
+    },
+    {
+      "step": "deploy-ClubToken",
+      "hash": "0xed513a7900d2baf2c51a539cb12b02c8e74a478b38cb4e3f8ce6f837465cef76",
+      "blockNumber": "2",
+      "blockHash": "0xfbb7772e4f2364f4a2f53166c70fb528beeedd10f92a35738c43908d198ea443",
+      "gasUsed": "609742"
+    },
+    {
+      "step": "deploy-CampaignClaims",
+      "hash": "0xdbdfa2b2592b5f4b6f1a28b7687da11b7e8c567c996ab0742622e2cdc14c76ae",
+      "blockNumber": "3",
+      "blockHash": "0x13f15a84b8db4d02854dd95883ad6863b32ce768c8c0f81f29a7578b775f7f34",
+      "gasUsed": "603896"
+    },
+    {
+      "step": "deploy-TreasuryBudget",
+      "hash": "0x4422dd76266fefeaed6ec224ddfc695b972d3e35a972e0176958e3cdc96b5475",
+      "blockNumber": "4",
+      "blockHash": "0xae90f4b4b876bf3a194f32f3f033d14ae8f2f6c782d82cd2599b643b023d9cc8",
+      "gasUsed": "503248"
+    },
+    {
+      "step": "fund-campaign",
+      "hash": "0x840acb74918ce404208aa152c608d14c32cfc49173a29f3f42cfe6bbdb72a72e",
+      "blockNumber": "5",
+      "blockHash": "0x21bf5242f66852e47a507167e94b1e0b72600d9f3d195811f06b19b07298f285",
+      "gasUsed": "51647"
+    },
+    {
+      "step": "fund-treasury-USDC",
+      "hash": "0xbabdb80aabbe8a8ed5354da8152c5300f58e948d5d8f87907d2b82bedc94ab4b",
+      "blockNumber": "6",
+      "blockHash": "0xba115f44ac693e3288f249c2f7b5e10729ea061b2ff5e68afcbf4903061f4d43",
+      "gasUsed": "51577"
+    },
+    {
+      "step": "claim-for-eligible-account",
+      "hash": "0x6b0f91d5e87cb6037f5be0f1b569e045e4d779fab09a3717b3a411d6c7781c9d",
+      "blockNumber": "7",
+      "blockHash": "0x00a309f831d6d7af2327d4129975fc2f09ab2529ddc0935e06d8a24cb7725087",
+      "gasUsed": "106061"
+    },
+    {
+      "step": "treasury-reviewed-cost",
+      "hash": "0xbcc35157ab6260dc5bd3b1a188b26354cc1960d6597e759bdcd07311f046f14f",
+      "blockNumber": "8",
+      "blockHash": "0xa37f85b6d9b7919dee1692c0efe5fd05b6e8c51d460542064d99f3d17109e35d",
+      "gasUsed": "107714"
+    },
+    {
+      "step": "recover-unclaimed-after-expiry",
+      "hash": "0xfbdce936ec040f0383beb31021cb0007942c307cecd5ae645f2f74d0b5e62944",
+      "blockNumber": "10",
+      "blockHash": "0x5b109463eb5c79af24c1f8fed3414d63e0560f588154ed7c6a7384c1b06993ef",
+      "gasUsed": "36704"
+    }
+  ],
+  "denied": [
+    "unauthorized-treasury-spend",
+    "claim-to-wrong-recipient",
+    "duplicate-claim",
+    "premature-recovery",
+    "daily-limit-exceeded",
+    "reserve-floor-after-day-reset",
+    "expired-claim",
+    "unauthorized-recovery"
+  ],
+  "reconciliation": {
+    "chainId": 31337,
+    "treasury": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+    "asset": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    "fromBlock": "2",
+    "toBlock": "10",
+    "headBlock": "10",
+    "minConfirmations": 1,
+    "openingBalanceRaw": "0",
+    "closingBalanceRaw": "90000000",
+    "receivedRaw": "100000000",
+    "sentRaw": "10000000",
+    "netFlowRaw": "90000000",
+    "expectedClosingBalanceRaw": "90000000",
+    "discrepancyRaw": "0",
+    "reconciled": true,
+    "transfers": [
+      {
+        "transactionHash": "0xbabdb80aabbe8a8ed5354da8152c5300f58e948d5d8f87907d2b82bedc94ab4b",
+        "blockNumber": "6",
+        "blockHash": "0xba115f44ac693e3288f249c2f7b5e10729ea061b2ff5e68afcbf4903061f4d43",
+        "logIndex": 0,
+        "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "to": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+        "amountRaw": "100000000",
+        "direction": "in"
+      },
+      {
+        "transactionHash": "0xbcc35157ab6260dc5bd3b1a188b26354cc1960d6597e759bdcd07311f046f14f",
+        "blockNumber": "8",
+        "blockHash": "0xa37f85b6d9b7919dee1692c0efe5fd05b6e8c51d460542064d99f3d17109e35d",
+        "logIndex": 0,
+        "from": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+        "to": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+        "amountRaw": "10000000",
+        "direction": "out"
+      }
+    ],
+    "issues": [],
+    "realizedRevenueRaw": null,
+    "buybacksVerified": false,
+    "burnsVerified": false,
+    "limitations": [
+      "Transfers are not evidence of earned revenue, swaps or burns.",
+      "Reconciliation covers this asset and block window only; it is not full treasury history.",
+      "Rebasing, fees without Transfer events or incomplete RPC logs can prevent reconciliation."
+    ],
+    "observedAtUtc": "2026-10-15T00:08:48.606Z",
+    "confirmedThroughBlockHash": "0x5b109463eb5c79af24c1f8fed3414d63e0560f588154ed7c6a7384c1b06993ef",
+    "decimals": 6,
+    "symbol": "TESTUSDC",
+    "source": "rpc-confirmed-receipts",
+    "historicalEvidence": {
+      "historicalCanaryPassed": true,
+      "sentinel": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "checkpointBlock": "0",
+      "trustlessStateProof": false
+    }
+  },
+  "balances": {
+    "claimedTokenRaw": "666666666666666666666666",
+    "recoveredUnclaimedTokenRaw": "333333333333333333333334",
+    "treasuryUsdcRaw": "90000000"
+  },
+  "independentAuditComplete": false,
+  "hyperEvmBehaviorVerified": false,
+  "protocolSettlementVerified": false,
+  "observedAtUtc": "2026-10-15T00:08:48.607Z"
+}

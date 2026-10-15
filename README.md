@@ -22,6 +22,7 @@ Open `http://127.0.0.1:3000`. The server binds to loopback. `npm.cmd run index` 
 - Deterministic campaign snapshots and proof inspector. Tokenomics is **unselected**; CLUB and a 1-billion cap are test proposals. Existing points provide no token rights.
 - Sequential path model, completed-candle replay and cash-only vault accounting research. No actual vault custody/deposits. PAPER has no assumed cash value.
 - Bounded API I/O, local request guards, upgrade checks, online SQLite backup/restore and incident playbook.
+- Explicit deployment-plan validation, self-contained compiler/source package and isolated deployment/funding/claim/treasury rehearsal. Public deployment parameters remain unset.
 
 ## Checks
 
@@ -33,11 +34,15 @@ npm.cmd run contracts:compile
 npm.cmd run build
 npm.cmd audit
 npm.cmd run launch:check
+npm.cmd run release:prepare
+npm.cmd run release:package
+npm.cmd run release:verify
+npm.cmd run release:rehearse
 # With a local server running:
 npm.cmd run smoke:web
 ```
 
-53 tests and 26 HTTP checks passed. Earlier responsive checks cover all seven routes; additional Treasury and trading checks cover five viewport widths each. A public archive passed capability checks and four historical summary fields reconciled. The official HTTP/signing adapter is implemented behind release gates; real Papertrade settlement remains unverified. See [current validation](docs/VALIDATION.md) and [adapter substeps](docs/LIVE-ADAPTER.md). Older documents/snapshots retain the original research language and describe their capture time.
+59 tests passed; the latest website changes passed 26 HTTP checks. Earlier responsive checks cover all seven routes; additional Treasury and trading checks cover five viewport widths each. A public archive passed capability checks and four historical summary fields reconciled. The official HTTP/signing adapter is implemented behind release gates; real Papertrade settlement remains unverified. See [current validation](docs/VALIDATION.md) and [adapter substeps](docs/LIVE-ADAPTER.md). Older documents/snapshots retain the original research language and describe their capture time.
 
 Public-money launch is blocked: source/ABI/domain/collateral/relayer settlement and exact API/RPC reconciliation remain unverified; tokenomics, budgets/recipients and independent audit are outstanding. Live trade/staking, public claims, deposits, buybacks and deployment remain disabled. The launch checker records missing evidence and cannot deploy anything.
 
@@ -50,6 +55,7 @@ Public-money launch is blocked: source/ABI/domain/collateral/relayer settlement 
 - [Strategy and vault research](docs/STRATEGY.md)
 - [Security findings and launch blockers](docs/SECURITY.md)
 - [Operations and recovery](docs/OPERATIONS.md)
+- [Deployment preparation and local rehearsal](docs/DEPLOYMENT.md)
 - [Original plan](docs/PLAN.md), [assessment](docs/ASSESSMENT.md), [integration evidence](docs/INTEGRATION.md)
 
 SQLite Node 24 is experimental; coverage is partial and not a lifetime ranking. Runtime databases/backups, environment files, build outputs and generated contract artifacts are ignored. Standalone scripts read environment variables from the shell; Next reads its own environment files. No private key is needed for reads, indexing or backups.
