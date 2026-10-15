@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "targetChainId": 999,
+  "deployer": null,
+  "startNonce": null,
+  "token": {
+    "name": null,
+    "symbol": null,
+    "capRaw": null,
+    "allocations": null
+  },
+  "campaign": {
+    "campaignId": null,
+    "budgetRaw": null,
+    "deadline": null,
+    "recovery": null,
+    "members": null
+  },
+  "treasury": {
+    "asset": null,
+    "assetDecimals": 6,
+    "operator": null,
+    "reserveRaw": null,
+    "dailyLimitRaw": null,
+    "fundingRaw": null,
+    "destinations": null
+  }
+}

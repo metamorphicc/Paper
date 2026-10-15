@@ -1,0 +1,78 @@
+{
+  "observedAtUtc": "2026-10-15T00:02:30.492Z",
+  "scope": "deployment parameter review",
+  "parametersComplete": false,
+  "issues": [
+    {
+      "field": "deployer",
+      "reason": "Explicit nonzero deployer required"
+    },
+    {
+      "field": "startNonce",
+      "reason": "Canonical deployment nonce required"
+    },
+    {
+      "field": "token.name",
+      "reason": "Explicit English name required"
+    },
+    {
+      "field": "token.symbol",
+      "reason": "Explicit ticker required"
+    },
+    {
+      "field": "token.capRaw",
+      "reason": "Positive uint256 cap required"
+    },
+    {
+      "field": "token.allocations",
+      "reason": "1–100 explicit allocations required"
+    },
+    {
+      "field": "campaign.campaignId",
+      "reason": "Nonzero bytes32 campaign ID required"
+    },
+    {
+      "field": "campaign.budgetRaw",
+      "reason": "Positive campaign budget required"
+    },
+    {
+      "field": "campaign.deadline",
+      "reason": "Future integer Unix deadline required"
+    },
+    {
+      "field": "campaign.recovery",
+      "reason": "Explicit recovery recipient required"
+    },
+    {
+      "field": "campaign.members",
+      "reason": "Explicit bounded eligible members required"
+    },
+    {
+      "field": "treasury.asset",
+      "reason": "Explicit treasury asset required"
+    },
+    {
+      "field": "treasury.operator",
+      "reason": "Explicit operator required"
+    },
+    {
+      "field": "treasury.reserveRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.dailyLimitRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.fundingRaw",
+      "reason": "Explicit raw uint256 asset amount required"
+    },
+    {
+      "field": "treasury.destinations",
+      "reason": "1–100 explicit destinations required"
+    }
+  ],
+  "automaticDeploy": false,
+  "launchApproved": false,
+  "plan": null
+}
