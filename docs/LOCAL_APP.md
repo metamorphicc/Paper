@@ -41,3 +41,18 @@ Treasury без `TREASURY_ADDRESS` показывает неизвестные �
 Индексатор запускается вручную через `npm.cmd run index`. Coverage и последняя проверка — `research/index-run.json`. Store имеет online `backupTo` и restore/replay tests; production scheduler, deployment и эксплуатационная система backups здесь не настроены.
 
 После QA управляемый агентом preview остановлен. Запустите `npm.cmd run dev` для просмотра; Ctrl+C завершает сервер. Никаких файлов в удалённый репозиторий или hosting не отправлялось.
+
+## Workspace installation and Vercel build
+
+The web workspace directly declares `viem@2.57.6` as a runtime dependency, plus `typescript@7.0.2` and `@types/node@26.6.5` as build dependencies. Root dependencies support research scripts; they must not be the only declaration of packages imported by the website. The shared root `package-lock.json` records both consumers.
+
+For a Vercel project using Root Directory `apps/web`, keep the repository files outside that directory available: the app imports `packages/`, `config/`, `research/` and root `tokens.css`. Build command: `npm run build`. Use Node 24.11.1+ and install development dependencies for the build. A workspace-scoped install can run from the repository root:
+
+```powershell
+npm.cmd ci --workspace=@paperclub/web --include-workspace-root=false --include=dev --ignore-scripts
+npm.cmd run build --workspace=@paperclub/web
+```
+
+The missing-dependency error was reproduced in an isolated temporary checkout using the original manifests and a workspace-only install: `terminal.tsx`, sandbox and other components could not resolve viem. After the manifest/lockfile fix, a separate checkout installed 97 packages without the root research toolchain; the complete webpack build and TypeScript check passed on Windows, Node 24.11.1/npm 11.3.0. No existing node_modules, environment file or application database was copied. This validates the build fix locally; no Vercel deployment or hosted runtime was tested.
+
+References: [Next.js module resolution errors](https://nextjs.org/docs/messages/module-not-found), [Vercel monorepos](https://vercel.com/docs/monorepos). Existing local-storage/API/release limitations still apply; this dependency fix does not enable public money operations.
