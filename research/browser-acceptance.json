@@ -1,0 +1,40 @@
+{
+  "observedAtUtc": "2026-10-15T12:35:13.726Z",
+  "scope": "headless Chromium, local production Next server and PostgreSQL TCP fixture",
+  "productionDatabaseUsed": false,
+  "userWalletUsed": false,
+  "financialWalletMethodsRequested": false,
+  "browserErrors": [],
+  "checks": [
+    "Signed Join updates progress, shared wallet and server leaderboard without reload",
+    "Join, tracking and quiz complete once; all 70 points persisted",
+    "Browser and actual production server restart preserve completed actions",
+    "Rejected wallet signature does not award points",
+    "Modified origin-bound proof is rejected before wallet signing",
+    "Account change while signing prevents the old proof from being claimed",
+    "Local open, settle, close, withdrawal and browser persistence complete without wallet financial RPC",
+    "Terminal renders with deterministic market fixture; live release stays disabled"
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "width": 414,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "overflow": false
+    }
+  ]
+}

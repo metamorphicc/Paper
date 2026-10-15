@@ -3,10 +3,14 @@ import { object } from '../../../../../packages/protocol/official.js';
 import { boundedText, BodyLimitError } from '../../../../../packages/http/guards.js';
 import { guardRead } from '../../../lib/request-guard';
 import { CampaignError } from '../../../../../packages/community/persistent';
+import { isAddress } from 'viem';
 export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   const rejection = guardRead(request, 'campaign-read', 60);
   if (rejection) return rejection;
+  const address = new URL(request.url).searchParams.get('address');
+  if (address !== null && !isAddress(address))
+    return Response.json({ error: 'Invalid participant address' }, { status: 400 });
   const service = await campaign();
   return Response.json({
     campaign: 'founding-01',
@@ -14,6 +18,7 @@ export async function GET(request: Request) {
     metrics: await service.metrics(),
     reward: 'points-only',
     tokenClaims: false,
+    ...(address ? { participant: await service.participant(address) } : {}),
   });
 }
 export async function POST(request: Request) {

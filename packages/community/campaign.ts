@@ -2,9 +2,8 @@ import { randomBytes, randomUUID } from 'node:crypto';
 import { isAddress, verifyMessage, type Hex } from 'viem';
 import type { Store } from '../indexer/store.js';
 
-export const CAMPAIGN_ID = 'founding-01';
-export const POINTS = { join: 10, quiz: 40, track: 20 } as const;
-export type CampaignAction = keyof typeof POINTS;
+import { CAMPAIGN_ID, POINTS, type CampaignAction } from './constants.js';
+export { CAMPAIGN_ID, POINTS, type CampaignAction } from './constants.js';
 const answers = ['queued-is-debt', 'profit-is-adjusted', 'paper-is-not-cash'];
 export class Campaign {
   constructor(

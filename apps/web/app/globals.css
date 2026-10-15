@@ -936,3 +936,18 @@ footer a {
     animation: none !important;
   }
 }
+.campaign-progress {
+  display: grid;
+  gap: 12px;
+  margin-block: 24px;
+}
+.campaign-progress strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.campaign-progress progress {
+  width: 100%;
+  height: 8px;
+  accent-color: var(--color-accent);
+}

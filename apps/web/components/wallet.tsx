@@ -1,7 +1,9 @@
 'use client';
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { isAddress, createWalletClient, custom, type Address, type Hex } from 'viem';
+import { isAddress, createWalletClient, custom, toHex, type Address, type Hex } from 'viem';
+import { validateCommunityChallenge } from '../../../packages/community/proof.js';
+import type { CampaignAction } from '../../../packages/community/constants.js';
 import {
   officialTypedData,
   type IntentType,
@@ -14,6 +16,7 @@ type Provider = {
   on?(event: string, callback: (value: unknown) => void): void;
   removeListener?(event: string, callback: (value: unknown) => void): void;
 };
+export type WalletIdentity = { address: string; chainId: number; generation: number };
 type Wallet = {
   address: string | null;
   chainId: number | null;
@@ -24,6 +27,13 @@ type Wallet = {
   connect: () => Promise<void>;
   disconnect: () => void;
   switchChain: () => Promise<void>;
+  communityAccount: () => Promise<WalletIdentity>;
+  isCurrent: (identity: WalletIdentity) => boolean;
+  signCommunity: (
+    identity: WalletIdentity,
+    action: CampaignAction,
+    challenge: unknown,
+  ) => Promise<Hex>;
   signOfficial: (type: IntentType, message: IntentMessage) => Promise<Hex>;
 };
 const Context = createContext<Wallet | null>(null);
@@ -176,6 +186,73 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
           authority.current.chainId = null;
         },
         switchChain,
+        isCurrent(identity) {
+          return (
+            connected.current &&
+            authority.current.address === identity.address &&
+            authority.current.chainId === identity.chainId &&
+            authority.current.generation === identity.generation
+          );
+        },
+        async communityAccount() {
+          const p = provider.current;
+          if (!p) throw new Error('A browser wallet is required to participate.');
+          setBusy(true);
+          setError('');
+          try {
+            const accounts = await requestWallet(p, { method: 'eth_requestAccounts' });
+            const account =
+              Array.isArray(accounts) && typeof accounts[0] === 'string' && isAddress(accounts[0])
+                ? accounts[0].toLowerCase()
+                : null;
+            if (!account) throw new Error('Select an account in your wallet.');
+            const chain = await requestWallet(p, { method: 'eth_chainId' });
+            if (authority.current.address !== account) accountChanged(accounts);
+            if (typeof chain !== 'string' || !/^0x[\da-f]+$/i.test(chain))
+              throw new Error('Wallet network could not be read.');
+            if (authority.current.chainId !== Number(BigInt(chain))) chainChanged(chain);
+            if (BigInt(chain) !== 999n)
+              throw new Error('Switch your wallet to HyperEVM to participate.');
+            return { address: account, chainId: 999, generation: authority.current.generation };
+          } finally {
+            setBusy(false);
+          }
+        },
+        async signCommunity(identity, action, value) {
+          const p = provider.current;
+          const check = async () => {
+            if (
+              !p ||
+              !connected.current ||
+              authority.current.address !== identity.address ||
+              authority.current.chainId !== 999 ||
+              authority.current.generation !== identity.generation
+            )
+              throw new Error('Wallet changed. Try the action again.');
+            const accounts = await requestWallet(p, { method: 'eth_accounts' });
+            const chain = await requestWallet(p, { method: 'eth_chainId' });
+            if (
+              !Array.isArray(accounts) ||
+              String(accounts[0]).toLowerCase() !== identity.address ||
+              typeof chain !== 'string' ||
+              !/^0x[\da-f]+$/i.test(chain) ||
+              BigInt(chain) !== 999n
+            )
+              throw new Error('Wallet changed. Try the action again.');
+          };
+          await check();
+          const expected = { address: identity.address, action, origin: window.location.origin };
+          const challenge = validateCommunityChallenge(value, expected);
+          const signature = await requestWallet(p!, {
+            method: 'personal_sign',
+            params: [toHex(challenge.message), identity.address],
+          });
+          await check();
+          validateCommunityChallenge(challenge, expected);
+          if (typeof signature !== 'string' || !/^0x[\da-f]{130}$/i.test(signature))
+            throw new Error('The wallet returned an unsupported participation signature.');
+          return signature as Hex;
+        },
         async signOfficial(type, message) {
           const capture = { ...authority.current };
           const p = provider.current;

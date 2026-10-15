@@ -1,6 +1,7 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import { isAddress, verifyMessage, type Hex } from 'viem';
-import { CAMPAIGN_ID, POINTS, type CampaignAction } from './campaign.js';
+import { CAMPAIGN_ID, POINTS, type CampaignAction } from './constants.js';
+import { communityMessage } from './proof.js';
 import { integer, type SqlDatabase, type SqlSession } from '../storage/sql.js';
 const quizAnswers = ['queued-is-debt', 'profit-is-adjusted', 'paper-is-not-cash'];
 export class CampaignError extends Error {
@@ -26,7 +27,13 @@ export class PersistentCampaign {
       expiresAt = createdAt + 300000,
       id = randomUUID(),
       nonce = randomBytes(16).toString('hex');
-    const message = `Paperclub community points\nNo transaction. No token allowance. No trading permission.\nOrigin: ${origin}\nAddress: ${address}\nChain: 999\nCampaign: ${CAMPAIGN_ID}\nAction: ${action}\nNonce: ${nonce}\nExpires: ${new Date(expiresAt).toISOString()}`;
+    const message = communityMessage({
+      origin,
+      address,
+      action: action as CampaignAction,
+      nonce,
+      expiresAt,
+    });
     await this.db.transaction(async (tx) => {
       const [window] = await tx.query(
         `INSERT INTO campaign_rate_windows(address,window_start,used) VALUES(?,?,1)
