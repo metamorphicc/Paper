@@ -40,11 +40,15 @@
     "launch:check": "tsx scripts/launch-readiness.ts"
   },
   "dependencies": {
+    "pg": "8.23.1",
     "viem": "2.57.6"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
+    "@electric-sql/pglite-socket": "0.2.13",
     "@openzeppelin/contracts": "5.6.1",
     "@types/node": "26.6.5",
+    "@types/pg": "8.23.1",
     "hardhat": "3.19.0",
     "prettier": "3.9.10",
     "solc": "0.8.37",
