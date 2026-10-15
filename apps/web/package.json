@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
+    "prepare:runtime": "tsx scripts/prepare-runtime.ts",
+    "predev": "tsx scripts/prepare-runtime.ts",
     "dev": "next dev --webpack --hostname 127.0.0.1",
+    "prebuild": "tsx scripts/prepare-runtime.ts",
     "build": "next build --webpack",
     "start": "next start --hostname 127.0.0.1",
     "check": "tsc --noEmit"
@@ -12,6 +18,7 @@
   "dependencies": {
     "@fontsource/ibm-plex-mono": "5.3.0",
     "@fontsource/inter": "5.3.0",
+    "@next/env": "16.4.0",
     "next": "16.4.0",
     "pg": "8.23.1",
     "react": "19.3.0",
@@ -23,6 +30,7 @@
     "@types/pg": "8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "tsx": "4.23.15",
     "typescript": "7.0.2"
   }
 }

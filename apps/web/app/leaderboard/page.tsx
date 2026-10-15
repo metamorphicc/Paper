@@ -4,11 +4,14 @@ import { campaign } from '../../lib/campaign';
 import { database } from '../../lib/server';
 import { amount, shortAddress } from '../../lib/format';
 export const dynamic = 'force-dynamic';
-export default function LeaderboardPage() {
-  const ranking = campaign().leaderboard(),
-    metrics = campaign().metrics(),
-    minted = database().mintedRanking(10),
-    coverage = database().cursor('paper-transfers');
+export default async function LeaderboardPage() {
+  const [service, db] = await Promise.all([campaign(), database()]);
+  const [ranking, metrics, minted, coverage] = await Promise.all([
+    service.leaderboard(),
+    service.metrics(),
+    db.mintedRanking(10),
+    db.cursor('paper-transfers'),
+  ]);
   return (
     <>
       <section className="page-heading">
@@ -44,7 +47,7 @@ export default function LeaderboardPage() {
         <section className="panel">
           <div className="section-heading">
             <h2>Community leaderboard</h2>
-            <span> Local campaign only </span>
+            <span> Verified participation </span>
           </div>
           {ranking.length ? (
             <div className="table-wrap">
@@ -121,7 +124,7 @@ export default function LeaderboardPage() {
             </table>
           </div>
         ) : (
-          <p> Run the indexer to load PAPER events. </p>
+          <p>Activity will appear as confirmed blocks are indexed.</p>
         )}
       </section>
     </>

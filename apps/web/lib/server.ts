@@ -1,7 +1,10 @@
 import 'server-only';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { Store } from '../../../packages/indexer/store.js';
+import { WebStore } from '../../../packages/storage/store.js';
+import { postgresDatabase, sqliteDatabase } from '../../../packages/storage/sql.js';
+import { migrateDatabase, assertSchema } from '../../../packages/storage/schema.js';
+import { validateDatabaseConfiguration } from '../../../packages/storage/config.js';
 import { OfficialReadClient, object, integerString } from '../../../packages/protocol/official.js';
 import { isAddress } from 'viem';
 
@@ -18,15 +21,34 @@ export function repoRoot() {
   }
   throw new Error('Repository root not found');
 }
-let store: Store | undefined;
-export function database() {
-  return (store ??= new Store(
-    resolve(process.env.PAPERCLUB_DATA_DIR ?? join(repoRoot(), 'data'), 'paperclub.sqlite'),
-  ));
+let store: Promise<WebStore> | undefined;
+export function database(): Promise<WebStore> {
+  if (store) return store;
+  store = (async () => {
+    const connection = validateDatabaseConfiguration(process.env);
+    const sql = connection
+      ? postgresDatabase(connection)
+      : await sqliteDatabase(
+          resolve(process.env.PAPERCLUB_DATA_DIR ?? join(repoRoot(), 'data'), 'paperclub.sqlite'),
+        );
+    try {
+      if (connection) await assertSchema(sql);
+      else await migrateDatabase(sql);
+      return new WebStore(sql);
+    } catch (error) {
+      await sql.close();
+      throw error;
+    }
+  })();
+  void store.catch(() => {
+    store = undefined;
+  });
+  return store;
 }
 const api = new OfficialReadClient();
 export async function protocolData() {
-  const cached = database().latestSnapshot<Awaited<ReturnType<OfficialReadClient['summary']>>>(
+  const db = await database();
+  const cached = await db.latestSnapshot<Awaited<ReturnType<OfficialReadClient['summary']>>>(
     'protocol',
     '999',
   );
@@ -39,13 +61,7 @@ export async function protocolData() {
     };
   try {
     const value = await api.summary();
-    database().saveSnapshot(
-      'protocol',
-      '999',
-      'official-indexer',
-      Number(value.source.block),
-      value,
-    );
+    await db.saveSnapshot('protocol', '999', 'official-indexer', Number(value.source.block), value);
     return {
       value,
       observedAt: new Date().toISOString(),
@@ -111,12 +127,13 @@ function parseWallet(snapshot: Record<string, unknown>, address: string): Wallet
 }
 export async function walletData(address: string) {
   if (!isAddress(address)) throw new Error('Invalid address');
-  const cached = database().latestSnapshot<WalletProfile>('wallet', address);
+  const db = await database();
+  const cached = await db.latestSnapshot<WalletProfile>('wallet', address);
   if (cached && Date.now() - Date.parse(cached.observedAt) < 15_000)
     return { ...cached, stale: Date.now() - cached.value.sourceAt > 60_000 };
   try {
     const value = parseWallet(await api.wallet(address), address);
-    database().saveSnapshot('wallet', address, 'official-indexer', value.block, value);
+    await db.saveSnapshot('wallet', address, 'official-indexer', value.block, value);
     return {
       value,
       block: value.block,

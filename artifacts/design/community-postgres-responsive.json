@@ -1,0 +1,70 @@
+{
+  "scope": "Local production preview, pg/TCP against PostgreSQL WASM test engine",
+  "checks": [
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24
+      ],
+      "joinEnabled": true,
+      "leaderboardPresent": true,
+      "noOverflow": true,
+      "quizEnabled": true,
+      "width": 320
+    },
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24
+      ],
+      "joinEnabled": true,
+      "leaderboardPresent": true,
+      "noOverflow": true,
+      "quizEnabled": true,
+      "width": 375
+    },
+    {
+      "english": true,
+      "gaps": [
+        24,
+        24,
+        24
+      ],
+      "joinEnabled": true,
+      "leaderboardPresent": true,
+      "noOverflow": true,
+      "quizEnabled": true,
+      "width": 414
+    },
+    {
+      "english": true,
+      "gaps": [
+        32,
+        32,
+        32
+      ],
+      "joinEnabled": true,
+      "leaderboardPresent": true,
+      "noOverflow": true,
+      "quizEnabled": true,
+      "width": 768
+    },
+    {
+      "english": true,
+      "gaps": [
+        32,
+        32,
+        32
+      ],
+      "joinEnabled": true,
+      "leaderboardPresent": true,
+      "noOverflow": true,
+      "quizEnabled": true,
+      "width": 1280
+    }
+  ]
+}

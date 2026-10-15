@@ -2,14 +2,16 @@ import { campaign, assertLocalOrigin } from '../../../lib/campaign';
 import { object } from '../../../../../packages/protocol/official.js';
 import { boundedText, BodyLimitError } from '../../../../../packages/http/guards.js';
 import { guardRead } from '../../../lib/request-guard';
+import { CampaignError } from '../../../../../packages/community/persistent';
 export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   const rejection = guardRead(request, 'campaign-read', 60);
   if (rejection) return rejection;
+  const service = await campaign();
   return Response.json({
     campaign: 'founding-01',
-    leaderboard: campaign().leaderboard(),
-    metrics: campaign().metrics(),
+    leaderboard: await service.leaderboard(),
+    metrics: await service.metrics(),
     reward: 'points-only',
     tokenClaims: false,
   });
@@ -26,12 +28,14 @@ export async function POST(request: Request) {
     try {
       parsed = JSON.parse(text);
     } catch {
-      throw new Error('Invalid JSON body');
+      throw new CampaignError('Invalid JSON body');
     }
     const body = object(parsed);
     if (body.operation === 'challenge')
       return Response.json(
-        campaign().issue(String(body.address ?? ''), String(body.action ?? ''), origin),
+        await (
+          await campaign()
+        ).issue(String(body.address ?? ''), String(body.action ?? ''), origin),
       );
     if (
       body.operation === 'claim' &&
@@ -40,7 +44,9 @@ export async function POST(request: Request) {
       /^0x[0-9a-f]{130}$/i.test(body.signature)
     ) {
       return Response.json(
-        await campaign().claim({
+        await (
+          await campaign()
+        ).claim({
           id: body.id,
           signature: body.signature as `0x${string}`,
           origin,
@@ -52,11 +58,23 @@ export async function POST(request: Request) {
         }),
       );
     }
-    throw new Error('Unsupported campaign action');
+    throw new CampaignError('Unsupported campaign action');
   } catch (error) {
     return Response.json(
-      { error: error instanceof Error ? error.message : 'Campaign action failed' },
-      { status: error instanceof BodyLimitError ? 413 : 400 },
+      {
+        error:
+          error instanceof CampaignError || error instanceof BodyLimitError
+            ? error.message
+            : 'Campaign action could not be completed. Try again.',
+      },
+      {
+        status:
+          error instanceof BodyLimitError
+            ? 413
+            : error instanceof CampaignError
+              ? error.status
+              : 503,
+      },
     );
   }
 }

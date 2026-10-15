@@ -15,6 +15,7 @@ export async function GET(_request: Request, context: { params: Promise<{ addres
       tradeHistory(address).catch(() => null),
       readProfile(address as `0x${string}`).catch(() => null),
     ]);
+    const db = await database();
     return Response.json({
       ...profile,
       source: 'official-indexer',
@@ -30,8 +31,8 @@ export async function GET(_request: Request, context: { params: Promise<{ addres
             value: rpc.values.pendingReward,
           }
         : null,
-      history: database().history(address),
-      coverage: database().cursor('paper-transfers') ?? null,
+      history: await db.history(address),
+      coverage: (await db.cursor('paper-transfers')) ?? null,
     });
   } catch {
     return Response.json(

@@ -1,14 +1,18 @@
 import 'server-only';
-import { Campaign } from '../../../packages/community/campaign.js';
+import { PersistentCampaign, CampaignError } from '../../../packages/community/persistent.js';
 import { database } from './server';
-import { isLocalRead } from '../../../packages/http/guards.js';
-let instance: Campaign | undefined;
-export function campaign() {
-  return (instance ??= new Campaign(database()));
+import { allowsOrigin, allowsRequest } from '../../../packages/http/origin.js';
+let instance: PersistentCampaign | undefined;
+export async function campaign() {
+  return (instance ??= new PersistentCampaign(
+    (await database()).sql,
+    () => Date.now(),
+    (origin) => allowsOrigin(origin, process.env),
+  ));
 }
 export function assertLocalOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  if (!origin || !isLocalRead(request))
-    throw new Error('Use the local application to sign this action');
+  if (!origin || !allowsRequest(request, process.env))
+    throw new CampaignError('Use the application origin to sign this action');
   return origin;
 }

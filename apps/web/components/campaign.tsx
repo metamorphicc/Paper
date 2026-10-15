@@ -101,7 +101,7 @@ export default function CampaignPanel() {
       <p className="fine-print">
         {' '}
         Up to 70 points per address. Points do not grant token or income rights. Your signature
-        confirms participation in this local campaign only.{' '}
+        confirms participation in this community campaign only.{' '}
       </p>
       <div className="campaign-actions">
         <button className="button primary" onClick={() => void perform('join')} disabled={busy}>

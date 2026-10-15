@@ -9,7 +9,12 @@ export interface SqlDatabase extends SqlSession {
   close(): Promise<void>;
 }
 export function postgresOptions(connectionString: string): PoolConfig {
-  const url = new URL(connectionString);
+  let url: URL;
+  try {
+    url = new URL(connectionString);
+  } catch {
+    throw new Error('Invalid database configuration');
+  }
   if (
     !['postgres:', 'postgresql:'].includes(url.protocol) ||
     !url.hostname ||

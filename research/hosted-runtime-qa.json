@@ -1,0 +1,67 @@
+{
+  "observedAtUtc": "2026-10-15T10:41:54.122Z",
+  "scope": "local production server with pg/TCP and PostgreSQL WASM engine",
+  "hostedDeploymentTested": false,
+  "userWalletUsed": false,
+  "storage": "postgres",
+  "serverRestartPreservedChallenge": true,
+  "localDatabaseDirectoryCreated": false,
+  "checks": [
+    {
+      "name": "/",
+      "status": 200
+    },
+    {
+      "name": "/leaderboard",
+      "status": 200
+    },
+    {
+      "name": "/trade",
+      "status": 200
+    },
+    {
+      "name": "/profile",
+      "status": 200
+    },
+    {
+      "name": "/rewards",
+      "status": 200
+    },
+    {
+      "name": "/research",
+      "status": 200
+    },
+    {
+      "name": "/treasury",
+      "status": 200
+    },
+    {
+      "name": "HTTPS origin challenge",
+      "status": 200
+    },
+    {
+      "name": "Claim after server restart",
+      "status": 200
+    },
+    {
+      "name": "Replay rejected",
+      "status": 400
+    },
+    {
+      "name": "Foreign origin rejected",
+      "status": 400
+    },
+    {
+      "name": "Shared leaderboard",
+      "status": 200
+    },
+    {
+      "name": "Community after claim",
+      "status": 200
+    },
+    {
+      "name": "Financial release gate unchanged",
+      "status": 403
+    }
+  ]
+}
