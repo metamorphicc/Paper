@@ -69,3 +69,9 @@ The public dRPC endpoint passed the post-genesis code/call canary. The four capt
 Use `https://hyperliquid.drpc.org?include_hl_native_tx=true` for the public research default. dRPC documents the native-transaction flag for consistent block/receipt routing. Without it, the reader rejected inconsistent log/receipt identities; with it, the selected 128-block PAPER sample contained 38 confirmed transfers and reconciled with boundary balances (zero discrepancy). The sample is the public PaperStaking address, not a selected Paperclub treasury. Evidence is in treasury-receipts.json. This public endpoint is a tested research source, not a production SLA or a trustless state proof.
 
 Exchange/CancelIntent domains, source equivalence, relayer settlement, collateral lifecycle and contract-wallet evidence remain unresolved. No live financial write was made.
+
+## 2026-10-15: current read schema compatibility
+
+Production HTTP checks exposed `Unknown intake schema`: `/state/trading` now returns `intakeControls: [revision, minimumPaperStakeRaw, disabledActions]`, replacing the earlier four-field `intake` tuple. Browser-observed current frontend `hooks-Dgib49eE.js` confirms that exact three-field decoder and its minimum/actions mapping. Public JSON plus 10 public JavaScript assets were captured with URLs/hashes as data; no downloaded code was executed. Evidence: current-trading-state.json and current-trading-schema-evidence.json.
+
+The reader accepts these two observed layouts, preserves stake minimum and action pauses, rejects ambiguous/malformed/unsafe values, and records the removed global net-interest field as null rather than inventing a zero/unlimited cap. Instrument deployment/lifecycle checks remain intact. Regression tests cover current and legacy payloads. This restores read compatibility; it does not approve a new write build, prove contract source/domain equivalence, or enable financial writes.

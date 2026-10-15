@@ -1,0 +1,61 @@
+{
+  "observedAtUtc": "2026-10-15T10:59:06.004Z",
+  "downloadedJavaScriptExecuted": false,
+  "evidence": [
+    {
+      "url": "https://exchange.papertrade.xyz/state/trading",
+      "sha256": "5003659f99ca18e5ba0c45393e009f35c89c3d032401609ca837ff117ef7c3a3",
+      "bytes": 926
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/schemas-Aq5tuoaL.js",
+      "sha256": "414f24adea580b857413966497e2555202da262544b5ec72c51e5361071e2bfd",
+      "bytes": 83501
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/wire-d4-U_uLp.js",
+      "sha256": "8c8f83ca116e09f48406c2d42361cdfdafe3c6d47a54e6ecc8561e4bbece17bf",
+      "bytes": 22120
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/useTradingNetwork-By5ggYkb.js",
+      "sha256": "e1ceefdcf85de4be06a83e9e3baaddfdd4f5abf973f5951fe55639addfa62971",
+      "bytes": 2756
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/build-WoGelbPk.js",
+      "sha256": "2d87906f937948d213cbc6a86109b504556904c16d9d08079d56092755bd717a",
+      "bytes": 180
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/index-T2XgWeBr.js",
+      "sha256": "b519b7f42a354d0eab749e03bb71e6eaba98aac4b968042f0a5cbfbedd87636c",
+      "bytes": 5451
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/queries-3zVmO78C.js",
+      "sha256": "25f8f29561302be76a1b0de4bbc28e57cc913d94d919fccf3a352423b9ec9031",
+      "bytes": 2306
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/queries-Bg_FlnJh.js",
+      "sha256": "1d3902bf710da1271b559a51bd3f1aaf578b3bdc56c581288ee9392585ccf6a6",
+      "bytes": 7074
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/execution-0RDXbhDY.js",
+      "sha256": "5bb77c00efda40a18aa53ab0b090cbd9c9b42ba0da412285926f7a19f3c52776",
+      "bytes": 165557
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/trade._coin-Ct4LDCtO.js",
+      "sha256": "f5adffdabca7d2e2bd70cafefff9d88dff24ae7de0bc8d8c9116c9422ca6d091",
+      "bytes": 87736
+    },
+    {
+      "url": "https://exchange.papertrade.xyz/assets/hooks-Dgib49eE.js",
+      "sha256": "72da65330eb4f35603358160c7d06d9ea57bd7cf3b6b5f25d97adefc74c26ede",
+      "bytes": 75748
+    }
+  ]
+}

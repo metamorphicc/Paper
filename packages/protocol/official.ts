@@ -60,7 +60,7 @@ export type TradingState = {
   intake: {
     revision: number;
     minimumPaperStakeRaw: string;
-    maximumNetOpenInterestRaw: string;
+    maximumNetOpenInterestRaw: string | null;
     disabledActions: string[];
   };
 };
@@ -124,11 +124,16 @@ export function parseTrading(value: unknown): TradingState {
   });
   if (new Set(instruments.map((item) => item.id)).size !== instruments.length)
     throw new Error('Duplicate market');
+  if (v.intake !== undefined && v.intakeControls !== undefined)
+    throw new Error('Ambiguous intake schema');
+  const controls = v.intakeControls !== undefined;
+  const intake = controls ? v.intakeControls : v.intake;
+  const disabledIndex = controls ? 2 : 3;
   if (
-    !Array.isArray(v.intake) ||
-    v.intake.length !== 4 ||
-    !Array.isArray(v.intake[3]) ||
-    !v.intake[3].every((item) => typeof item === 'string')
+    !Array.isArray(intake) ||
+    intake.length !== (controls ? 3 : 4) ||
+    !Array.isArray(intake[disabledIndex]) ||
+    !intake[disabledIndex].every((item: unknown) => typeof item === 'string')
   )
     throw new Error('Unknown intake schema');
   return {
@@ -139,10 +144,10 @@ export function parseTrading(value: unknown): TradingState {
     minimumOpenNotionalRaw: integerString(v.minimumOpenNotionalRaw),
     instruments,
     intake: {
-      revision: safeInteger(v.intake[0]),
-      minimumPaperStakeRaw: integerString(v.intake[1]),
-      maximumNetOpenInterestRaw: integerString(v.intake[2]),
-      disabledActions: v.intake[3],
+      revision: safeInteger(intake[0]),
+      minimumPaperStakeRaw: integerString(intake[1]),
+      maximumNetOpenInterestRaw: controls ? null : integerString(intake[2]),
+      disabledActions: intake[disabledIndex],
     },
   };
 }

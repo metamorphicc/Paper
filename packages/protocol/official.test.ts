@@ -30,6 +30,25 @@ test('summary values never pass through floating point', () => {
     /integer/,
   );
 });
+test('current intakeControls schema preserves admission minimum and pauses without inventing a removed cap', () => {
+  const current = JSON.parse(
+    readFileSync(new URL('../../research/current-trading-state.json', import.meta.url), 'utf8'),
+  );
+  const parsed = parseTrading(current);
+  assert.equal(parsed.intake.revision, current.intakeControls[0]);
+  assert.equal(parsed.intake.minimumPaperStakeRaw, current.intakeControls[1]);
+  assert.equal(parsed.intake.maximumNetOpenInterestRaw, null);
+  assert.deepEqual(parsed.intake.disabledActions, current.intakeControls[2]);
+  const paused = structuredClone(current);
+  paused.intakeControls[2] = ['openPosition'];
+  assert.deepEqual(parseTrading(paused).intake.disabledActions, ['openPosition']);
+  assert.throws(() => parseTrading({ ...current, intake: state.intake }), /Ambiguous/);
+  assert.throws(() => parseTrading({ ...current, intakeControls: [1, '100'] }), /schema/);
+  assert.throws(
+    () => parseTrading({ ...current, intakeControls: [Number.MAX_SAFE_INTEGER + 1, '100', []] }),
+    /integer/,
+  );
+});
 test('read client rejects write paths and observes Retry-After without retry loop', async () => {
   let calls = 0;
   const client = new OfficialReadClient(async () => {
