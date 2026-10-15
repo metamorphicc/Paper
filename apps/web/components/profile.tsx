@@ -72,7 +72,13 @@ export default function Profile() {
           <input
             id="address"
             value={address}
-            onChange={(event) => setAddress(event.target.value)}
+            onChange={(event) => {
+              ++generation.current;
+              setAddress(event.target.value);
+              setResult(null);
+              setLoading(false);
+              setError('');
+            }}
             placeholder="0x…"
             aria-invalid={!!error}
             spellCheck={false}

@@ -1,4 +1,4 @@
-import { campaign, assertLocalOrigin } from '../../../lib/campaign';
+import { campaign, assertLocalOrigin, campaignRequestBudget } from '../../../lib/campaign';
 import { object } from '../../../../../packages/protocol/official.js';
 import { boundedText, BodyLimitError } from '../../../../../packages/http/guards.js';
 import { guardRead } from '../../../lib/request-guard';
@@ -6,20 +6,26 @@ import { CampaignError } from '../../../../../packages/community/persistent';
 import { isAddress } from 'viem';
 export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
-  const rejection = guardRead(request, 'campaign-read', 60);
-  if (rejection) return rejection;
-  const address = new URL(request.url).searchParams.get('address');
-  if (address !== null && !isAddress(address))
-    return Response.json({ error: 'Invalid participant address' }, { status: 400 });
-  const service = await campaign();
-  return Response.json({
-    campaign: 'founding-01',
-    leaderboard: await service.leaderboard(),
-    metrics: await service.metrics(),
-    reward: 'points-only',
-    tokenClaims: false,
-    ...(address ? { participant: await service.participant(address) } : {}),
-  });
+  try {
+    const rejection = guardRead(request, 'campaign-read', 60);
+    if (rejection) return rejection;
+    const address = new URL(request.url).searchParams.get('address');
+    if (address !== null && !isAddress(address))
+      return Response.json({ error: 'Invalid participant address' }, { status: 400 });
+    const budget = await campaignRequestBudget('read');
+    if (budget) return budget;
+    const service = await campaign();
+    return Response.json({
+      campaign: 'founding-01',
+      leaderboard: await service.leaderboard(),
+      metrics: await service.metrics(),
+      reward: 'points-only',
+      tokenClaims: false,
+      ...(address ? { participant: await service.participant(address) } : {}),
+    });
+  } catch {
+    return Response.json({ error: 'Community could not be reached. Try again.' }, { status: 503 });
+  }
 }
 export async function POST(request: Request) {
   try {
@@ -28,6 +34,8 @@ export async function POST(request: Request) {
     if (rejection) return rejection;
     if (!request.headers.get('content-type')?.startsWith('application/json'))
       return Response.json({ error: 'JSON content type required' }, { status: 415 });
+    const budget = await campaignRequestBudget('write');
+    if (budget) return budget;
     const text = await boundedText(request, 10_000, 5000);
     let parsed: unknown;
     try {

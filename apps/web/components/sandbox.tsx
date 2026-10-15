@@ -12,11 +12,15 @@ import { actionTypes, type IntentMessage } from '../../../packages/protocol/inte
 import type { Instrument, TradingState } from '../../../packages/protocol/official.js';
 import { WAD } from '../../../packages/protocol/quote.js';
 import { amount } from '../lib/format';
+import {
+  parseBrowserSandbox,
+  SANDBOX_STORAGE_KEY,
+} from '../../../packages/trading/browser-state.js';
 
 // Public deterministic demo keys, never wallets belonging to the user and never funded.
 const demo = privateKeyToAccount(('0x' + '11'.repeat(32)) as Hex),
   session = privateKeyToAccount(('0x' + '44'.repeat(32)) as Hex);
-const storageKey = 'paperclub.sandbox.v1';
+const storageKey = SANDBOX_STORAGE_KEY;
 const labels: Record<string, string> = {
   openPosition: 'Open',
   closePositions: 'Close',
@@ -54,6 +58,8 @@ export default function Sandbox({
 }) {
   const relay = useRef<MockRelayer | null>(null),
     pending = useRef<Awaited<ReturnType<typeof makeEnvelope>> | null>(null);
+  const storageUnavailable = useRef(false);
+  const [memoryOnly, setMemoryOnly] = useState(false);
   const [enabled, setEnabled] = useState(false),
     [, setRevision] = useState(0),
     [busy, setBusy] = useState(false),
@@ -80,20 +86,17 @@ export default function Sandbox({
   }
   function createFromStorage() {
     let state: ConstructorParameters<typeof MockRelayer>[4] | undefined;
-    try {
-      const raw = localStorage.getItem(storageKey);
-      if (raw && raw.length < 1_000_000) {
-        const parsed = JSON.parse(raw);
-        if (
-          parsed.version === 1 &&
-          parsed.user === demo.address &&
-          Array.isArray(parsed.state.receipts)
-        )
-          state = parsed.state;
+    let raw: string | null = null;
+    if (!storageUnavailable.current) {
+      try {
+        raw = localStorage.getItem(storageKey);
+      } catch {
+        storageUnavailable.current = true;
+        setMemoryOnly(true);
       }
-    } catch {
-      /* corrupt local demo storage is not live money */
     }
+    if (storageUnavailable.current) state = relay.current?.serialize();
+    else if (raw !== null) state = parseBrowserSandbox(raw, demo.address);
     const value = new MockRelayer(demo.address, instrument, entry, () => Date.now(), state);
     value.configure(instrument, entry);
     value.minimumMarginRaw = BigInt(trading.minimumTradeSizeRaw);
@@ -106,15 +109,36 @@ export default function Sandbox({
     return value;
   }
   function persist() {
-    if (relay.current)
-      localStorage.setItem(
-        storageKey,
-        JSON.stringify(
-          { version: 1, user: demo.address, state: relay.current.serialize() },
-          (_, value) => (typeof value === 'bigint' ? String(value) : value),
-        ),
-      );
+    if (relay.current && !storageUnavailable.current) {
+      try {
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify(
+            { version: 1, user: demo.address, state: relay.current.serialize() },
+            (_, value) => (typeof value === 'bigint' ? String(value) : value),
+          ),
+        );
+      } catch {
+        storageUnavailable.current = true;
+        setMemoryOnly(true);
+      }
+    }
     setRevision((value) => value + 1);
+  }
+  function resetVirtualAccount() {
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {
+      storageUnavailable.current = true;
+      setMemoryOnly(true);
+    }
+    relay.current = null;
+    relay.current = createFromStorage();
+    pending.current = null;
+    setUnknown(null);
+    setEnabled(true);
+    persist();
+    setMessage('The virtual account was reset.');
   }
   function activate() {
     try {
@@ -509,21 +533,16 @@ export default function Sandbox({
               <p> No signed local intents yet. </p>
             )}
           </div>
-          <button
-            className="button small"
-            onClick={() => {
-              localStorage.removeItem(storageKey);
-              relay.current = new MockRelayer(demo.address, instrument, entry);
-              pending.current = null;
-              setUnknown(null);
-              persist();
-              setMessage('Only the virtual account was reset.');
-            }}
-          >
-            {' '}
-            Reset local account{' '}
-          </button>
         </>
+      )}
+      <button className="button small" onClick={resetVirtualAccount} disabled={busy}>
+        Reset local account
+      </button>
+      {memoryOnly && (
+        <p className="fine-print">
+          Browser storage is unavailable. Virtual changes stay in this tab and will be lost on
+          reload.
+        </p>
       )}
       {message && (
         <p className="feedback" role="status">

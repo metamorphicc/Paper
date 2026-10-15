@@ -7,6 +7,7 @@ import { migrateDatabase } from '../packages/storage/schema.js';
 import { productionFixtureServer } from '../packages/testing/web-server.js';
 import { PersistentCampaign } from '../packages/community/persistent.js';
 import { parseTrading } from '../packages/protocol/official.js';
+import { createSnapshot } from '../packages/rewards/snapshot.js';
 const fixture = await testPostgres();
 let server: Awaited<ReturnType<typeof productionFixtureServer>> | undefined,
   browser: Browser | undefined;
@@ -224,6 +225,113 @@ try {
     'Local open, settle, close, withdrawal and browser persistence complete without wallet financial RPC',
   );
   checks.push('Terminal renders with deterministic market fixture; live release stays disabled');
+  await page.evaluate(
+    'localStorage.setItem(\'paperclub.sandbox.v1\', \'{"version":1,"user":"bad","state":{}}\')',
+  );
+  await page.reload();
+  await sandbox.getByRole('button', { name: 'Try locally', exact: true }).click();
+  await expect(sandbox.getByRole('status')).toContainText('invalid');
+  await sandbox.getByRole('button', { name: 'Reset local account', exact: true }).click();
+  await expect(sandbox.getByRole('button', { name: 'Open locally', exact: true })).toBeEnabled();
+  checks.push(
+    'Corrupt browser sandbox data has an accessible reset without clearing Community data',
+  );
+  let releaseProfile!: () => void, profileEntered!: () => void;
+  const heldProfile = new Promise<void>((done) => {
+    releaseProfile = done;
+  });
+  const enteredProfile = new Promise<void>((done) => {
+    profileEntered = done;
+  });
+  await page.route('**/api/profile/*', async (route) => {
+    const address = new URL(route.request().url()).pathname.split('/').at(-1)!;
+    if (address.toLowerCase() === walletA.address.toLowerCase()) {
+      profileEntered();
+      await heldProfile;
+    }
+    await route.fulfill({
+      json: {
+        value: {
+          address,
+          block: 123,
+          sourceAt: Date.now(),
+          availableRaw: '0',
+          queuedRaw: '0',
+          lockedRaw: '0',
+          paperRaw: '0',
+          stakedRaw: '0',
+          pendingBaseRaw: '0',
+          realizedPnlRaw: '0',
+          claimedRaw: '0',
+          tradedNotionalRaw: '0',
+          openPositions: [],
+          operations: [],
+        },
+        stale: false,
+        observedAt: new Date().toISOString(),
+        trades: { items: [], nextCursor: null },
+        history: [],
+        coverage: null,
+        pendingReward: null,
+      },
+    });
+  });
+  await page.goto(server.origin + '/profile');
+  await page.getByLabel('HyperEVM address').fill(walletA.address);
+  await page.getByRole('button', { name: 'View', exact: true }).click();
+  await enteredProfile;
+  await page.getByLabel('HyperEVM address').fill(walletB.address);
+  releaseProfile();
+  await expect(page.getByRole('heading', { name: 'Address performance' })).toHaveCount(0);
+  await page.getByRole('button', { name: 'View', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'Official portfolio ↗' })).toHaveAttribute(
+    'href',
+    `https://exchange.papertrade.xyz/portfolio?view=${walletB.address}`,
+  );
+  checks.push('Editing the profile address invalidates a slow prior-account response');
+  await page.goto(server.origin + '/rewards');
+  const claimManifest = createSnapshot([{ address: walletA.address, points: 70 }], 700n, {
+    chainId: 999,
+    claimContract: ('0x' + '55'.repeat(20)) as `0x${string}`,
+    campaignId: ('0x' + 'ab'.repeat(32)) as `0x${string}`,
+  });
+  await page
+    .getByLabel('Campaign JSON')
+    .setInputFiles({
+      name: 'campaign.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from(JSON.stringify(claimManifest)),
+    });
+  await page.getByLabel('Account address', { exact: true }).fill(walletA.address);
+  await page.getByRole('button', { name: 'Verify proof', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Raw token amount: 700');
+  await page
+    .getByLabel('Campaign JSON')
+    .setInputFiles({
+      name: 'invalid.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from(JSON.stringify({ ...claimManifest, claims: [null] })),
+    });
+  await page.getByRole('button', { name: 'Verify proof', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('Invalid campaign claim');
+  checks.push(
+    'Claim files stay in-browser; valid raw amounts and malformed claim entries are handled',
+  );
+  await context.addInitScript({
+    content:
+      "Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Storage blocked', 'SecurityError'); } });",
+  });
+  await page.goto(server.origin + '/trade');
+  await sandbox.getByRole('button', { name: 'Try locally', exact: true }).click();
+  await sandbox.getByRole('button', { name: 'Open locally', exact: true }).click();
+  await sandbox.getByRole('button', { name: 'Settle', exact: true }).click();
+  await expect(sandbox.getByRole('button', { name: 'Close locally', exact: true })).toBeVisible();
+  await expect(
+    sandbox.getByText('Browser storage is unavailable.', { exact: false }),
+  ).toBeVisible();
+  checks.push(
+    'Blocked browser storage retains a usable in-memory virtual account without unhandled errors',
+  );
   assert.deepEqual(errors, []);
   const report = {
     observedAtUtc: new Date().toISOString(),

@@ -1,5 +1,5 @@
 {
-  "observedAtUtc": "2026-10-15T12:35:13.726Z",
+  "observedAtUtc": "2026-10-15T12:43:18.153Z",
   "scope": "headless Chromium, local production Next server and PostgreSQL TCP fixture",
   "productionDatabaseUsed": false,
   "userWalletUsed": false,
@@ -13,7 +13,11 @@
     "Modified origin-bound proof is rejected before wallet signing",
     "Account change while signing prevents the old proof from being claimed",
     "Local open, settle, close, withdrawal and browser persistence complete without wallet financial RPC",
-    "Terminal renders with deterministic market fixture; live release stays disabled"
+    "Terminal renders with deterministic market fixture; live release stays disabled",
+    "Corrupt browser sandbox data has an accessible reset without clearing Community data",
+    "Editing the profile address invalidates a slow prior-account response",
+    "Claim files stay in-browser; valid raw amounts and malformed claim entries are handled",
+    "Blocked browser storage retains a usable in-memory virtual account without unhandled errors"
   ],
   "responsive": [
     {
