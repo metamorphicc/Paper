@@ -12,9 +12,16 @@ The status is always draft; parameter completeness is separate from release evid
 
 Two focused tests prove domain/nonce binding, determinism without timestamps, and rejection of incomplete, duplicate, unsafe or underfunded parameters. Current public inputs remain incomplete. A local rehearsal may use explicitly labelled fixture accounts and budgets; those do not populate the public configuration.
 
+## Substep 3.2: self-contained verification input
+
+`npm run release:package` captures all 18 Solidity sources used by the three production contracts, compiler version/settings, per-source hashes, npm lockfile version/integrity provenance, constructor immutable references and artifact hashes. Generated review files are `artifacts/release/standard-input.json` and `compilation.json`; they contain public source code only. Imported source code retains its upstream license notices. The first compiler pass discovers transitive dependencies; the final artifacts come from the self-contained input, without filesystem import callbacks.
+
+`npm run release:verify` recompiles the saved input using the exact installed compiler version, checks every source/artifact hash and immutable reference map, and rejects a changed package. The hashes bind reviewed content, not the publisher's identity or an independent audit. Lockfile provenance records expected package integrity; it is not a fresh verification of an installed npm tarball.
+
+Compiler runtime templates contain constructor immutable placeholders. Runtime comparison must match every other executable/metadata byte and then independently check all expected immutable getter values. Masking constructor slots alone does not verify those values. Local tests reproduce all three artifacts, detect an imported ERC20 decimals change despite an unchanged primary source, and reject executable-byte changes/invalid immutable references. These are our contracts; Papertrade source equivalence remains unresolved.
+
 ## Remaining substeps
 
-- 3.2: self-contained compiler input, dependency provenance and reproducible verification package.
 - 3.3: actual local EVM deployment/funding/claim/treasury receipt rehearsal, with code/constructor/immutable-state reconciliation.
 
 Verified Papertrade integration and contract-wallet support remain prerequisites for any strategy vault. This deployment recipe contains no vault custody contract or production trading adapter activation.

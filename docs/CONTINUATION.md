@@ -62,3 +62,5 @@ The user subsequently confirmed that official test access and third-party relaye
 ### Next independent launch block: deployment preparation
 
 3.1 adds a strict draft deployment schema and preparation CLI, explicit token/campaign/treasury budgets/recipients, CREATE nonce prediction, domain-bound campaign proofs and review digest. Two focused tests and root typecheck pass. Current public configuration has 17 incomplete fields; no defaults, wallets, approval or public deployment were supplied. Next: compiler verification package and isolated local EVM rehearsal. Details: DEPLOYMENT.md.
+
+3.2 captures self-contained Standard JSON compiler input for our three production contracts, including 18 transitive Solidity sources, source/artifact hashes, compiler settings, lockfile provenance and immutable references. Offline replay and dependency-tamper/runtime-boundary tests pass; compilation remains local. Constructor immutable bytes require separate getter/argument reconciliation, rather than a misleading raw-template hash equality. No Papertrade source verification is claimed.

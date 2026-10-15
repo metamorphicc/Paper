@@ -30,6 +30,8 @@
     "format:check": "prettier --check apps/web packages scripts",
     "contracts:compile": "tsx scripts/compile-contracts.ts",
     "release:prepare": "tsx scripts/prepare-deployment.ts",
+    "release:package": "tsx scripts/verification-package.ts",
+    "release:verify": "tsx scripts/verify-package.ts",
     "rewards:snapshot": "tsx scripts/campaign-snapshot.ts",
     "strategy:replay": "tsx scripts/replay-strategies.ts",
     "monitor:upgrades": "tsx scripts/check-upgrades.ts",
