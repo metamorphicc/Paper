@@ -12,6 +12,7 @@ export async function migrateDatabase(db: SqlDatabase) {
       'CREATE INDEX IF NOT EXISTS events_from_address ON events(from_address,block_number)',
       'CREATE TABLE IF NOT EXISTS cursors(stream TEXT PRIMARY KEY,chain_id INTEGER NOT NULL,from_block BIGINT NOT NULL,through_block BIGINT NOT NULL,updated_at TEXT NOT NULL)',
       `CREATE TABLE IF NOT EXISTS snapshots(id ${id},kind TEXT NOT NULL,identity TEXT NOT NULL,source TEXT NOT NULL,block_number BIGINT NOT NULL,observed_at TEXT NOT NULL,payload TEXT NOT NULL,UNIQUE(kind,identity,source,block_number))`,
+      `CREATE TABLE IF NOT EXISTS index_runs(id ${id},stream TEXT NOT NULL,from_block BIGINT NOT NULL,to_block BIGINT NOT NULL,inserted INTEGER NOT NULL,reorg_from BIGINT,completed_at TEXT NOT NULL)`,
       'CREATE TABLE IF NOT EXISTS campaign_challenges(id TEXT PRIMARY KEY,address TEXT NOT NULL,action TEXT NOT NULL,origin TEXT NOT NULL,message TEXT NOT NULL,expires_at BIGINT NOT NULL,used INTEGER NOT NULL DEFAULT 0,created_at BIGINT NOT NULL)',
       'CREATE INDEX IF NOT EXISTS campaign_challenge_address_time ON campaign_challenges(address,created_at)',
       'CREATE TABLE IF NOT EXISTS campaign_claims(campaign TEXT NOT NULL,address TEXT NOT NULL,action TEXT NOT NULL,points INTEGER NOT NULL,created_at BIGINT NOT NULL,PRIMARY KEY(campaign,address,action))',

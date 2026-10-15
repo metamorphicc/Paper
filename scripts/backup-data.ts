@@ -4,6 +4,10 @@ import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { Store } from '../packages/indexer/store.js';
 import { DatabaseSync } from 'node:sqlite';
+if (process.env.DATABASE_URL || process.env.POSTGRES_URL)
+  throw new Error(
+    'Use database:backup for the configured shared database; data:backup is desktop SQLite only.',
+  );
 const source = new Store(resolve(process.env.PAPERCLUB_DATA_DIR ?? 'data', 'paperclub.sqlite'));
 const file = `data/backups/paperclub-${new Date().toISOString().replace(/[:.]/g, '-')}.sqlite`;
 const scratchPrefix = join(tmpdir(), 'paperclub-restore-'),

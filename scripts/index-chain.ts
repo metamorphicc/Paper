@@ -1,12 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
 import { keccak256, parseAbiItem, type Address } from 'viem';
 import { ADDRESSES, IMPLEMENTATION_SLOT, publicClient } from '../packages/protocol/registry.js';
-import { Store, type BlockRecord, type TokenEvent } from '../packages/indexer/store.js';
+import type { BlockRecord, TokenEvent } from '../packages/indexer/store.js';
+import { openWebStore } from '../packages/storage/open.js';
 const client = publicClient();
 if ((await client.getChainId()) !== 999) throw new Error('Wrong chain');
 const latest = Number(await client.getBlockNumber()) - 3;
-const store = new Store(resolve(process.env.PAPERCLUB_DATA_DIR ?? 'data', 'paperclub.sqlite'));
+const store = await openWebStore(process.env);
 try {
   const manifest = JSON.parse(
     await readFile(new URL('../research/contracts/manifest.json', import.meta.url), 'utf8'),
@@ -24,7 +24,7 @@ try {
     keccak256(code) !== approved.runtimeHash
   )
     throw new Error('Token implementation changed; review before indexing');
-  const cursor = store.cursor('paper-transfers');
+  const cursor = await store.cursor('paper-transfers');
   const configuredFrom = process.env.INDEX_FROM_BLOCK
     ? Number(process.env.INDEX_FROM_BLOCK)
     : Math.max(0, latest - 63);
@@ -79,8 +79,8 @@ try {
       amountRaw: String(log.args.value),
     };
   });
-  const result = store.applyBatch('paper-transfers', 999, blocks, events);
-  const statistics = store.statistics();
+  const result = await store.applyBatch('paper-transfers', 999, blocks, events);
+  const statistics = await store.statistics();
   console.log(result);
   console.log(statistics);
   await writeFile(
@@ -100,5 +100,5 @@ try {
     ) + '\n',
   );
 } finally {
-  store.close();
+  await store.close();
 }

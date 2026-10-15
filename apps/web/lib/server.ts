@@ -1,9 +1,8 @@
 import 'server-only';
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
 import { WebStore } from '../../../packages/storage/store.js';
-import { postgresDatabase, sqliteDatabase } from '../../../packages/storage/sql.js';
-import { migrateDatabase, assertSchema } from '../../../packages/storage/schema.js';
+import { openWebStore } from '../../../packages/storage/open.js';
 import { validateDatabaseConfiguration } from '../../../packages/storage/config.js';
 import { OfficialReadClient, object, integerString } from '../../../packages/protocol/official.js';
 import { isAddress } from 'viem';
@@ -26,19 +25,7 @@ export function database(): Promise<WebStore> {
   if (store) return store;
   store = (async () => {
     const connection = validateDatabaseConfiguration(process.env);
-    const sql = connection
-      ? postgresDatabase(connection)
-      : await sqliteDatabase(
-          resolve(process.env.PAPERCLUB_DATA_DIR ?? join(repoRoot(), 'data'), 'paperclub.sqlite'),
-        );
-    try {
-      if (connection) await assertSchema(sql);
-      else await migrateDatabase(sql);
-      return new WebStore(sql);
-    } catch (error) {
-      await sql.close();
-      throw error;
-    }
+    return openWebStore(process.env, connection ? undefined : join(repoRoot(), 'data'));
   })();
   void store.catch(() => {
     store = undefined;

@@ -1,6 +1,7 @@
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import { isAddress, keccak256, toHex, type Address } from 'viem';
-import { Store } from '../packages/indexer/store.js';
+import { openWebStore } from '../packages/storage/open.js';
+import { PersistentCampaign } from '../packages/community/persistent.js';
 import { createSnapshot } from '../packages/rewards/snapshot.js';
 import { publicClient } from '../packages/protocol/registry.js';
 import { CAMPAIGN_ID } from '../packages/community/campaign.js';
@@ -15,13 +16,9 @@ if ((await client.getChainId()) !== 999) throw new Error('Expected HyperEVM 999'
 const head = await client.getBlockNumber();
 const block = await client.getBlock({ blockNumber: head - 3n });
 const cutoff = Number(block.timestamp) * 1000;
-const store = new Store('data/paperclub.sqlite');
+const store = await openWebStore(process.env);
 try {
-  const members = store.db
-    .prepare(
-      'SELECT address,sum(points) AS points FROM campaign_claims WHERE campaign=? AND created_at<=? GROUP BY address ORDER BY address',
-    )
-    .all(CAMPAIGN_ID, cutoff) as { address: string; points: number }[];
+  const members = await new PersistentCampaign(store.sql).membersAt(cutoff);
   const snapshot = createSnapshot(members, BigInt(budget), {
     chainId: 999,
     claimContract: contract as Address,
@@ -32,7 +29,8 @@ try {
     block: String(block.number),
     blockHash: block.hash,
     cutoffUtc: new Date(cutoff).toISOString(),
-    eligibility: 'Local signed campaign ledger only; no PAPER mint ranking',
+    eligibility: 'Signed campaign ledger only; no PAPER mint ranking',
+    storage: store.sql.dialect,
     inputHash: keccak256(toHex(JSON.stringify(members))),
   };
   const manifest = {
@@ -43,8 +41,9 @@ try {
     ...snapshot,
   };
   const path = `data/campaign-${block.number}.json`;
+  await mkdir('data', { recursive: true });
   await writeFile(path, JSON.stringify(manifest, null, 2) + '\n');
   console.log({ path, participants: members.length, root: snapshot.root, liveClaims: false });
 } finally {
-  store.close();
+  await store.close();
 }

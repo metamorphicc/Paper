@@ -1,7 +1,10 @@
 {
-  "observedAtUtc": "2026-10-15T10:41:54.122Z",
+  "observedAtUtc": "2026-10-15T11:01:21.123Z",
   "scope": "local production server with pg/TCP and PostgreSQL WASM engine",
   "hostedDeploymentTested": false,
+  "vercelEnvironmentSimulated": true,
+  "missingDatabaseRejectedBeforeBuild": true,
+  "preparationMigratedFreshDatabase": true,
   "userWalletUsed": false,
   "storage": "postgres",
   "serverRestartPreservedChallenge": true,
@@ -62,6 +65,18 @@
     {
       "name": "Financial release gate unchanged",
       "status": 403
+    },
+    {
+      "name": "/api/protocol",
+      "status": 200
+    },
+    {
+      "name": "/api/market?coin=BTC",
+      "status": 200
+    },
+    {
+      "name": "/api/trading/readiness",
+      "status": 200
     }
   ]
 }

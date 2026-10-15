@@ -3,7 +3,10 @@ import { applicationOrigins } from '../../../packages/http/origin.js';
 import { validateDatabaseConfiguration } from '../../../packages/storage/config.js';
 import { postgresDatabase } from '../../../packages/storage/sql.js';
 import { migrateDatabase, assertSchema } from '../../../packages/storage/schema.js';
-nextEnv.loadEnvConfig(process.cwd());
+nextEnv.loadEnvConfig(
+  process.cwd(),
+  process.env.npm_lifecycle_event === 'predev' || process.env.NODE_ENV === 'development',
+);
 const connection = validateDatabaseConfiguration(process.env);
 if (process.env.VERCEL && applicationOrigins(process.env).length === 0)
   throw new Error('Set PAPERCLUB_APP_ORIGIN to the public HTTPS origin before deployment.');
