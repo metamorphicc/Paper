@@ -1,0 +1,88 @@
+{
+  "observedAtUtc": "2026-10-15T11:32:53.952Z",
+  "origin": "https://paper-sooty.vercel.app",
+  "status": "healthy",
+  "readOnlyProbe": true,
+  "userWalletUsed": false,
+  "signedParticipationTested": false,
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 857
+    },
+    {
+      "path": "/trade",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 657
+    },
+    {
+      "path": "/profile",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 426
+    },
+    {
+      "path": "/leaderboard",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 480
+    },
+    {
+      "path": "/rewards",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 201
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 170
+    },
+    {
+      "path": "/treasury",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 269
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 327
+    },
+    {
+      "path": "/api/campaign",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 309
+    },
+    {
+      "path": "/api/trading/readiness",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 278
+    },
+    {
+      "path": "/api/protocol",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 529
+    },
+    {
+      "path": "/api/market?coin=BTC",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 422
+    },
+    {
+      "path": "/api/market?coin=ETH",
+      "status": 200,
+      "ok": true,
+      "elapsedMs": 483
+    }
+  ]
+}
