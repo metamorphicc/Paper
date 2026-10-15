@@ -39,6 +39,8 @@
     "strategy:replay": "tsx scripts/replay-strategies.ts",
     "monitor:upgrades": "tsx scripts/check-upgrades.ts",
     "monitor:app": "tsx scripts/monitor-application.ts",
+    "ops:run": "tsx scripts/run-operations.ts",
+    "qa:worker": "tsx scripts/qa-chain-worker.ts",
     "data:backup": "tsx scripts/backup-data.ts",
     "database:backup": "tsx scripts/database-backup.ts",
     "database:restore": "tsx scripts/database-backup.ts --restore",

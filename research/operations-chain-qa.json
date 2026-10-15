@@ -1,0 +1,51 @@
+{
+  "observedAtUtc": "2026-10-15T11:37:41.985Z",
+  "scope": "public read-only RPC with isolated PostgreSQL fixture",
+  "productionDatabaseUsed": false,
+  "financialWrites": false,
+  "schedulerActivated": false,
+  "upgrades": {
+    "observedAtUtc": "2026-10-15T11:37:23.500Z",
+    "chainId": 999,
+    "block": 48604354,
+    "blockHash": "0x4b09ad1e7b2a6177a247ce50329202c399ea48d7684f92b5ec5090cfa49ded10",
+    "statePinned": true,
+    "trustlessStateProof": false,
+    "status": "unchanged",
+    "changes": [],
+    "liveSubmission": false,
+    "sourceVerification": false
+  },
+  "indexing": {
+    "observedAtUtc": "2026-10-15T11:37:41.985Z",
+    "chainId": 999,
+    "confirmedHead": 48604360,
+    "through": 48604360,
+    "lagBlocks": 0,
+    "caughtUp": true,
+    "batches": [
+      {
+        "inserted": 49,
+        "reorgFrom": null,
+        "through": 48604360
+      }
+    ],
+    "coverageFrom": 48604297,
+    "coverage": "partial-transfer-history",
+    "historicalCapabilityChecked": true,
+    "liveSubmission": false
+  },
+  "statistics": {
+    "events": 49,
+    "snapshots": 0,
+    "streams": [
+      {
+        "stream": "paper-transfers",
+        "chain_id": 999,
+        "from_block": 48604297,
+        "through_block": 48604360,
+        "updated_at": "2026-10-15T11:37:41.981Z"
+      }
+    ]
+  }
+}
